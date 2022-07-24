@@ -1,5 +1,5 @@
 #include <stdlib.h>
-// #include <stdio.h>
+#include <stdio.h>
 
 int ft_abs(int n)
 {
@@ -28,14 +28,13 @@ int *ft_range(int start, int end)
 	return (s);
 }
 
-/*
 int main()
 {
 	int start;
 	int end;
 
-	start = 0;
-	end = -3;
+	start = -3;
+	end = 0;
 	int *array;
 	int size = ft_abs(end - start);
 	array = ft_range(start, end);
@@ -47,4 +46,3 @@ int main()
 		size--;
 	}
 }
-*/

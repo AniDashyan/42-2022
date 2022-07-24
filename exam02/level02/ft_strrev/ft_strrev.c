@@ -1,4 +1,5 @@
 // #include <stdio.h>
+#include <stddef.h>
 
 int ft_strlen(char *s)
 {
@@ -32,10 +33,10 @@ char *ft_strrev(char *str)
 	return (str);
 }
 
-// int main()
-// {
-// 	char s[100] = "12345";
+/* int main()
+{
+	char s[100] = "12345";
 
-// 	printf("%s\n", ft_strrev(s));
-// 	return (0);
-// }
+	printf("%s\n", ft_strrev(s));
+	return (0);
+} */

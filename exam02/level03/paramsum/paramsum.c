@@ -8,7 +8,9 @@ void write_number(int n)
 }
 
 int main(int argc, char **argv)
-{
+{	
+	 (void)argv;
+
 	argc--;
 	if (argc > 0)
 		write_number(argc);
