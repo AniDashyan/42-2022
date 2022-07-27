@@ -1,4 +1,5 @@
 #include <stdlib.h>
+// #include <stdio.h>
 
 int ft_isspace(char c)
 {
@@ -7,33 +8,28 @@ int ft_isspace(char c)
 
 int ft_wordcount(char *s)
 {
-	int i;
-	int flag;
-	int k;
+	int i = 0;
+	int flag = 1;
+	int count = 0;
 
-	i = 0;
-	flag = 1;
-	k = 0;
 	while (s[i])
 	{
 		if (ft_isspace(s[i]))
 			flag = 1;
 		else if (flag)
 		{
-			k++;
+			count++;
 			if (s[i] != '\0' && !ft_isspace(s[i]))
 				flag = 0;
 		}
 		i++;
 	}
-	return (k);
+	return (count);
 }
 
 int ft_wordlen(char const *s, int i)
 {
-	int len;
-
-	len = 0;
+	int len = 0;
 	while (s[i] && !ft_isspace(s[i]))
 	{
 		i++;
@@ -44,11 +40,8 @@ int ft_wordlen(char const *s, int i)
 
 char *ft_strdup2(char *s, int len, int *i)
 {
-	char *ptr;
-	int j;
-
-	j = 0;
-	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	int j = 0;
+	char *ptr = (char *)malloc(sizeof(char) * (len + 1));
 	if (!ptr)
 		return (NULL);
 	while (s[*i] && !ft_isspace(s[*i]))
@@ -64,11 +57,9 @@ char *ft_strdup2(char *s, int len, int *i)
 char **ft_split(char *s)
 {
 	char **splitted;
-	int i;
-	int j;
+	int i = 0;
+	int j = 0;
 
-	i = 0;
-	j = 0;
 	if (!s)
 		return (NULL);
 	splitted = (char **)malloc(sizeof(char *) * (ft_wordcount(s) + 1));
@@ -89,7 +80,8 @@ char **ft_split(char *s)
 	return (splitted);
 }
 
-/* int main()
+/*
+int main()
 {
 	char *s = "Hello darkness my old friend";
 	char **new = ft_split(s);
@@ -100,4 +92,5 @@ char **ft_split(char *s)
 		i++;
 	}
 	return (0);
-} */
+}
+*/

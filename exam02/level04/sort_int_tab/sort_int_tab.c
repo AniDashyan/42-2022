@@ -1,4 +1,4 @@
-//#include <stdio.h>
+// #include <stdio.h>
 
 void ft_swap(int *a, int *b)
 {
@@ -26,7 +26,8 @@ void sort_int_tab(int *tab, unsigned int size)
 	}
 }
 
-/* int main()
+/*
+int main()
 {
 	int tab[] = {10, 3, -7, 1, 5};
 	unsigned int size = 5;
@@ -38,4 +39,5 @@ void sort_int_tab(int *tab, unsigned int size)
 		i++;
 	}
 	return (0);
-} */
+}
+*/
