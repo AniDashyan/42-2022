@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 20:16:54 by adashyan          #+#    #+#             */
-/*   Updated: 2022/08/07 18:00:15 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/09 22:09:25 by adashyan          #+#    #+#             */
+/*   Updated: 2022/05/13 18:03:32 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include <unistd.h>
-# include <stdlib.h>
+# include "libft/libft.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4000000
-# endif
-
-char	*get_next_line(int fd);
-char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(const char *c);
-char	*ft_strchr(char *s, int c);
+int	ft_printf(const char *s, ...);
+int	ft_putnbr_hex(unsigned long int nbr, int cX);
+int	ft_putptr(void *p);
 
 #endif

@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 
 int ft_strlen(char *s)

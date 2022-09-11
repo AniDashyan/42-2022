@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/07 20:16:54 by adashyan          #+#    #+#             */
-/*   Updated: 2022/08/07 18:00:15 by adashyan         ###   ########.fr       */
+/*   Created: 2022/09/05 15:56:09 by adashyan          #+#    #+#             */
+/*   Updated: 2022/09/11 15:16:38 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef PIPEX_H
+# define PIPEX_H 
+
+# include "ft_printf/ft_printf.h"
 
 # include <unistd.h>
+# include <stddef.h>
+# include <stdio.h>
 # include <stdlib.h>
+# include <fcntl.h>
+# include <string.h>
+# include <sys/wait.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4000000
-# endif
-
-char	*get_next_line(int fd);
-char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(const char *c);
-char	*ft_strchr(char *s, int c);
-
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+char	**ft_split(char const *s, char c);
 #endif

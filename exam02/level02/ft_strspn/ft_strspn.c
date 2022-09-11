@@ -28,7 +28,7 @@ size_t	ft_strspn(const char *s, const char *accept)
 
 int main () {
    int len1, len2;
-   const char str1[] = "A BCDEFG019874";
+   const char str1[] = "ABCDEFG019874";
    const char str2[] = "ABCD";
 
    len1 = strspn(str1, str2);
