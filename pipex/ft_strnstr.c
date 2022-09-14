@@ -6,13 +6,13 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:27:38 by adashyan          #+#    #+#             */
-/*   Updated: 2022/09/11 15:21:39 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/09/13 17:38:29 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-size_t ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
 	int	i;
 
