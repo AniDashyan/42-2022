@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 22:29:10 by adashyan          #+#    #+#             */
-/*   Updated: 2022/09/13 18:01:31 by adashyan         ###   ########.fr       */
-=======
-/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 22:29:10 by adashyan          #+#    #+#             */
-/*   Updated: 2022/05/28 18:13:01 by adashyan         ###   ########.fr       */
->>>>>>> 34a63c3f525fa4a5a01f8f36534fb641cfb78f24
+/*   Updated: 2022/09/17 17:05:59 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +39,7 @@ int	ft_formats(va_list ap, const char *s, int *i)
 }
 
 int	ft_printf(const char *s, ...)
-<<<<<<< HEAD
 {
-=======
-{	
->>>>>>> 34a63c3f525fa4a5a01f8f36534fb641cfb78f24
 	va_list	ap;
 	int		i;
 	int		count;
@@ -59,15 +48,9 @@ int	ft_printf(const char *s, ...)
 	count = 0;
 	va_start(ap, s);
 	while (s[i])
-<<<<<<< HEAD
 	{
 		if (s[i] == '%')
 		{
-=======
-	{	
-		if (s[i] == '%')
-		{	
->>>>>>> 34a63c3f525fa4a5a01f8f36534fb641cfb78f24
 			count += ft_formats(ap, s, &i);
 			i++;
 		}
@@ -78,14 +61,3 @@ int	ft_printf(const char *s, ...)
 	va_end(ap);
 	return (count);
 }
-<<<<<<< HEAD
-=======
-
-
-int main()
-{	
-	int a = ft_printf("zxcvb%");
-	printf("\n%d", a);
-	return 0;
-}
->>>>>>> 34a63c3f525fa4a5a01f8f36534fb641cfb78f24

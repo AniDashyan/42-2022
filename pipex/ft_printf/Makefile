@@ -1,11 +1,7 @@
 NAME	= libftprintf.a
 
 CC		= cc
-<<<<<<< HEAD
 CFLAGS	= -Wall -Werror -Wextra
-=======
-CFLAGS	= -Wall -Werror -Wextra 
->>>>>>> 34a63c3f525fa4a5a01f8f36534fb641cfb78f24
 AR		= ar rcs
 RM		= rm -f
 
@@ -23,11 +19,7 @@ lib:
 
 $(NAME):	$(OBJS)
 			$(AR) $(NAME) $(OBJS) libft/*.o
-<<<<<<< HEAD
 clean:
-=======
-clean:		
->>>>>>> 34a63c3f525fa4a5a01f8f36534fb641cfb78f24
 			$(RM) $(OBJS) libft/*.o
 
 fclean:		clean
