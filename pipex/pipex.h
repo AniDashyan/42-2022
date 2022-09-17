@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:56:09 by adashyan          #+#    #+#             */
-/*   Updated: 2022/09/14 17:09:38 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/09/17 16:31:59 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	**ft_split(char const *s, char c);
+char	**cmd_split(char *cmd);
 char	*envp_parsing(char *cmd, char **envp);
 #endif

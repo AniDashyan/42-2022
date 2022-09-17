@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/05 15:56:28 by adashyan          #+#    #+#             */
-/*   Updated: 2022/09/17 14:48:07 by adashyan         ###   ########.fr       */
+/*   Created: 2022/09/17 14:05:35 by adashyan          #+#    #+#             */
+/*   Updated: 2022/09/17 14:39:23 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	pipex(int fds[2])
-{
-	pid_t	parent;
+static int idata = 111;
 
-	if (pipe(fds) == -1)
-		return (perror("pipe has failed"));
+int	main()
+{
+	int istack = 222;
+	pid_t parent;
+
 	parent = fork();
 	if (parent == -1)
+		perror ("fork has failed");
+	if (!parent) /* On creation of successful child */
 	{
-		perror("fork has failed");
-		exit(1);
+		idata *= 3;
+		istack *= 2;
 	}
-	if (!parent)
-		ft_printf("child\n");
-	else
-		ft_printf("parent");
-}
-
-int	main(void)
-{
-	int	fd[2];
-
-	fd[0] = 3;
-	fd[1] = 4;
-	pipex(fd);
+	else /* Parent process */
+		sleep(3);
+	ft_printf("PID=%d %s idata=%d istack=%d\n", (long) getpid(),
+	(parent == 0) ? "(child) " : "(parent)", idata, istack);
 	return (0);
 }
