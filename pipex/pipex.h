@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:56:09 by adashyan          #+#    #+#             */
-/*   Updated: 2022/09/20 18:50:08 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:06:30 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	**ft_split(char const *s, char c);
 char	**cmd_split(char *cmd);
 char	*envp_parsing(char *cmd, char **envp);
-void	child_process(int f1, char *cmd, char **envp);
+void	child_process(int f1, char *cmd, char **envp, int fd[2]);
+void	parent_process(int f2, char *cmd, char **envp, int fd[2]);
 #endif

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   child_process.c                                    :+:      :+:    :+:   */
+/*   parent_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/20 17:43:47 by adashyan          #+#    #+#             */
-/*   Updated: 2022/09/21 19:07:14 by adashyan         ###   ########.fr       */
+/*   Created: 2022/09/21 16:56:33 by adashyan          #+#    #+#             */
+/*   Updated: 2022/09/21 19:03:39 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	child_process(int f1, char *cmd, char **envp, int fd[2])
+void	parent_process(int f2, char *cmd, char **envp, int fd[2])
 {
 	char	**options;
 	char	*path;
@@ -21,19 +21,15 @@ void	child_process(int f1, char *cmd, char **envp, int fd[2])
 	if (!path)
 	{
 		perror("Error");
-		exit(1);
-	}
-	if (!cmd)
-	{
-		perror("command not found");
 		exit(-1);
 	}
 	options = cmd_split(cmd);
-	close(fd[0]);
-	dup2(f1, STDIN_FILENO);
-	dup2(fd[1], STDOUT_FILENO);
+	waitpid(-1, NULL, 0);
+	dup2(f2, STDOUT_FILENO);
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[1]);
 	if (execve(path, options, envp) == -1)
 		perror("Error");
-	close(f1);
+	close(f2);
 	exit(1);
 }

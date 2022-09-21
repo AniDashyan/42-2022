@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 21:23:40 by adashyan          #+#    #+#             */
-/*   Updated: 2022/05/09 22:08:22 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:12:03 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_atoi(const char *str)
 	while (str[i] && ft_isspace(str[i]))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
-	{	
+	{
 		if (str[i] == '-')
 			sign = -1;
 		i++;

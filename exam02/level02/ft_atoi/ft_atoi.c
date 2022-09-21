@@ -40,10 +40,10 @@ int	ft_atoi(const char *str)
 	return (num * sign);
 }
 
-/* int main()
+int main()
 {
-	char *str = "-1567";
+	char *str = "--1567";
 	printf("%d\n", ft_atoi(str));
 	printf("%d", atoi(str));
 	return (0);
-} */
+}
