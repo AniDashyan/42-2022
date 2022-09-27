@@ -1,8 +1,7 @@
-NAME	= pipex.a
+NAME	= pipex
 
 CC		= cc
 CFLAGS	= -Wall -Werror -Wextra
-AR		= ar rcs
 RM		= rm -f
 
 SRCS	=	$(wildcard *.c)
@@ -12,13 +11,13 @@ OBJS	=	$(patsubst %.c, %.o, $(SRCS))
 %.o: %.c
 			$(CC) $(CFLAGS) -c  $< -o $@
 
-all:		ft_printf $(NAME)
+all:		printf $(NAME)
 
-ft_printf:
+printf:
 	cd ft_printf && make
 
 $(NAME):	$(OBJS)
-			$(AR) $(NAME) $(OBJS) ft_printf/*.o ft_printf/libft/*.o
+			$(CC) -o $(NAME) $(OBJS) ft_printf/libftprintf.a ft_printf/libft/libft.a
 clean:
 			$(RM) $(OBJS) ft_printf/*.o ft_printf/libft/*.o
 
@@ -27,4 +26,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re ft_printf
+.PHONY:		all clean fclean re printf

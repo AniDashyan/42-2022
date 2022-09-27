@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   child_process.c                                    :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/20 17:43:47 by adashyan          #+#    #+#             */
-/*   Updated: 2022/09/27 18:55:16 by adashyan         ###   ########.fr       */
+/*   Created: 2022/09/27 17:39:12 by adashyan          #+#    #+#             */
+/*   Updated: 2022/09/27 17:54:10 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	child_process(int f1, char *cmd, char **envp, int fd[2])
+int	main(void)
 {
-	char	**options;
-	char	*path;
+	int	number1;
+	int	number2;
+	int	sum;
+	int	input_fds;
 
-	if (!cmd)
+	input_fds = open("a.txt", O_RDONLY);
+	if (dup2(input_fds, STDIN_FILENO) < 0)
 	{
-		perror("Error");
-		exit(-1);
-	}
-	path = envp_parsing(cmd, envp);
-	if (!path)
-	{
-		perror("Error");
-		exit(1);
-	}
-	options = cmd_split(cmd);
-	if (dup2(f1, STDIN_FILENO) < 0)
+		printf("Unable to duplicate file descriptor.");
 		exit(EXIT_FAILURE);
-	dup2(fd[1], STDOUT_FILENO);
-	close(fd[0]);
-	if (execve(path, options, envp) == -1)
-		perror("Error");
-	close(f1);
-	exit(0);
+	}
+	scanf("%d %d", &number1, &number2);
+	sum = number1 + number2;
+	printf("%d + %d = %d\n", number1, number2, sum);
+	return (EXIT_SUCCESS);
 }
