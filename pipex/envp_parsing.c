@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 18:57:38 by adashyan          #+#    #+#             */
-/*   Updated: 2022/09/27 16:32:01 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/09/29 17:31:48 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*envp_parsing(char *cmd, char **envp)
 
 	path = find_path(envp);
 	if (!cmd)
-		return (NULL);
+		error(CMD_ERR);
 	splitted_cmd = cmd_split(cmd);
 	i = 0;
 	while (path[i])
