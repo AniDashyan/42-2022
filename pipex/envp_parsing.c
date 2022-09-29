@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 18:57:38 by adashyan          #+#    #+#             */
-/*   Updated: 2022/09/29 17:31:48 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:12:16 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**find_path(char **s)
 	i = 0;
 	while (s[i])
 	{
-		envp_path = ft_strnstr(s[i], "PATH=", 5);
+		envp_path = ft_strnstr(s[i], "PATH", 4);
 		if (envp_path)
 			break ;
 		i++;
