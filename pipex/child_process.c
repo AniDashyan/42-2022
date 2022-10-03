@@ -6,28 +6,31 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 17:43:47 by adashyan          #+#    #+#             */
-/*   Updated: 2022/09/29 18:11:45 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/10/03 18:34:06 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	child_process(int f1, char *cmd, char **envp, int fd[2])
+void	child_process(char **argv, char *cmd, char **envp, int *fd)
 {
 	char	**options;
 	char	*path;
+	int		infile;
 
-	if (!cmd)
-		perror("error");
+	infile = open(argv[1], O_RDONLY, 0777);
+	if (infile < 0)
+		error(OPEN_ERR);
 	path = envp_parsing(cmd, envp);
-	if (!path)
-		error(PATH_ERR);
 	options = cmd_split(cmd);
-	if (dup2(f1, STDIN_FILENO) < 0)
-		error(DUP_ERR);
+	if (!path)
+	{
+		double_free(options);
+		error(CMD_ERR);
+	}
+	dup2(infile, STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[0]);
 	if (execve(path, options, envp) == -1)
 		error(EXEC_ERR);
-	close (f1);
 }

@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 18:57:38 by adashyan          #+#    #+#             */
-/*   Updated: 2022/09/29 18:12:16 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/10/03 18:40:51 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ char	*envp_parsing(char *cmd, char **envp)
 	char	**splitted_cmd;
 
 	path = find_path(envp);
-	if (!cmd)
-		error(CMD_ERR);
 	splitted_cmd = cmd_split(cmd);
 	i = 0;
 	while (path[i])
@@ -51,9 +49,11 @@ char	*envp_parsing(char *cmd, char **envp)
 			cmd_path = ft_strjoin(join, splitted_cmd[0]);
 			if (access(cmd_path, F_OK | X_OK) == 0)
 				return (cmd_path);
+			free(cmd_path);
 		}
 		free(join);
 		i++;
 	}
+	double_free(path);
 	return (NULL);
 }

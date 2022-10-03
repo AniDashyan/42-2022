@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_split.c                                        :+:      :+:    :+:   */
+/*   double_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/17 16:59:04 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/03 18:38:28 by adashyan         ###   ########.fr       */
+/*   Created: 2022/10/03 17:26:52 by adashyan          #+#    #+#             */
+/*   Updated: 2022/10/03 17:28:00 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	**cmd_split(char *cmd)
+void	double_free(char **s)
 {
-	char	**splitted_cmd;
+	int	i;
 
-	splitted_cmd = ft_split(cmd, ' ');
-	return (splitted_cmd);
+	i = 0;
+	while (s[i])
+	{
+		free(s[i]);
+		i++;
+	}
+	free(s);
 }
