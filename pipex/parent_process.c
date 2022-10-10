@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:56:33 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/05 16:16:57 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:09:20 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,15 @@ void	parent_process(char **argv, char *cmd, char **envp, int *fd)
 	options = cmd_split(cmd);
 	if (!path)
 	{
-		double_free(options);
+		exec_free(options, path);
 		error(CMD_ERR);
 	}
 	dup2(outfile, STDOUT_FILENO);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[1]);
-	if (execve(path, options, envp) == -1)
-		error(EXEC_ERR);
+	while (1);
+	execve(path, options, envp);
+	free(path);
+	double_free(options);
+	error(EXEC_ERR);
 }

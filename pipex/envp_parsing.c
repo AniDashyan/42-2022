@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 18:57:38 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/05 18:04:55 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:07:30 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,18 @@ char	**find_path(char **s)
 	i = 0;
 	while (s[i])
 	{
-		envp_path = ft_strnstr(s[i], "PATH", 4);
+		envp_path = ft_strnstr(s[i], "PATH=", 5);
 		if (envp_path)
+		{
+			envp_path = ft_substr(envp_path, 5, ft_strlen(envp_path));
+			if (!envp_path)
+				return (NULL);
 			break ;
+		}
 		i++;
 	}
 	path = ft_split(envp_path, ':');
+	free(envp_path);
 	return (path);
 }
 
@@ -51,17 +57,19 @@ char	*envp_parsing(char *cmd, char **envp)
 	while (path[i++])
 	{
 		join = ft_strjoin(path[i], "/");
-		if (join)
+		if (check_cmd(cmd))
+			return (cmd);
+		cmd_path = ft_strjoin(join, splitted_cmd[0]);
+		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
-			if (check_cmd(cmd))
-				return (cmd);
-			cmd_path = ft_strjoin(join, splitted_cmd[0]);
-			if (access(cmd_path, F_OK | X_OK) == 0)
-				return (cmd_path);
-			free(cmd_path);
+			double_free(path);
+			free(join);
+			return (cmd_path);
 		}
 		free(join);
+		free(cmd_path);
 	}
+	double_free(splitted_cmd);
 	double_free(path);
 	return (NULL);
 }

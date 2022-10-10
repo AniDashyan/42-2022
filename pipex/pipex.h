@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:56:09 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/05 18:42:31 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/10/10 19:55:45 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@
 # define ARG_ERR	"not enough arguments"
 # define OPEN_ERR	"can't open the file"
 
+size_t	ft_strlen(const char *s);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
 char	**cmd_split(char *cmd);
 char	**find_path(char **s);
@@ -41,4 +44,5 @@ void	parent_process(char **argv, char *cmd, char **envp, int *fd);
 void	error(char *s);
 void	double_free(char **s);
 int		check_cmd(char *cmd);
+void	exec_free(char **options, char *path);
 #endif

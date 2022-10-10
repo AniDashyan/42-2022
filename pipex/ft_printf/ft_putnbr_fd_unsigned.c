@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd_unsigned.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/03 21:52:37 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/06 18:11:11 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/03 23:07:14 by adashyan          #+#    #+#             */
+/*   Updated: 2022/10/08 17:53:41 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+int	ft_putnbr_fd_unsigned(unsigned int nbr, int fd)
 {
-	size_t	i;
+	int	count;
 
-	i = 0;
-	if (!src && !dest)
-		return (NULL);
-	while (i < n)
+	count = 0;
+	if (nbr >= 10)
 	{
-		*(unsigned char *)dest = ((unsigned char *)src)[i];
-		dest++;
-		i++;
+		count += ft_putnbr_fd_unsigned(nbr / 10, fd);
+		count += ft_putnbr_fd_unsigned(nbr % 10, fd);
 	}
-	return (dest - n);
+	else
+		count += ft_putchar_fd(nbr + '0', fd);
+	return (count);
 }

@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/03 21:52:37 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/06 18:11:11 by adashyan         ###   ########.fr       */
+/*   Created: 2022/10/08 16:26:41 by adashyan          #+#    #+#             */
+/*   Updated: 2022/10/08 18:52:53 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
+	char	*sub;
 	size_t	i;
 
 	i = 0;
-	if (!src && !dest)
+	if ((char *)s == NULL)
 		return (NULL);
-	while (i < n)
+	if (start >= ft_strlen(s))
 	{
-		*(unsigned char *)dest = ((unsigned char *)src)[i];
-		dest++;
+		sub = (char *)malloc(sizeof(char));
+		*sub = '\0';
+		return (sub);
+	}
+	if (len > ft_strlen(s))
+		len = ft_strlen(s);
+	sub = (char *)malloc(sizeof(char) * (len + 1));
+	if (sub == NULL)
+		return (NULL);
+	while (i < len && s[start])
+	{
+		sub[i] = s[start];
+		start++;
 		i++;
 	}
-	return (dest - n);
+	sub[i] = '\0';
+	return (sub);
 }

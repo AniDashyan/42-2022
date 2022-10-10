@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 17:35:05 by adashyan          #+#    #+#             */
-/*   Updated: 2022/05/08 18:52:07 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/10/06 18:10:11 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,4 @@ char	*ft_itoa(int n)
 		number = n;
 	x = ft_array(x, number, len);
 	return (x);
-}
-
-int main()
-{
-	int n = 123;
-	printf("%s", ft_itoa(n));
-	return (0);
 }

@@ -6,21 +6,11 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:27:38 by adashyan          #+#    #+#             */
-/*   Updated: 2022/09/13 17:38:29 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/10/10 17:37:18 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-size_t	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {

@@ -11,19 +11,20 @@ OBJS	=	$(patsubst %.c, %.o, $(SRCS))
 %.o: %.c
 			$(CC) $(CFLAGS) -c  $< -o $@
 
-all:		printf $(NAME)
+all:		print_f $(NAME)
 
-printf:
+print_f:
 	cd ft_printf && make
 
 $(NAME):	$(OBJS)
-			$(CC) -o $(NAME) $(OBJS) ft_printf/libftprintf.a ft_printf/libft/libft.a
+			$(CC) -o $(NAME) $(OBJS) ft_printf/*.o
+
 clean:
-			$(RM) $(OBJS) ft_printf/*.o ft_printf/libft/*.o
+			$(RM) $(OBJS) ft_printf/*.o
 
 fclean:		clean
-			$(RM) $(NAME) ft_printf/libftprintf.a ft_printf/libft/libft.a
+			$(RM) $(NAME) ft_printf/printf.a
 
 re:			fclean all
 
-.PHONY:		all clean fclean re printf
+.PHONY:		all clean fclean re print_f
