@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_split.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/17 16:59:04 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/10 20:24:34 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/06 22:09:03 by adashyan          #+#    #+#             */
+/*   Updated: 2022/10/29 18:46:22 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**cmd_split(char *cmd)
+t_stack	*ft_lstlast(t_stack *lst)
 {
-	return (ft_split(cmd, ' '));
+	if (lst == NULL)
+		return (lst);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }

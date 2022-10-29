@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_split.c                                        :+:      :+:    :+:   */
+/*   ft_putptr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/17 16:59:04 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/10 20:24:34 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/09 22:07:37 by adashyan          #+#    #+#             */
+/*   Updated: 2022/05/13 18:02:36 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "ft_printf.h"
 
-char	**cmd_split(char *cmd)
-{
-	return (ft_split(cmd, ' '));
+int	ft_putptr(void *p)
+{	
+	return (write(1, "0x", 2) + ft_putnbr_hex((uintptr_t)p, 0));
 }

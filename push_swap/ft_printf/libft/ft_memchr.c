@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_split.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dghonyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/17 16:59:04 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/10 20:24:34 by adashyan         ###   ########.fr       */
+/*   Created: 2022/03/13 11:46:29 by dghonyan          #+#    #+#             */
+/*   Updated: 2022/05/09 22:08:52 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include <stddef.h>
 
-char	**cmd_split(char *cmd)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	return (ft_split(cmd, ' '));
+	if (n == 0)
+		return (NULL);
+	while (--n && *(unsigned char *)s != (unsigned char)c)
+		s++;
+	if (*(unsigned char *)s != (unsigned char)c)
+		return (NULL);
+	return ((void *)s);
 }

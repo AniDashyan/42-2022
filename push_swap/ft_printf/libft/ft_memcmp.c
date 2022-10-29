@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_split.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/17 16:59:04 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/10 20:24:34 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/03 22:04:27 by adashyan          #+#    #+#             */
+/*   Updated: 2022/05/08 18:49:34 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**cmd_split(char *cmd)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	return (ft_split(cmd, ' '));
+	if (n == 0)
+		return (0);
+	while (--n && *(unsigned char *)s1 == *(unsigned char *)s2)
+	{
+		s1++;
+		s2++;
+	}
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }

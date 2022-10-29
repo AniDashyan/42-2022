@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_split.c                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/17 16:59:04 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/10 20:24:34 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/03 23:05:15 by adashyan          #+#    #+#             */
+/*   Updated: 2022/05/10 20:28:11 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**cmd_split(char *cmd)
+int	ft_putstr_fd(char *s, int fd)
 {
-	return (ft_split(cmd, ' '));
+	if (s == NULL)
+		return (write(1, "(null)", 6));
+	return (write(fd, s, ft_strlen(s)));
 }

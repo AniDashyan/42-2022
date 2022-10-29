@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_split.c                                        :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/17 16:59:04 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/10 20:24:34 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/07 19:18:10 by adashyan          #+#    #+#             */
+/*   Updated: 2022/10/29 18:47:39 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**cmd_split(char *cmd)
+void	ft_lstiter(t_stack *lst, void (*f)(void *))
 {
-	return (ft_split(cmd, ' '));
+	t_stack	*tmp;
+
+	tmp = lst;
+	while (tmp)
+	{
+		f(tmp->data);
+		tmp = tmp -> next;
+	}
 }

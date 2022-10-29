@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 17:39:12 by adashyan          #+#    #+#             */
-/*   Updated: 2022/09/27 17:54:10 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/07 18:02:37 by adashyan          #+#    #+#             */
+/*   Updated: 2022/10/29 18:47:45 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-int	main(void)
+void	ft_lstclear(t_stack **lst, void (*del)(void*))
 {
-	int	number1;
-	int	number2;
-	int	sum;
-	int	input_fds;
+	t_stack	*tmp;
 
-	input_fds = open("a.txt", O_RDONLY);
-	if (dup2(input_fds, STDIN_FILENO) < 0)
+	while (*lst != NULL)
 	{
-		printf("Unable to duplicate file descriptor.");
-		exit(EXIT_FAILURE);
+		tmp = (*lst)->next;
+		del((*lst)->data);
+		free(*lst);
+		*lst = tmp;
 	}
-	scanf("%d %d", &number1, &number2);
-	sum = number1 + number2;
-	printf("%d + %d = %d\n", number1, number2, sum);
-	return (EXIT_SUCCESS);
+	*lst = NULL;
 }

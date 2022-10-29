@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 16:56:33 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/10 20:09:20 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:28:19 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	parent_process(char **argv, char *cmd, char **envp, int *fd)
 	char	*path;
 	int		outfile;
 
-	outfile = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	outfile = open(argv[4], O_CREAT | O_WRONLY, 0644);
 	if (outfile < 0)
 		error(OPEN_ERR);
 	path = envp_parsing(cmd, envp);
@@ -31,9 +31,7 @@ void	parent_process(char **argv, char *cmd, char **envp, int *fd)
 	dup2(outfile, STDOUT_FILENO);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[1]);
-	while (1);
 	execve(path, options, envp);
 	free(path);
 	double_free(options);
-	error(EXEC_ERR);
 }

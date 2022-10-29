@@ -1,44 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 17:26:52 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/11 18:46:52 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/08 16:54:49 by adashyan          #+#    #+#             */
+/*   Updated: 2022/10/29 18:47:34 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	double_free(char **s)
+t_stack	*ft_lstmap(t_stack *lst, void *(*f)(void *), void (*del)(void *))
 {
-	int	i;
+	t_stack	*new_list;
+	t_stack	*new_node;
 
-	i = 0;
-	while (s[i])
+	new_list = NULL;
+	if (lst == NULL || f == NULL)
+		return (new_list);
+	while (lst)
 	{
-		free(s[i]);
-		i++;
+		new_node = ft_lstnew((*f)(lst->data));
+		if (new_node == NULL)
+		{
+			ft_lstclear(&new_list, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&new_list, new_node);
+		lst = lst->next;
 	}
-	free(s);
-}
-
-void	e_free(char *join, char *cmd_path)
-{
-	free(join);
-	free(cmd_path);
-}
-
-void	exec_free(char **options, char *path)
-{
-	double_free(options);
-	free(path);
-}
-
-void	p_free(char **sp_cmd, char **path)
-{
-	double_free(sp_cmd);
-	double_free(path);
+	return (new_list);
 }

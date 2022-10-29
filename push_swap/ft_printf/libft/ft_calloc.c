@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_split.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/17 16:59:04 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/10 20:24:34 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/03 22:06:53 by adashyan          #+#    #+#             */
+/*   Updated: 2022/05/08 18:29:41 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**cmd_split(char *cmd)
+void	*ft_calloc(size_t count, size_t size)
 {
-	return (ft_split(cmd, ' '));
+	void	*p;
+
+	if (count == SIZE_MAX && size == SIZE_MAX)
+		return (NULL);
+	p = (void *)malloc(count * size);
+	if (p == NULL)
+		return (NULL);
+	ft_bzero(p, (count * size));
+	return (p);
 }

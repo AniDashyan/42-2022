@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_split.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/17 16:59:04 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/10 20:24:34 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/03 22:03:24 by adashyan          #+#    #+#             */
+/*   Updated: 2022/05/08 18:23:07 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include <stddef.h>
 
-char	**cmd_split(char *cmd)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	return (ft_split(cmd, ' '));
+	if (n == 0)
+		return (0);
+	while ((*s1 && *s2) && (*s1 == *s2) && --n)
+	{
+		s1++;
+		s2++;
+	}
+	return (*((unsigned char *)s1) - *((unsigned char *)s2));
 }

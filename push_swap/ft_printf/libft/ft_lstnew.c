@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_split.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/17 16:59:04 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/10 20:24:34 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/06 20:31:23 by adashyan          #+#    #+#             */
+/*   Updated: 2022/10/29 18:49:58 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**cmd_split(char *cmd)
+t_stack	*ft_lstnew(void *data)
 {
-	return (ft_split(cmd, ' '));
+	t_stack	*new_node;
+
+	new_node = (t_stack *)malloc(sizeof(t_stack));
+	if (new_node == NULL)
+		return (NULL);
+	new_node -> data = data;
+	new_node -> next = NULL;
+	return (new_node);
 }

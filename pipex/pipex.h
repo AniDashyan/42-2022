@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 15:56:09 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/10 19:55:45 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:47:50 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@
 # define CMD_ERR	"command not found"
 # define PATH_ERR 	"invalid path"
 # define FORK_ERR	"fork has failed"
-# define EXEC_ERR	"execve has failed"
 # define PIPE_ERR   "pipe creation has failed"
-# define ARG_ERR	"not enough arguments"
 # define OPEN_ERR	"can't open the file"
 
 size_t	ft_strlen(const char *s);
@@ -45,4 +43,6 @@ void	error(char *s);
 void	double_free(char **s);
 int		check_cmd(char *cmd);
 void	exec_free(char **options, char *path);
+void	p_free(char **sp_cmd, char **path);
+void	e_free(char *join, char *cmd_path);
 #endif

@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_split.c                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/17 16:59:04 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/10 20:24:34 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/03 21:52:37 by adashyan          #+#    #+#             */
+/*   Updated: 2022/05/09 20:28:02 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-char	**cmd_split(char *cmd)
-{
-	return (ft_split(cmd, ' '));
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{	
+	size_t	i;
+
+	i = 0;
+	if (!src && !dest)
+		return (NULL);
+	while (i < n)
+	{
+		*(unsigned char *)dest = ((unsigned char *)src)[i];
+		dest++;
+		i++;
+	}	
+	return (dest - n);
 }
