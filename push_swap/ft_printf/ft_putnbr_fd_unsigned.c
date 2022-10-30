@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_putnbr_fd_unsigned.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 22:00:48 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/29 18:46:06 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/03 23:07:14 by adashyan          #+#    #+#             */
+/*   Updated: 2022/10/30 12:44:12 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstadd_front(t_stack **lst, t_stack *new)
+int	ft_putnbr_fd_unsigned(unsigned int nbr, int fd)
 {
-	new -> next = *lst;
-	*lst = new;
+	int	count;
+
+	count = 0;
+	if (nbr >= 10)
+	{
+		count += ft_putnbr_fd_unsigned(nbr / 10, fd);
+		count += ft_putnbr_fd_unsigned(nbr % 10, fd);
+	}
+	else
+		count += ft_putchar_fd_p(nbr + '0', fd);
+	return (count);
 }

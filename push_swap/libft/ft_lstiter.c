@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/07 17:25:33 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/29 18:43:29 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/07 19:18:10 by adashyan          #+#    #+#             */
+/*   Updated: 2022/10/30 09:29:02 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_stack **lst, t_stack *new)
+void		ft_lstiter(t_stack *lst, void *(*f)(int))
 {
-	t_stack	*ptr;
+	t_stack	*tmp;
 
-	if (*lst == NULL)
-		*lst = new;
-	else
+	tmp = lst;
+	while (tmp)
 	{
-		ptr = ft_lstlast(*lst);
-		ptr->next = new;
+		f(tmp->data);
+		tmp = tmp -> next;
 	}
 }

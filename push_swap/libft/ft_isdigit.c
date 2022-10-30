@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/07 19:18:10 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/30 09:29:02 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/04 20:06:27 by adashyan          #+#    #+#             */
+/*   Updated: 2022/05/10 19:08:08 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_lstiter(t_stack *lst, void *(*f)(int))
-{
-	t_stack	*tmp;
-
-	tmp = lst;
-	while (tmp)
-	{
-		f(tmp->data);
-		tmp = tmp -> next;
-	}
+int	ft_isdigit(int c)
+{	
+	if (c >= '0' && c <= '9')
+		return (c);
+	return (0);
 }

@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/07 18:02:37 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/29 18:47:45 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/03 23:04:56 by adashyan          #+#    #+#             */
+/*   Updated: 2022/05/08 18:34:46 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libft.h" 
 
-void	ft_lstclear(t_stack **lst, void (*del)(void*))
+void	ft_putchar_fd(char c, int fd)
 {
-	t_stack	*tmp;
-
-	while (*lst != NULL)
-	{
-		tmp = (*lst)->next;
-		del((*lst)->data);
-		free(*lst);
-		*lst = tmp;
-	}
-	*lst = NULL;
+	write(fd, &c, 1);
 }

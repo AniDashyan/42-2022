@@ -1,7 +1,7 @@
-NAME	= libftprintf.a
+NAME	= printf.a
 
 CC		= cc
-CFLAGS	= -Wall -Werror -Wextra 
+CFLAGS	= -Wall -Werror -Wextra
 AR		= ar rcs
 RM		= rm -f
 
@@ -12,19 +12,16 @@ OBJS	=	$(patsubst %.c, %.o, $(SRCS))
 %.o: %.c
 			$(CC) $(CFLAGS) -c  $< -o $@
 
-all:		lib $(NAME)
-
-lib:
-	cd libft && make && make bonus
+all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			$(AR) $(NAME) $(OBJS) libft/*.o
-clean:		
-			$(RM) $(OBJS) libft/*.o
+			$(AR) $(NAME) $(OBJS)
+clean:
+			$(RM) $(OBJS)
 
 fclean:		clean
-			$(RM) $(NAME) libft/libft.a
+			$(RM) $(NAME)
 
 re:			fclean all
 
-.PHONY:		all bonus clean fclean re lib
+.PHONY:		all clean fclean re

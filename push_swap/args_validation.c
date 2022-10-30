@@ -1,12 +1,5 @@
 #include "push_swap.h"
 
-static int	ft_isspace(char c)
-{
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	return (0);
-}
-
 void	fake_atoi(char *str)
 {
 	int			i;
@@ -77,18 +70,26 @@ void	skip_zero(char	*str)
 	}
 }
 
-void	check_duplicates(char *str)
+void	check_duplicates(char **str, int len)
 {
 	int	i;
 	int	j;
+	int	*nums;
 
 	i = 0;
-	j = i + 1;
-	while (i < (int)ft_strlen(str))
+	nums = malloc(sizeof(nums) * len);
+	while (str[i])
 	{
-		while (j < (int)ft_strlen(str))
+		nums[i] = ft_atoi(str[i]);
+		i++;
+	}
+	i = 0;
+	while (nums[i])
+	{
+		j = i + 1;
+		while (nums[j])
 		{
-			if (str[i] == str[j])
+			if (nums[i] == nums[j])
 			{
 				ft_printf("duplicate Error");
 				break ;
@@ -97,4 +98,7 @@ void	check_duplicates(char *str)
 		}
 		i++;
 	}
+	free(nums);
+	nums = NULL;
+	exit(1);
 }

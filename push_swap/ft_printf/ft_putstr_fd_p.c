@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_putstr_fd_p.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 22:09:03 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/29 18:46:22 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/03 23:05:15 by adashyan          #+#    #+#             */
+/*   Updated: 2022/10/30 12:51:09 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-t_stack	*ft_lstlast(t_stack *lst)
+static int str_len(char *str)
 {
-	if (lst == NULL)
-		return (lst);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return  (i);
+}
+
+int	ft_putstr_fd_p(char *s, int fd)
+{
+	if (s == NULL)
+		return (write(1, "(null)", 6));
+	return (write(fd, s, str_len(s)));
 }

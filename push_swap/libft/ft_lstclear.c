@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/03 23:07:14 by adashyan          #+#    #+#             */
-/*   Updated: 2022/05/10 20:29:01 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/07 18:02:37 by adashyan          #+#    #+#             */
+/*   Updated: 2022/10/30 09:05:50 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-int	ft_putnbr_fd_unsigned(unsigned int nbr, int fd)
-{	
-	int	count;
+void	ft_lstclear(t_stack **lst, void (*del)(int))
+{
+	t_stack	*tmp;
 
-	count = 0;
-	if (nbr >= 10)
+	while (*lst != NULL)
 	{
-		count += ft_putnbr_fd_unsigned(nbr / 10, fd);
-		count += ft_putnbr_fd_unsigned(nbr % 10, fd);
+		tmp = (*lst)->next;
+		del((*lst)->data);
+		free(*lst);
+		*lst = tmp;
 	}
-	else
-		count += ft_putchar_fd(nbr + '0', fd);
-	return (count);
+	*lst = NULL;
 }

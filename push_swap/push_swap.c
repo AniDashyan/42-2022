@@ -6,13 +6,14 @@ int	main(int argc, char **argv)
 	int		j;
 	char	**str;
 	char	*join;
-	t_stack	a;
+	t_stack	*a;
 
 	i = 1;
 	j = 0;
 	if (argc >= 2)
 	{
 		join = "";
+		a = NULL;
 		while (i < argc)
 		{
 			join = ft_strjoin(join, argv[i]);
@@ -25,7 +26,13 @@ int	main(int argc, char **argv)
 			fake_atoi(str[j]);
 			j++;
 		}
-		a = fill_stack_a(str);
+		check_duplicates(str, j);
+		a = fill_stack(str);
+		while (a)
+		{
+			ft_printf("%d\n", a->data);
+			a = a->next;
+		}
 	}
 	else
 		ft_printf("NO");

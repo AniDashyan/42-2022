@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 20:30:22 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/29 18:48:23 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/10/30 13:15:42 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdint.h>
 
 typedef struct stack
 {
-	void			*data;
+	int				data;
 	struct stack	*next;
 }	t_stack;
 
@@ -28,6 +29,7 @@ int			ft_isdigit(int c);
 int			ft_isalnum(int c);
 int			ft_isascii(int c);
 int			ft_isprint(int c);
+int			ft_isspace(char c);
 size_t		ft_strlen(const char *s);
 void		*ft_memset(void *str, int c, size_t n);
 void		ft_bzero(void *s, size_t n);
@@ -53,18 +55,17 @@ char		**ft_split(char const *s, char c);
 char		*ft_itoa(int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
-int			ft_putchar_fd(char c, int fd);
-int			ft_putstr_fd(char *s, int fd);
+void		ft_putchar_fd(char c, int fd);
+void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
-int			ft_putnbr_fd_unsigned(unsigned int nbr, int fd);
-int			ft_putnbr_fd(int nbr, int fd);
-t_stack		*ft_lstnew(void *data);
+void		ft_putnbr_fd(int n, int fd);
+t_stack		*ft_lstnew(int data);
 void		ft_lstadd_front(t_stack **lst, t_stack *new);
 int			ft_lstsize(t_stack *lst);
 t_stack		*ft_lstlast(t_stack *lst);
 void		ft_lstadd_back(t_stack **lst, t_stack *new);
-void		ft_lstdelone(t_stack *lst, void (*del)(void *));
-void		ft_lstclear(t_stack **lst, void (*del)(void*));
-void		ft_lstiter(t_stack *lst, void (*f)(void *));
-t_stack		*ft_lstmap(t_stack *l, void *(*f)(void *), void (*d)(void *));
+void		ft_lstdelone(t_stack *lst, void (*del)(int));
+void		ft_lstclear(t_stack **lst, void (*del)(int));
+void		ft_lstiter(t_stack *lst, void *(*f)(int));
+t_stack		*ft_lstmap(t_stack *lst, int (f)(int), void (*del)(int));
 #endif

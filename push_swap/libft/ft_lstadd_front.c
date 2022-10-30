@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 20:31:23 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/29 18:49:58 by adashyan         ###   ########.fr       */
+/*   Created: 2022/05/06 22:00:48 by adashyan          #+#    #+#             */
+/*   Updated: 2022/10/30 08:57:06 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_stack	*ft_lstnew(void *data)
+void	ft_lstadd_front(t_stack **lst, t_stack *new)
 {
-	t_stack	*new_node;
-
-	new_node = (t_stack *)malloc(sizeof(t_stack));
-	if (new_node == NULL)
-		return (NULL);
-	new_node -> data = data;
-	new_node -> next = NULL;
-	return (new_node);
+	new -> next = *lst;
+	*lst = new;
 }
