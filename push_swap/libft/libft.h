@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/05 20:30:22 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/30 13:15:42 by adashyan         ###   ########.fr       */
+/*   Created: 2022/11/24 20:50:01 by adashyan          #+#    #+#             */
+/*   Updated: 2022/11/24 20:50:02 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 typedef struct stack
 {
 	int				data;
+	int				pos;
 	struct stack	*next;
 }	t_stack;
 
@@ -68,4 +69,8 @@ void		ft_lstdelone(t_stack *lst, void (*del)(int));
 void		ft_lstclear(t_stack **lst, void (*del)(int));
 void		ft_lstiter(t_stack *lst, void *(*f)(int));
 t_stack		*ft_lstmap(t_stack *lst, int (f)(int), void (*del)(int));
+t_stack		*ft_lstseclast(t_stack *lst);
+int			ft_issign(char c);
+void		ft_swap(int *a, int *b);
+
 #endif

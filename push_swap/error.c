@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/03 23:04:56 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/30 12:40:12 by adashyan         ###   ########.fr       */
+/*   Created: 2022/11/24 20:50:40 by adashyan          #+#    #+#             */
+/*   Updated: 2022/11/24 20:50:41 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "push_swap.h"
 
-int	ft_putchar_fd_p(char c, int fd)
+void	print_error(void)
 {
-	return (write(fd, &c, 1));
+	ft_putstr_fd("Error\n", 2);
+	exit(1);
 }

@@ -23,7 +23,7 @@ $(NAME):	$(OBJS)
 bonus:		$(NAME) $(OBJS_B)
 			$(AR) $(NAME) $(OBJS_B)
 
-clean:		
+clean:
 			$(RM) $(OBJS) $(OBJS_B)
 
 fclean:		clean

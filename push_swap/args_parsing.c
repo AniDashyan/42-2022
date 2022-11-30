@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   args_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/24 20:45:16 by adashyan          #+#    #+#             */
-/*   Updated: 2022/11/24 20:45:17 by adashyan         ###   ########.fr       */
+/*   Created: 2022/11/24 20:45:02 by adashyan          #+#    #+#             */
+/*   Updated: 2022/11/24 20:45:03 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-int	ft_atoi(const char *str)
+char	**argv_parsing(int argc, char **argv)
 {
-	int			i;
-	int			sign;
-	long		num;
+	int		i;
+	char	**str;
+	char	*join;
+	char	*arr_to_free;
 
-	i = 0;
-	sign = 1;
-	num = 0;
-	while (str[i] && ft_isspace(str[i]))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	i = 1;
+	join = ft_strdup("");
+	while (i < argc)
 	{
-		if (str[i] == '-')
-			sign = -1;
+		arr_to_free = join;
+		join = ft_strjoin(join, argv[i]);
+		free(arr_to_free);
+		arr_to_free = join;
+		join = ft_strjoin(join, " ");
+		free(arr_to_free);
 		i++;
 	}
-	while (str[i] && ft_isdigit(str[i]))
-	{
-		num = (num * 10) + (str[i] - '0');
-		i++;
-	}
-	return (num * sign);
+	str = ft_split(join, ' ');
+	free(join);
+	return (str);
 }

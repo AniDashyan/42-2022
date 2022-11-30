@@ -1,6 +1,5 @@
 NAME	= push_swap
-
-CC		= cc
+CC		= gcc
 CFLAGS	= -Wall -Werror -Wextra
 RM		= rm -f
 
@@ -11,23 +10,20 @@ OBJS	=	$(patsubst %.c, %.o, $(SRCS))
 %.o: %.c
 			$(CC) $(CFLAGS) -c  $< -o $@
 
-all:		print_f lib $(NAME)
-
-print_f:
-	cd ft_printf && make
+all:		lib $(NAME)
 
 lib:
 	cd libft && make && make bonus
 
 $(NAME):	$(OBJS)
-			$(CC) -o $(NAME) $(OBJS) ft_printf/*.o libft/*.o
+			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) libft/*.o
 
 clean:
-			$(RM) $(OBJS) ft_printf/*.o libft/*.o
+			$(RM) $(OBJS) libft/*.o
 
 fclean:		clean
-			$(RM) $(NAME) ft_printf/libftprintf.a libft/libft.a
+			$(RM) $(NAME) libft/libft.a
 
 re:			fclean all
 
-.PHONY:		all clean fclean re print_f lib
+.PHONY:		all clean fclean re lib

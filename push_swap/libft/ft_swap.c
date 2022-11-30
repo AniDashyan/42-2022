@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd_unsigned.c                            :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/03 23:07:14 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/30 12:44:12 by adashyan         ###   ########.fr       */
+/*   Created: 2022/11/24 20:49:41 by adashyan          #+#    #+#             */
+/*   Updated: 2022/11/24 20:49:42 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putnbr_fd_unsigned(unsigned int nbr, int fd)
+void	ft_swap(int *a, int *b)
 {
-	int	count;
+	int	tmp;
 
-	count = 0;
-	if (nbr >= 10)
-	{
-		count += ft_putnbr_fd_unsigned(nbr / 10, fd);
-		count += ft_putnbr_fd_unsigned(nbr % 10, fd);
-	}
-	else
-		count += ft_putchar_fd_p(nbr + '0', fd);
-	return (count);
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
 }

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putptr.c                                        :+:      :+:    :+:   */
+/*   ft_issign.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 22:07:37 by adashyan          #+#    #+#             */
-/*   Updated: 2022/05/13 18:02:36 by adashyan         ###   ########.fr       */
+/*   Created: 2022/11/24 20:46:00 by adashyan          #+#    #+#             */
+/*   Updated: 2022/11/24 20:46:01 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putptr(void *p)
-{	
-	return (write(1, "0x", 2) + ft_putnbr_hex((uintptr_t)p, 0));
+int	ft_issign(char c)
+{
+	return (c == '+' || c == '-');
 }

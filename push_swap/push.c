@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_hex.c                                    :+:      :+:    :+:   */
+/*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 22:07:54 by adashyan          #+#    #+#             */
-/*   Updated: 2022/10/30 12:44:22 by adashyan         ###   ########.fr       */
+/*   Created: 2022/11/24 20:43:49 by adashyan          #+#    #+#             */
+/*   Updated: 2022/11/24 20:43:51 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "push_swap.h"
 
-int	ft_putnbr_hex(unsigned long int nbr, int cX)
+void	push(t_stack **src, t_stack **dest)
+{	
+	t_stack	*tmp;
+
+	if (*src == NULL)
+		return ;
+	tmp = *src;
+	*src = (*src)->next;
+	tmp->next = NULL;
+	ft_lstadd_front(dest, tmp);
+}
+
+void	pa(t_stack **a, t_stack **b)
 {
-	int	count;
+	push(a, b);
+	write(1, "pa\n", 3);
+}
 
-	count = 0;
-	if (nbr >= 16)
-	{
-		count += ft_putnbr_hex(nbr / 16, cX);
-		count += ft_putnbr_hex(nbr % 16, cX);
-	}
-	else
-	{
-		if (!cX)
-			count += ft_putchar_fd_p("0123456789abcdef"[nbr], 1);
-		else
-			count += ft_putchar_fd_p("0123456789ABCDEF"[nbr], 1);
-	}
-	return (count);
+void	pb(t_stack **a, t_stack **b)
+{
+	push(a, b);
+	write(1, "pb\n", 3);
 }

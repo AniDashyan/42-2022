@@ -1,40 +1,86 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/24 20:43:20 by adashyan          #+#    #+#             */
+/*   Updated: 2022/11/24 21:44:55 by adashyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
+
+void	error_check(char **str)
+{
+	int	j;
+
+	j = 0;
+	while (str[j])
+	{
+		fake_atoi(str[j]);
+		j++;
+	}
+	check_duplicates(str, j);
+	zeros_validation(str, j);
+}
+
+void	small_sort(int size, t_stack **a, t_stack **b)
+{
+	if (size == 2)
+		sort2(a);
+	else if (size == 3)
+		sort3(a);
+	else if (size == 4)
+		sort4(a, b);
+	else if (size == 5)
+		sort5(a, b);
+}
+
+void	sort(t_stack **a, t_stack **b)
+{
+	int	size;
+
+	size = ft_lstsize(*a);
+	if (size <= 5)
+	{
+		small_sort(size, a, b);
+		ft_lstclear(a, del);
+		ft_lstclear(b, del);
+	}
+	else
+	{
+		indexing(*a);
+		butterfly(a, b);
+		ft_lstclear(a, del);
+		ft_lstclear(b, del);
+	}
+}
 
 int	main(int argc, char **argv)
 {
-	int		i;
-	int		j;
 	char	**str;
-	char	*join;
 	t_stack	*a;
+	t_stack	*b;
 
-	i = 1;
-	j = 0;
-	if (argc >= 2)
+	if (argc > 1)
 	{
-		join = "";
 		a = NULL;
-		while (i < argc)
-		{
-			join = ft_strjoin(join, argv[i]);
-			join = ft_strjoin(join, " ");
-			i++;
-		}
-		str = ft_split(join, ' ');
-		while (str[j])
-		{
-			fake_atoi(str[j]);
-			j++;
-		}
-		check_duplicates(str, j);
+		b = NULL;
+		str = argv_parsing(argc, argv);
+		if (!str || !str[0])
+			return (0);
+		error_check(str);
 		a = fill_stack(str);
-		while (a)
+		free_str(str);
+		if (is_sorted(a))
 		{
-			ft_printf("%d\n", a->data);
-			a = a->next;
+			ft_lstclear(&a, del);
+			ft_lstclear(&b, del);
+			return (0);
 		}
+		sort(&a, &b);
 	}
-	else
-		ft_printf("NO");
 	return (0);
 }

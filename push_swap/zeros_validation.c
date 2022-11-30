@@ -1,38 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   zeros_validation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/24 20:45:16 by adashyan          #+#    #+#             */
-/*   Updated: 2022/11/24 20:45:17 by adashyan         ###   ########.fr       */
+/*   Created: 2022/11/24 20:44:22 by adashyan          #+#    #+#             */
+/*   Updated: 2022/11/24 20:44:23 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-int	ft_atoi(const char *str)
+int	num_len(int num)
 {
-	int			i;
-	int			sign;
-	long		num;
+	int	len;
+
+	len = 0;
+	while (num != 0)
+	{
+		len++;
+		num /= 10;
+	}
+	return (len);
+}
+
+void	zeros_validation(char **str, int len)
+{
+	int	i;
+	int	*num;
 
 	i = 0;
-	sign = 1;
-	num = 0;
-	while (str[i] && ft_isspace(str[i]))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	num = malloc(sizeof(int) * len);
+	if (!num)
+		return ;
+	while (i < len)
 	{
-		if (str[i] == '-')
-			sign = -1;
+		if (num_len(ft_atoi(str[i])) > 16)
+			print_error();
 		i++;
 	}
-	while (str[i] && ft_isdigit(str[i]))
-	{
-		num = (num * 10) + (str[i] - '0');
-		i++;
-	}
-	return (num * sign);
+	free(num);
 }

@@ -1,73 +1,75 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   args_validation.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/24 20:44:57 by adashyan          #+#    #+#             */
+/*   Updated: 2022/11/24 20:44:58 by adashyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void	fake_atoi(char *str)
+void	sign_error(char *str, int *i, int *sign)
 {
-	int			i;
-	int			sign;
-	long		num;
-
-	i = 0;
-	sign = 1;
-	num = 0;
-	while (str[i] && ft_isspace(str[i]))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	if (str[*i] == '-' || str[*i] == '+')
 	{
-		if (str[i] == '-')
-			sign = -1;
-		else if (str[i] == '-' && (str[i + 1] == '-' || str[i + 1] == '+'))
-			ft_printf("sign Error");
-		else if (str[i] == '+' && (str[i + 1] == '-' || str[i + 1] == '+'))
-			ft_printf("sign Error");
-		else if ((str[i] == '-' || str[i] == '+') && !str[i + 1])
-			ft_printf("sign Error");
-		i++;
+		if (str[*i] == '-')
+			*sign = -1;
+		if (str[*i] == '-' && ft_issign(str[*i + 1]))
+			print_error();
+		if (ft_issign(str[*i]) && !str[*i + 1])
+			print_error();
+		if (ft_issign(str[*i]) && !ft_isdigit(str[*i + 1]))
+			print_error();
+		(*i)++;
 	}
-	if (ft_isdigit(str[i]) || str[i - 1] == '-' || str[i - 1] == '+')
-	{
-		while (str[i] && ft_isdigit(str[i]))
-		{
-			num = (num * 10) + (str[i] - '0');
-			if (num * sign > 2147483647)
-				ft_printf(">INT_MAX Error");
-			else if (num * sign < -2147483648)
-				ft_printf("<INT_MIN Error");
-		i++;
-		}
-	}
-	else
-		ft_printf("symbol Error");
+	if (ft_isdigit(str[*i]) && ft_issign(str[*i + 1]))
+		print_error();
 }
 
-int	zero_count(char *str)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i] == '0' && str[i + 1] == '0')
-	{
-		count++;
-		i++;
-	}
-	if (count == 0)
-		return (0);
-	return (count + 1);
-}
-
-void	skip_zero(char	*str)
+void	num_error(char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '0')
-			i++;
-		ft_printf("%s\n", str[i]);
+		if (str[i + 1] && !ft_isdigit(str[i + 1]))
+			print_error();
 		i++;
 	}
+}
+
+void	fake_atoi(char *str)
+{
+	int		i;
+	int		sign;
+	long	num;
+
+	i = 0;
+	sign = 1;
+	num = 0;
+	while (str[i] && ft_isspace(str[i]))
+		i++;
+	sign_error(str, &i, &sign);
+	if (ft_isdigit(str[i]))
+	{
+		num_error(str);
+		while (str[i] && ft_isdigit(str[i]))
+		{
+			num = (num * 10) + (str[i] - '0');
+			if (num * sign > 2147483647)
+				print_error();
+			else if (num * sign < -2147483648)
+				print_error();
+			i++;
+		}
+	}
+	else
+		print_error();
 }
 
 void	check_duplicates(char **str, int len)
@@ -77,28 +79,30 @@ void	check_duplicates(char **str, int len)
 	int	*nums;
 
 	i = 0;
-	nums = malloc(sizeof(nums) * len);
+	nums = malloc(sizeof(int) * len);
 	while (str[i])
 	{
 		nums[i] = ft_atoi(str[i]);
 		i++;
 	}
 	i = 0;
-	while (nums[i])
+	while (i < len)
 	{
 		j = i + 1;
-		while (nums[j])
+		while (j < len)
 		{
 			if (nums[i] == nums[j])
-			{
-				ft_printf("duplicate Error");
-				break ;
-			}
+				print_error();
 			j++;
 		}
 		i++;
 	}
 	free(nums);
-	nums = NULL;
-	exit(1);
+}
+
+int	is_sorted(t_stack *top)
+{
+	if (top == NULL || top->next == NULL)
+		return (1);
+	return (top->data < top->next->data && is_sorted(top->next));
 }
