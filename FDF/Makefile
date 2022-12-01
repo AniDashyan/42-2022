@@ -7,23 +7,28 @@ SRCS	=	$(wildcard *.c)
 
 OBJS	=	$(patsubst %.c, %.o, $(SRCS))
 
-%.o: %.c
-			$(CC) $(CFLAGS) -c  $< -o $@
+MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
-all:		lib $(NAME)
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+all:		lib printf $(NAME)
 
 lib:
 	cd libft && make && make bonus
 
+printf:
+	cd ft_printf && make
+
 $(NAME):	$(OBJS)
-			$(CC) $(CFLAGS) -o $(NAME) $(OBJS) libft/*.o
+			$(CC) $(MLX) $(CFLAGS) -o $(NAME) $(OBJS) libft/*.o ft_printf/*.o
 
 clean:
-			$(RM) $(OBJS) libft/*.o
+			$(RM) $(OBJS) libft/*.o ft_printf/*.o
 
 fclean:		clean
-			$(RM) $(NAME) libft/libft.a
+			$(RM) $(NAME) libft/libft.a ft_printf/printf.a
 
 re:			fclean all
 
-.PHONY:		all clean fclean re lib
+.PHONY:		all clean fclean re lib printf

@@ -1,0 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_hex.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/09 22:07:54 by adashyan          #+#    #+#             */
+/*   Updated: 2022/12/01 17:31:27 by adashyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
+
+int	ft_putnbr_hex(unsigned long int nbr, int cX)
+{	
+	int	count;
+
+	count = 0;
+	if (nbr >= 16)
+	{
+		count += ft_putnbr_hex(nbr / 16, cX);
+		count += ft_putnbr_hex(nbr % 16, cX);
+	}
+	else
+	{
+		if (!cX)
+			count += ft_putchar_fd_p("0123456789abcdef"[nbr], 1);
+		else
+			count += ft_putchar_fd_p("0123456789ABCDEF"[nbr], 1);
+	}
+	return (count);
+}
