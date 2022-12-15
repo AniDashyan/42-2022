@@ -18,7 +18,7 @@ char	*read_to_stat(int fd, char *stat)
 	int		read_bytes;
 
 	read_bytes = 1;
-	while (read_bytes != 0 && !ft_strchr(stat, '\n'))
+	while (read_bytes != 0 && !ft_strchr1(stat, '\n'))
 	{
 		buff = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 		if (!buff)
@@ -30,7 +30,7 @@ char	*read_to_stat(int fd, char *stat)
 			return (NULL);
 		}
 		buff[read_bytes] = '\0';
-		stat = ft_strjoin(stat, buff);
+		stat = ft_strjoin1(stat, buff);
 		free(buff);
 	}
 	return (stat);
@@ -78,7 +78,7 @@ char	*new_static(char *stat)
 		free(stat);
 		return (NULL);
 	}
-	new_stat = (char *)malloc((ft_strlen(stat) - i + 1) * sizeof(char));
+	new_stat = (char *)malloc((ft_strlen1(stat) - i + 1) * sizeof(char));
 	if (!new_stat)
 		return (NULL);
 	while (stat[i++] != '\0')

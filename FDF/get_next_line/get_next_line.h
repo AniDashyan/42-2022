@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/07 20:16:54 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/01 17:34:55 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/08/07 18:00:15 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,8 @@
 # endif
 
 char	*get_next_line(int fd);
+size_t	ft_strlen1(const char *c);
+char	*ft_strchr1(char *s, int c);
+char	*ft_strjoin1(char	*str1, char	*str2);
 
 #endif

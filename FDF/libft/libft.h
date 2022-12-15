@@ -72,5 +72,6 @@ t_stack		*ft_lstmap(t_stack *lst, int (f)(int), void (*del)(int));
 t_stack		*ft_lstseclast(t_stack *lst);
 int			ft_issign(char c);
 void		ft_swap(int *a, int *b);
+int			ft_wordcount(char const *s, char c);
 
 #endif
