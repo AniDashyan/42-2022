@@ -9,7 +9,6 @@
 # include <stdio.h>
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
-# include "get_next_line/get_next_line.h"
 
 typedef struct  s_map
 {
@@ -24,5 +23,9 @@ typedef struct  s_map
 void    read_map(char *file, t_map *map);
 int     get_height(char *file);
 int     get_width(char *file);
+char	*get_next_line(int fd);
+char	*ft_strjoin_gnl(char *s1, char c);
+void	free_str(char **str);
+void    error(char  *err_msg);
 
 #endif

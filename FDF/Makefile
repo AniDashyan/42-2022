@@ -4,10 +4,8 @@ CFLAGS	= -Wall -Werror -Wextra -fsanitize=address
 RM		= rm -f
 
 SRCS	= $(wildcard *.c)
-GNL		= $(shell find ./get_next_line -name "*.c")
 
 OBJS	=	$(patsubst %.c, %.o, $(SRCS))
-OGNL	=	$(patsubst %.c, %.o, $(GNL))
 
 
 MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
@@ -23,11 +21,11 @@ lib:
 printf:
 	cd ft_printf && make
 
-$(NAME):	$(OBJS) $(OGNL)
-			$(CC) $(MLX) $(CFLAGS) -o $(NAME) $(OBJS) $(OGNL) libft/*.o ft_printf/*.o
+$(NAME):	$(OBJS) 
+			 $(CC) $(MLX) $(CFLAGS) -o $(NAME) $(OBJS) libft/*.o ft_printf/*.o
 
 clean:
-			$(RM) $(OBJS) $(OGNL) libft/*.o ft_printf/*.o
+			$(RM) $(OBJS) libft/*.o ft_printf/*.o
 
 fclean:		clean
 			$(RM) $(NAME) libft/libft.a ft_printf/printf.a
