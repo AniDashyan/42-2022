@@ -34,32 +34,6 @@ int get_width(char *file)
     return (width);
 }
 
-void    fill_map(t_map *map, int fd)
-{
-    int     i;
-    int     j;
-    char    *line;
-    char    **str;
-
-    i = 0;
-    j = 0;
-    while (i < map->height)
-    {
-        line = get_next_line(fd);
-        str = ft_split(line, ' ');
-        j = 0;
-        while (str[j])
-        {
-            map->z_matrix[i][j] = ft_atoi(str[j]);
-            j++;
-        }
-        free(line);
-        i++;
-    }
-    map->z_matrix[i] = NULL;
-    free_str(str);
-}
-
 void	free_str(char **str)
 {
 	int	i;
@@ -76,22 +50,41 @@ void	free_str(char **str)
 void    read_map(char *file, t_map *map)
 {
     int     i;
+    int     j;
     int     fd;
+    char    *line;
+    char    **str;
     
     fd = open(file, O_RDONLY);
     map->height = get_height(file);
     map->width = get_width(file);
-    map->z_matrix = (int **)malloc(sizeof(int *) * map->height);
-    if (!map->z_matrix)
+    map->z_matrix = (int **)malloc(sizeof(int *) * (map->height + 1));
+    if (!(map->z_matrix))
         error("Malloc has failed");
     i = 0;
     while (i < map->height)
     {
-        map->z_matrix[i] = (int *)malloc(sizeof(int) * map->width);
-        if (!map->z_matrix[i])
+        map->z_matrix[i] = (int *)malloc(sizeof(int) * (map->width + 1));
+        if (!(map->z_matrix[i]))
             error("Malloc has failed");
         i++;
     }
-    fill_map(map, fd);
+    i = 0;
+    j = 0;
+    while (i < map->height)
+    {
+        line = get_next_line(fd);
+        str = ft_split(line, ' ');
+        j = 0;
+        while (str[j])
+        {
+            map->z_matrix[i][j] = ft_atoi(str[j]);
+            j++;
+        }
+        free(line);
+        i++;
+    }
+    free_str(str);
+    map->z_matrix[i] = NULL;
     close(fd);
 }

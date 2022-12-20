@@ -20,6 +20,13 @@ typedef struct  s_map
     void    *win_ptr;
 } t_map;
 
+typedef struct  s_point 
+{
+    int x;
+    int y;
+    int color;
+} t_point;
+
 void    read_map(char *file, t_map *map);
 int     get_height(char *file);
 int     get_width(char *file);
