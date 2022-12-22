@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 20:49:03 by adashyan          #+#    #+#             */
-/*   Updated: 2022/11/24 20:49:04 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/22 15:51:30 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
-	while (s &&s[i])
+	while (s[i])
 		i++;
 	return (i);
 }

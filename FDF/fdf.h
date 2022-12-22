@@ -1,38 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/22 15:59:07 by adashyan          #+#    #+#             */
+/*   Updated: 2022/12/22 15:59:09 by adashyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FDF_H
 # define FDF_H
 
-# include <mlx.h>
-# include <math.h>
+# include "ft_printf/ft_printf.h"
+# include "libft/libft.h"
 # include <fcntl.h>
+# include <math.h>
+# include <mlx.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
-# include "libft/libft.h"
-# include "ft_printf/ft_printf.h"
 
-typedef struct  s_map
+typedef struct s_map
 {
-    int     width;
-    int     height;
-    int     **z_matrix;
+	int		width;
+	int		height;
+	int		**z_matrix;
 
-    void    *mlx_ptr;
-    void    *win_ptr;
-} t_map;
+	void	*mlx_ptr;
+	void	*win_ptr;
+}			t_map;
 
-typedef struct  s_point 
+typedef struct s_point
 {
-    int x;
-    int y;
-    int color;
-} t_point;
+	int		x;
+	int		y;
+	int		color;
+}			t_point;
 
-void    read_map(char *file, t_map *map);
-int     get_height(char *file);
-int     get_width(char *file);
-char	*get_next_line(int fd);
-char	*ft_strjoin_gnl(char *s1, char c);
-void	free_str(char **str);
-void    error(char  *err_msg);
+void		read_map(char *file, t_map *map);
+int			get_height(char *file);
+int			get_width(char *file);
+char		*get_next_line(int fd);
+char		*ft_strjoin_gnl(char *s1, char c);
+void		free_str(char **str);
+void		error(char *err_msg);
+char		**num_color_split(char *str);
 
 #endif
