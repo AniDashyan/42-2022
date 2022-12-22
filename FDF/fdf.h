@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:59:07 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/22 15:59:09 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/22 16:57:51 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# define WIN_HEIGHT 1920
+# define WIN_WIDTH 1080
+
 
 typedef struct s_map
 {
