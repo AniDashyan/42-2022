@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:59:07 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/23 18:12:08 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/24 19:54:18 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,19 @@ typedef struct s_map
 	int		**z_matrix;
 	int		zoom;
 
-	float	x;
-	float	y;
+	int		x1;
+	int		y1;
+	int		z1;
+	int		x2;
+	int		y2;
+	int		z2;
 	int		color;
+
+	void	*img_ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -48,7 +58,11 @@ char		*ft_strjoin_gnl(char *s1, char c);
 void		free_str(char **str);
 void		error(char *err_msg);
 char		**num_color_split(char *str);
-void		bresenham(float x1, float y1, float x2, float y2, t_map *map);
+void		bresenham(t_map *map);
 void		draw(t_map *map);
+int			get_color(int z);
+void		my_pixel_put(t_map *map);
+void		draw_line(int x, int y, t_map *map, int tmp);
+void		print_map(t_map *map);
 
 #endif

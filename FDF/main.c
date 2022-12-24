@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 16:02:25 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/23 19:47:23 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/24 20:03:21 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int	main(int argc, char **argv)
 		read_map(argv[1], map);
 		print_map(map);
 		map->mlx_ptr = mlx_init();
-		map->win_ptr = mlx_new_window(map->mlx_ptr, 1920, 1080, "FDF");
-		// bresenham(10, 10, 600, 300, map);
+		map->win_ptr = mlx_new_window(map->mlx_ptr, WIN_WIDTH,
+				WIN_HEIGHT, "FDF");
+		map->img_ptr = mlx_new_image(map->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 		map->zoom = 20;
 		draw(map);
 		mlx_loop(map->mlx_ptr);
