@@ -10,3 +10,4 @@ This repo contains all my work done during 42 Main Curriculum 2022
 [get_next_line](https://github.com/AniDashyan/42-2022/tree/main/get_next_line)[![adashyan's 42 get_next_line Score](https://badge42.vercel.app/api/v2/cl8pzk32b00440hl2cbyrt562/project/2584522)](https://github.com/JaeSeoKim/badge42)
 <br>
 [pipex](https://github.com/AniDashyan/42-2022/tree/main/pipex)[![adashyan's 42 pipex Score](https://badge42.vercel.app/api/v2/cl8pzk32b00440hl2cbyrt562/project/2701950)](https://github.com/JaeSeoKim/badge42)
+[push_swap](https://github.com/AniDashyan/42-2022/tree/main/push_swap)[![adashyan's 42 push_swap Score](https://badge42.vercel.app/api/v2/cl8pzk32b00440hl2cbyrt562/project/2701926)](https://github.com/JaeSeoKim/badge42)
