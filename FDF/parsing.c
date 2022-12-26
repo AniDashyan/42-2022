@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 16:01:05 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/26 13:40:24 by adashyan         ###   ########.fr       */
+/*   Created: 2022/12/26 13:23:58 by adashyan          #+#    #+#             */
+/*   Updated: 2022/12/26 13:40:40 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	error(char *err_msg)
+int	is_file_valid(char *path)
 {
-	perror(err_msg);
-	exit(1);
+	char	**splitted_path;
+
+	splitted_path = ft_split(path, '.');
+	if (!splitted_path)
+		error("Error: split has failed");
+	if (ft_strncmp(splitted_path[1], "fdf", 4) == 0)
+		return (1);
+	free_str(splitted_path);
+	return (0);
 }

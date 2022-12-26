@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 16:00:11 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/24 20:00:33 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/26 17:45:24 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	get_height(char *file)
 	char	*line;
 
 	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		error("Error: open has failed");
 	height = 0;
 	while (1)
 	{
@@ -39,6 +41,8 @@ int	get_width(char *file)
 	char	*line;
 
 	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		error("Error: open has failed");
 	line = get_next_line(fd);
 	width = ft_wordcount(line, ' ');
 	free(line);
@@ -80,15 +84,17 @@ void	read_map(char *file, t_map *map)
 	fd = open(file, O_RDONLY);
 	map->height = get_height(file);
 	map->width = get_width(file);
+	if (map->height <= 0 || map->width <= 0)
+		error("Error: no values");
 	map->z_matrix = (int **)malloc(sizeof(int *) * (map->height + 1));
 	if (!(map->z_matrix))
-		error("Malloc has failed");
+		error("Error: malloc has failed");
 	i = 0;
 	while (i < map->height)
 	{
 		map->z_matrix[i] = (int *)malloc(sizeof(int) * (map->width + 1));
 		if (!(map->z_matrix[i]))
-			error("Malloc has failed");
+			error("Error: malloc has failed");
 		i++;
 	}
 	fill_map(map, fd);
