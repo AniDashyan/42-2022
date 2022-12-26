@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 16:03:02 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/24 20:56:36 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/26 19:50:32 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,9 @@ void	draw(t_map *map)
 		while (x < map->width)
 		{
 			if (x < map->width - 1)
-			{
-				draw_line(x, y, map, 0);
-				// printf("x: x1 = %d\n", map->x1);
-				// printf("x: y1 = %d\n", map->y1);
-				// printf("x: x2 = %d\n", map->x2);
-				// printf("x: y2 = %d\n", map->y2);
-			}
-			if (y < map->height - 1)
-			{
 				draw_line(x, y, map, 1);
-				// printf("y: x1 = %d\n", map->x1);
-				// printf("y: y1 = %d\n", map->y1);
-				// printf("y: x2 = %d\n", map->x2);
-				// printf("y: y2 = %d\n", map->y2);
-			}
+			if (y < map->height - 1)
+				draw_line(x, y, map, 0);
 			x++;
 		}
 		y++;

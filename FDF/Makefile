@@ -8,7 +8,7 @@ SRCS	= $(wildcard *.c)
 OBJS	=	$(patsubst %.c, %.o, $(SRCS))
 
 
-MLX = -Lmlx -lmlx -framework OpenGL -framework AppKit
+MLX = -lmlx -lmlx -framework OpenGL -framework AppKit
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

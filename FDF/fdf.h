@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:59:07 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/24 19:54:18 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/26 20:06:57 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@ typedef struct s_map
 	int		y2;
 	int		z2;
 	int		color;
-
+	double	theta;
 	void	*img_ptr;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
 
+	int		shift;
 	void	*mlx_ptr;
 	void	*win_ptr;
 }			t_map;
@@ -64,5 +65,14 @@ int			get_color(int z);
 void		my_pixel_put(t_map *map);
 void		draw_line(int x, int y, t_map *map, int tmp);
 void		print_map(t_map *map);
+int			sign(int x);
+int			is_file_valid(char *path);
+int			create_argb(int a, int r, int g, int b);
+int			exit_win(t_map *map, int key);
+int			red_cross(t_map *map, int key);
+int			keycodes(t_map *map, int key);
+void		rotate_x(int *y, int *z, t_map *map);
+void		rotate_y(int *x, int *z, t_map *map);
+void		rotate_z(int *x, int *y, t_map *map);
 
 #endif

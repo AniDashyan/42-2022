@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 16:01:05 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/26 13:40:24 by adashyan         ###   ########.fr       */
+/*   Created: 2022/12/25 14:32:42 by adashyan          #+#    #+#             */
+/*   Updated: 2022/12/25 14:33:06 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	error(char *err_msg)
+int	sign(int x)
 {
-	perror(err_msg);
-	exit(1);
+	if (x > 0)
+		return (1);
+	else if (x < 0)
+		return (-1);
+	return (0);
 }

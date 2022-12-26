@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/24 16:31:10 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/24 19:33:07 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/26 14:40:18 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,9 @@ int	get_color(int z)
 	if (z < 0)
 		color = 0x0000ff;
 	return (color);
+}
+
+int	create_argb(int a, int r, int g, int b)
+{
+	return (a << 24 | r << 16 | g << 8 | b);
 }
