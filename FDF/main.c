@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 16:02:25 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/26 20:25:35 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/27 18:30:17 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,17 @@ void	print_map(t_map *map)
 	}
 }
 
-int	keycodes(t_map *map, int key)
+int	key_hook(int keycode, t_map *map)
 {
-	(void)map;
-	if (key == 53)
-	{
-		printf("%d\n", key);
-		// mlx_destroy_window(map->mlx_ptr, map->win_ptr);
-		// red_cross(map, key);
-	}
-	if (key == 7)
-		printf("%d\n", key);
-		// rotate_x(&map->y1, &map->z1, map);
-	else if (key == 16)
-		printf("%d\n", key);
-		// rotate_y(&map->y1, &map->z1, map);
-	else if (key == 6)
-		printf("%d\n", key);
-		// rotate_z(&map->x1, &map->y1, map);
+	if (keycode == ESC)
+		exit(0);
+	else if (keycode == UP_ARROW || keycode == DOWN_ARROW
+		|| keycode == RIGHT_ARROW || keycode == LEFT_ARROW)
+		move(map, keycode);
+	else if (keycode == PLUS || keycode == MINUS)
+		zoom(map, keycode);
+	// else if (keycode == X_KEY || keycode == Y_KEY || keycode == Z_KEY)
+	// 	rotate(map, keycode);
 	return (0);
 }
 
@@ -66,15 +59,16 @@ int	main(int argc, char **argv)
 		map->mlx_ptr = mlx_init();
 		map->win_ptr = mlx_new_window(map->mlx_ptr, WIN_WIDTH,
 				WIN_HEIGHT, "FDF");
-		// map->img_ptr = mlx_new_image(map->mlx_ptr, map->width, map->height);
+		map->img_ptr = mlx_new_image(map->mlx_ptr, map->width, map->height);
+		// map->img_ptr = mlx_new_image(map->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 		map->zoom = 30;
-		map->shift = WIN_WIDTH / 2;
-		// mlx_hook(map->win_ptr, 02, 1L << 0, exit_win, map);
-		mlx_hook(map->win_ptr, 17, 1L << 5, red_cross, map);
-		printf("barev\n");
- 		draw(map);
-		// mlx_hook(map->mlx_ptr, map->win_ptr, keycodes, &map);
-		mlx_hook(map->win_ptr, 2, 1L << 0, keycodes, map);
+		map->shift_x = WIN_WIDTH / 2;
+		map->shift_y = WIN_HEIGHT / 10;
+		map->theta = 0.5;
+		mlx_hook(map->win_ptr, 17, 1L << 17, red_cross, map);
+		draw(map);
+		mlx_key_hook(map->win_ptr, key_hook, map);
+		// mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img_ptr, 0, 0);
 		mlx_loop(map->mlx_ptr);
 	}
 	else

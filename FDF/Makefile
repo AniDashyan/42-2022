@@ -4,7 +4,6 @@ CFLAGS	= -Wall -Werror -Wextra -fsanitize=address
 RM		= rm -f
 
 SRCS	= $(wildcard *.c)
-
 OBJS	=	$(patsubst %.c, %.o, $(SRCS))
 
 

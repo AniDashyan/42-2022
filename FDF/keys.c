@@ -6,27 +6,43 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 18:12:46 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/26 20:19:15 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/27 16:51:24 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// int	keycodes(t_map *map, int key)
-// {
-// 	if (key == 53)
-// 	{
-// 		mlx_destroy_window(map->mlx_ptr, map->win_ptr);
-// 		red_cross(map, key);
-// 	}
-// 	else if (key == 7)
-// 		rotate_x(&map->y1, &map->z1, map);
-// 	else if (key == 16)
-// 		rotate_y(&map->y1, &map->z1, map);
-// 	else if (key == 6)
-// 		rotate_z(&map->x1, &map->y1, map);
-// 	return (0);
-// }
+void	move(t_map *map, int key)
+{
+	if (key == LEFT_ARROW)
+		map->shift_x -= 10;
+	else if (key == RIGHT_ARROW)
+		map->shift_x += 10;
+	else if (key == DOWN_ARROW)
+		map->shift_y += 10;
+	else if (key == UP_ARROW)
+		map->shift_y -= 10;
+	mlx_clear_window(map->mlx_ptr, map->win_ptr);
+	draw(map);
+}
+
+void	zoom(t_map *map, int key)
+{
+	if (key == PLUS)
+		map->zoom += 5;
+	if (key == MINUS)
+		map->zoom -= 5;
+	mlx_clear_window(map->mlx_ptr, map->win_ptr);
+	draw(map);
+}
+
+void	rotate(t_map *map, int key)
+{
+	if (key == X_KEY)
+		rotate_x(map);
+	mlx_clear_window(map->mlx_ptr, map->win_ptr);
+	draw(map);
+}
 
 int	red_cross(t_map *map, int key)
 {

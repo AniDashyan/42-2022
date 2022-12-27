@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 16:03:02 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/26 19:50:32 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/27 18:50:52 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	draw(t_map *map)
 		x = 0;
 		while (x < map->width)
 		{
+			get_color(map, x, y);
 			if (x < map->width - 1)
 				draw_line(x, y, map, 1);
 			if (y < map->height - 1)
@@ -45,5 +46,5 @@ void	draw(t_map *map)
 		}
 		y++;
 	}
-	// mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img_ptr, 0, 0);
+	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img_ptr, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 16:03:02 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/26 19:22:24 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/27 18:34:31 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ void	coords(t_map *map)
 	map->y1 *= map->zoom;
 	map->x2 *= map->zoom;
 	map->y2 *= map->zoom;
-	map->x1 += map->shift;
-	map->x2 += map->shift;
+	map->x1 += map->shift_x;
+	map->x2 += map->shift_x;
+	map->y1 += map->shift_y;
+	map->y2 += map->shift_y;
 }
 
 void	decider(t_map *map, int dx, int dy, int swap)
@@ -47,7 +49,7 @@ void	decider(t_map *map, int dx, int dy, int swap)
 	decision = 2 * dy - dx;
 	while (i < dx)
 	{
-		mlx_pixel_put(map->mlx_ptr, map->win_ptr, map->x1, map->y1, map->color);
+		my_pixel_put(map);
 		while (decision >= 0)
 		{
 			decision = decision - 2 * dx;
@@ -77,7 +79,6 @@ void	bresenham(t_map *map)
 	dx = abs(map->x2 - map->x1);
 	dy = abs(map->y2 - map->y1);
 	swap = 0;
-	map->color = get_color(map->z1);
 	if (dy > dx)
 	{
 		ft_swap(&dx, &dy);
