@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   hex_to_decimal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/26 13:23:58 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/28 22:14:44 by adashyan         ###   ########.fr       */
+/*   Created: 2022/12/28 20:41:34 by adashyan          #+#    #+#             */
+/*   Updated: 2022/12/28 21:14:15 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	is_file_valid(char *path)
+int	hex_to_decimal(char	*hex)
 {
-	char	**splitted_path;
-	int		i;
+	long long	decimal;
+	int			i;
+	int			val;
+	int			len;
 
-	splitted_path = ft_split(path, '.');
+	decimal = 0;
+	len = ft_strlen(hex);
+	len--;
 	i = 0;
-	if (!splitted_path)
-		error("Error: split has failed");
-	while (splitted_path[i] != 0)
+	while (hex[i] != '\0')
+	{
+		if (hex[i] >= '0' && hex[i] <= '9')
+			val = hex[i] - 48;
+		else if (hex[i] >= 'a' && hex[i] <= 'f')
+			val = hex[i] - 97 + 10;
+		else if (hex[i] >= 'A' && hex[i] <= 'F')
+			val = hex[i] - 65 + 10;
+		decimal += val * pow(16, len);
+		len--;
 		i++;
-	if (ft_strncmp(splitted_path[i - 1], "fdf", 4) == 0)
-		return (1);
-	free_str(splitted_path);
-	return (0);
+	}
+	return (decimal);
 }

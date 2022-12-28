@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 16:03:02 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/27 18:34:31 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/28 21:42:26 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,28 @@ void	isometric(t_map *map, int num)
 {
 	if (num == 1)
 	{
-		map->x1 = (map->x1 - map->y1) * cos(0.8);
-		map->y1 = (map->x1 + map->y1) * sin(0.8) - map->z1;
+		map->dot1.x = (map->dot1.x - map->dot1.y) * cos(0.8);
+		map->dot1.y = (map->dot1.x + map->dot1.y) * sin(0.8) - map->dot1.z;
 	}
 	else if (num == 2)
 	{
-		map->x2 = (map->x2 - map->y2) * cos(0.8);
-		map->y2 = (map->x2 + map->y2) * sin(0.8) - map->z2;
+		map->dot2.x = (map->dot2.x - map->dot2.y) * cos(0.8);
+		map->dot2.y = (map->dot2.x + map->dot2.y) * sin(0.8) - map->dot2.z;
 	}
 }
 
 void	coords(t_map *map)
 {
-	map->z1 = map->z_matrix[map->y1][map->x1];
-	map->z2 = map->z_matrix[map->y2][map->x2];
-	map->x1 *= map->zoom;
-	map->y1 *= map->zoom;
-	map->x2 *= map->zoom;
-	map->y2 *= map->zoom;
-	map->x1 += map->shift_x;
-	map->x2 += map->shift_x;
-	map->y1 += map->shift_y;
-	map->y2 += map->shift_y;
+	map->dot1.z = map->z_matrix[map->dot1.y][map->dot1.x];
+	map->dot2.z = map->z_matrix[map->dot2.y][map->dot2.x];
+	map->dot1.x *= map->zoom;
+	map->dot1.y *= map->zoom;
+	map->dot2.x *= map->zoom;
+	map->dot2.y *= map->zoom;
+	map->dot1.x += map->shift_x;
+	map->dot2.x += map->shift_x;
+	map->dot1.y += map->shift_y;
+	map->dot2.y += map->shift_y;
 }
 
 void	decider(t_map *map, int dx, int dy, int swap)
@@ -49,20 +49,21 @@ void	decider(t_map *map, int dx, int dy, int swap)
 	decision = 2 * dy - dx;
 	while (i < dx)
 	{
-		my_pixel_put(map);
+		img_pix_put(map);
+		set_color(map);
 		while (decision >= 0)
 		{
 			decision = decision - 2 * dx;
 			if (swap)
-				map->x1 += sign(map->x2 - map->x1);
+				map->dot1.x += sign(map->dot2.x - map->dot1.x);
 			else
-				map->y1 += sign(map->y2 - map->y1);
+				map->dot1.y += sign(map->dot2.y - map->dot1.y);
 		}
 		decision = decision + 2 * dy;
 		if (swap)
-			map->y1 += sign(map->y2 - map->y1);
+			map->dot1.y += sign(map->dot2.y - map->dot1.y);
 		else
-			map->x1 += sign(map->x2 - map->x1);
+			map->dot1.x += sign(map->dot2.x - map->dot1.x);
 		i++;
 	}
 }
@@ -76,8 +77,8 @@ void	bresenham(t_map *map)
 	coords(map);
 	isometric(map, 1);
 	isometric(map, 2);
-	dx = abs(map->x2 - map->x1);
-	dy = abs(map->y2 - map->y1);
+	dx = abs(map->dot2.x - map->dot1.x);
+	dy = abs(map->dot2.y - map->dot1.y);
 	swap = 0;
 	if (dy > dx)
 	{

@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 16:00:11 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/27 18:43:43 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/28 22:08:38 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	fill_map(t_map *map, int fd)
 		{
 			num = num_color_split(str[j]);
 			map->z_matrix[i][j] = ft_atoi(num[0]);
-			map->color[i][j] = num[1];
+			// if (num[1])
+			// 	map->color[i][j] = hex_to_decimal(num[1]);
 			j++;
 		}
 		free_str(num);

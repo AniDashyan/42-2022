@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 18:12:46 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/27 16:51:24 by adashyan         ###   ########.fr       */
+/*   Updated: 2022/12/28 22:03:41 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	move(t_map *map, int key)
 		map->shift_y += 10;
 	else if (key == UP_ARROW)
 		map->shift_y -= 10;
-	mlx_clear_window(map->mlx_ptr, map->win_ptr);
-	draw(map);
 }
 
 void	zoom(t_map *map, int key)
@@ -32,16 +30,18 @@ void	zoom(t_map *map, int key)
 		map->zoom += 5;
 	if (key == MINUS)
 		map->zoom -= 5;
-	mlx_clear_window(map->mlx_ptr, map->win_ptr);
-	draw(map);
 }
 
 void	rotate(t_map *map, int key)
 {
 	if (key == X_KEY)
-		rotate_x(map);
-	mlx_clear_window(map->mlx_ptr, map->win_ptr);
-	draw(map);
+	{
+		rotate_x(map, &map->dot1.y, &map->dot1.z);
+	}
+	if (key == Y_KEY)
+	{
+		rotate_y(map, &map->dot1.x, &map->dot1.z);
+	}
 }
 
 int	red_cross(t_map *map, int key)
