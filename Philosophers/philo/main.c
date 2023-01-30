@@ -6,7 +6,7 @@
 /*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:48:18 by adashyan          #+#    #+#             */
-/*   Updated: 2023/01/14 17:59:14 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/01/30 21:25:12 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 int	main(int argc, char **argv)
 {
-	int		i;
-	t_philo	*philo;
+	t_philo	        *philo;
+    pthread_mutex_t *forks;
 
 	if ((argc == 5 || argc == 6) && check_arg(argv, argc) == 1)
 	{
-		i = 1;
-		philo = malloc(sizeof(t_philo));
-		if (!philo)
+		// philo->number_of_philos = ft_atoi(argv[1]);
+		philo = malloc(sizeof(t_philo) * ft_atoi(argv[1]));
+        forks = malloc(sizeof(pthread_mutex_t) * ft_atoi(argv[1]));
+		if (!philo || !forks)
 			error("Error: Can't allocate memory!\n");
-		fill_args(philo, argv, argc);
-		print_philo(philo, argc);
+		init_philo(philo, forks, argv, argc);
+		// print_philo(philo, argc);
 	}
 	else
 		error("Not enough arguments!\n");
