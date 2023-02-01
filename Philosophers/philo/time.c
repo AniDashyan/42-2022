@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/24 20:46:00 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/01 12:15:43 by tumolabs         ###   ########.fr       */
+/*   Created: 2023/02/01 12:46:43 by tumolabs          #+#    #+#             */
+/*   Updated: 2023/02/01 13:27:54 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_isspace(char c)
+long	get_time(void)
 {
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	return (0);
+	struct timeval	tv;
+	long			time;
+
+	gettimeofday(&tv, NULL);
+	time = ((tv.tv_sec * 1000) + tv.tv_usec / 1000);
+	return (time);
 }
 
-int	ft_isdigit(int c)
-{	
-	if (c >= '0' && c <= '9')
-		return (c);
-	return (0);
+void ft_usleep(int useconds) 
+{
+    struct timespec req = {0};
+    
+    req.tv_sec = (time_t)(useconds / 1000000);
+    req.tv_nsec = (long)(useconds % 1000000) * 1000;
+    nanosleep(&req, (struct timespec *)NULL);
 }
