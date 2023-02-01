@@ -6,7 +6,7 @@
 /*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:46:50 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/01 14:45:37 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:07:14 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@
 # include <stdio.h>
 # include <sys/time.h>
 
-/* typedef struct s_data
+/* 
+typedef struct s_data
 {
 	int					number_of_philos;
 	int					time_to_die;
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					number_of_times_each_philo_must_eat;
-}	t_data; */
+}	t_data; 
+*/
 
 typedef struct s_philo
 {

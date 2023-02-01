@@ -6,7 +6,7 @@
 /*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 11:39:50 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/02/01 15:19:17 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/02/01 16:08:11 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	eat(t_philo *philo, long time)
 	pthread_mutex_lock(philo->right_fork);
 	printf("[%ld]: philo %d has taken the right fork🍴\n", get_time() - time, philo->philo_id);
 	philo->last_eat = get_time();
+	philo->eat_count += 1;
 	printf("[%ld]: philo %d is eating🍝\n", get_time() - time, philo->philo_id);
 	ft_usleep(philo->time_to_eat * 1000);
 	pthread_mutex_unlock(philo->left_fork);
@@ -30,7 +31,8 @@ void	eat(t_philo *philo, long time)
 
 int	check_death(t_philo *philo)
 {
-	printf("philo %d is dead😵\n");
+	if (philo->last_eat - philo->start_time >= philo->time_to_die)
+		printf("philo %d is dead😵\n");
 	return ;
 }
 
