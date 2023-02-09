@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 12:46:43 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/02/01 13:27:54 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/02/09 20:42:25 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,4 @@ long	get_time(void)
 	gettimeofday(&tv, NULL);
 	time = ((tv.tv_sec * 1000) + tv.tv_usec / 1000);
 	return (time);
-}
-
-void ft_usleep(int useconds) 
-{
-    struct timespec req = {0};
-    
-    req.tv_sec = (time_t)(useconds / 1000000);
-    req.tv_nsec = (long)(useconds % 1000000) * 1000;
-    nanosleep(&req, (struct timespec *)NULL);
 }

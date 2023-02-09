@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:48:18 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/01 14:53:30 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/02/09 20:38:27 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,14 @@ int	main(int argc, char **argv)
 			i = 0;
 			while (i < philo->number_of_philos)
 			{
+				if (check_death(philo))
+				{
+					printf("blah blah blah");
+					return (1);
+				}
 				i++;
 			}
 		}
-		
 	}
 	else
 		error("Not enough arguments!\n");

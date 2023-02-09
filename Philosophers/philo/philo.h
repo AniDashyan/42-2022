@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:46:50 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/01 16:07:14 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/02/09 20:37:48 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct s_philo
 	long long			start_time;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
-	// t_data				data;
 }	t_philo;
 
 void	error(char *msg);
@@ -58,7 +57,8 @@ void	init_philo(t_philo *philo, pthread_mutex_t *forks,
 			char **argv, int argc);
 void	*routine(t_philo *philo);
 long	get_time(void);
-void 	ft_usleep(int useconds);
+void	ft_usleep(int useconds);
 void	init_fork(t_philo *philo, pthread_mutex_t *forks);
+int		check_death(t_philo *philo);
 
 #endif
