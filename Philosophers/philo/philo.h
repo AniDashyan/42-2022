@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 15:46:50 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/09 20:37:48 by adashyan         ###   ########.fr       */
+/*   Created: 2023/02/10 14:47:49 by adashyan          #+#    #+#             */
+/*   Updated: 2023/02/10 20:43:56 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ typedef struct s_philo
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					number_of_times_each_philo_must_eat;
-	int					philo_id;
+	int					index;
 	int					eat_count;
-	long long			last_eat;
-	long long			start_time;
+	long				last_eat;
+	long				start_time;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
 }	t_philo;
@@ -55,10 +55,13 @@ void	print_philo(t_philo *philo, int argc);
 void	init_data(t_philo *philo, char **argv, int argc, int *i);
 void	init_philo(t_philo *philo, pthread_mutex_t *forks,
 			char **argv, int argc);
+void	init_fork(pthread_mutex_t *forks, char **argv);
 void	*routine(t_philo *philo);
 long	get_time(void);
 void	ft_usleep(int useconds);
-void	init_fork(t_philo *philo, pthread_mutex_t *forks);
+void	ft_putstr_fd(char *s, int fd);
+int		ft_strlen(char *s);
 int		check_death(t_philo *philo);
+void	free_philo(t_philo *philo, pthread_mutex_t *forks);
 
 #endif

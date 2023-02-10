@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 15:56:22 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/09 20:25:11 by adashyan         ###   ########.fr       */
+/*   Created: 2023/02/10 14:47:58 by adashyan          #+#    #+#             */
+/*   Updated: 2023/02/10 20:50:22 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	init_data(t_philo *philo, char **argv, int argc, int *i)
 	philo[*i].time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		philo[*i].number_of_times_each_philo_must_eat = ft_atoi(argv[5]);
+	else
+		philo[*i].number_of_times_each_philo_must_eat = -1;
 }
 
 void	init_philo(t_philo *philo, pthread_mutex_t *forks,
@@ -31,22 +33,24 @@ void	init_philo(t_philo *philo, pthread_mutex_t *forks,
 	while (++i < ft_atoi(argv[1]))
 	{
 		init_data(philo, argv, argc, &i);
-		philo[i].philo_id = i + 1;
+		philo[i].index = i + 1;
 		philo[i].eat_count = 0;
 		philo[i].right_fork = &forks[i];
 		philo[i].left_fork = &(forks[(i + 1) % philo[i].number_of_philos]);
 		philo[i].start_time = get_time();
-		pthread_create(&philo[i].id, NULL, (void *)routine, &philo[i]);
-		pthread_detach(philo[i].id);
+		if (pthread_create(&philo[i].id, NULL, (void *)routine, &philo[i]) != 0)
+			error("Error: Can't create thread\n");
+		if (pthread_detach(philo[i].id) != 0)
+			error("Error: Can't detach thread\n");
 	}
 }
 
-void	init_fork(t_philo *philo, pthread_mutex_t *forks)
+void	init_fork(pthread_mutex_t *forks, char **argv)
 {
 	int	i;
 
 	i = 0;
-	while (i < philo->number_of_philos)
+	while (i < ft_atoi(argv[1]))
 	{
 		if (pthread_mutex_init(&forks[i], NULL) != 0)
 			error("Error: Can't create mutex");

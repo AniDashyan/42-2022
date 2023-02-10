@@ -5,32 +5,44 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/01 11:39:50 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/02/09 20:37:17 by adashyan         ###   ########.fr       */
+/*   Created: 2023/02/10 14:47:41 by adashyan          #+#    #+#             */
+/*   Updated: 2023/02/10 20:47:51 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	eat(t_philo *philo, long *time)
+void	eat(t_philo *philo, long *tm)
 {
-	pthread_mutex_lock(philo->left_fork);
+	if (pthread_mutex_lock(philo->left_fork) != 0)
+		error("Error: locking left fork mutex\n");
 	printf("[%ld]: philo %d has taken the left fork🍴\n",
-		get_time() - *time, philo->philo_id);
-	pthread_mutex_lock(philo->right_fork);
+		get_time() - *tm, philo->index);
+	if (pthread_mutex_lock(philo->right_fork) != 0)
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		error("Error locking right fork mutex\n");
+	}
 	printf("[%ld]: philo %d has taken the right fork🍴\n",
-		get_time() - *time, philo->philo_id);
-	printf("[%ld]: philo %d is eating🍝\n", get_time() - *time, philo->philo_id);
+		get_time() - *tm, philo->index);
+	printf("[%ld]: philo %d is eating🍝\n", get_time() - *tm, philo->index);
 	philo->last_eat = get_time();
-	philo->eat_count += 1;
 	usleep(philo->time_to_eat * 1000);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
+	if (pthread_mutex_unlock(philo->left_fork) != 0)
+	{
+		pthread_mutex_unlock(philo->right_fork);
+		error("Error unlocking left fork mutex\n");
+	}
+	printf("[%ld]: philo %d has dropped the left fork🍴\n",
+		get_time() - *tm, philo->index);
+	if (pthread_mutex_unlock(philo->right_fork) != 0)
+		error("Error unlocking right fork mutex\n");
+	printf("[%ld]: philo %d has dropped the right fork🍴\n",
+		get_time() - *tm, philo->index);
 	printf("[%ld]: philo %d is sleeping😴\n",
-		get_time() - *time, philo->philo_id);
+		get_time() - *tm, philo->index);
 	usleep(philo->time_to_sleep * 1000);
-	printf("[%ld]: philo %d is thinking🤔\n",
-		get_time() - *time, philo->philo_id);
+	printf("[%ld]: philo %d is thinking\n", get_time() - *tm, philo->index);
 }
 
 int	check_death(t_philo *philo)
@@ -40,7 +52,8 @@ int	check_death(t_philo *philo)
 	time = get_time();
 	if (time - philo->last_eat >= philo->time_to_die)
 	{
-		printf("philo %d is dead😵\n", philo->philo_id);
+		printf("[%ld]: philo %d is dead😵\n",
+			time - philo->last_eat, philo->index);
 		return (1);
 	}
 	return (0);
@@ -51,8 +64,8 @@ void	*routine(t_philo *philo)
 	long	time;
 
 	time = get_time();
-	if (philo->philo_id % 2 == 0)
-		usleep(1000);
+	if (philo->index % 2 == 0)
+		usleep(philo->time_to_eat * 1000);
 	while (1)
 	{
 		eat(philo, &time);

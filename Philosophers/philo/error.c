@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 15:49:06 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/01 12:12:40 by tumolabs         ###   ########.fr       */
+/*   Created: 2023/02/10 14:48:20 by adashyan          #+#    #+#             */
+/*   Updated: 2023/02/10 20:36:19 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	error(char *msg)
 {	
-	printf("%s", msg);
+	ft_putstr_fd(msg, 2);
 	return ;
 }

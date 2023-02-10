@@ -1,42 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 14:48:15 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/10 14:48:16 by adashyan         ###   ########.fr       */
+/*   Created: 2023/02/10 15:53:19 by adashyan          #+#    #+#             */
+/*   Updated: 2023/02/10 16:01:45 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(const char *str)
+void	free_philo(t_philo *philo, pthread_mutex_t *forks)
 {
-	int			i;
-	int			sign;
-	long		num;
+	int	i;
 
 	i = 0;
-	sign = 1;
-	num = 0;
-	while (str[i] && ft_isspace(str[i]))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	while (i < philo->number_of_philos)
 	{
-		if (str[i] == '-')
-			sign = -1;
+		pthread_mutex_destroy(&forks[i]);
 		i++;
 	}
-	while (str[i] && ft_isdigit(str[i]))
-	{
-		num = (num * 10) + (str[i] - '0');
-		if (num * sign > 2147483647)
-			return (-1);
-		else if (num * sign < -2147483648)
-			return (0);
-		i++;
-	}
-	return (num * sign);
+	free(philo);
+	free(forks);
+	printf("I'm free!!!\n");
 }

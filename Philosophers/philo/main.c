@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:48:18 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/09 20:38:27 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/02/10 20:46:38 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 		forks = malloc(sizeof(pthread_mutex_t) * ft_atoi(argv[1]));
 		if (!philo || !forks)
 			error("Error: Can't allocate memory!\n");
-		init_fork(philo, forks);
+		init_fork(forks, argv);
 		init_philo(philo, forks, argv, argc);
 		while (1)
 		{
@@ -32,10 +32,7 @@ int	main(int argc, char **argv)
 			while (i < philo->number_of_philos)
 			{
 				if (check_death(philo))
-				{
-					printf("blah blah blah");
 					return (1);
-				}
 				i++;
 			}
 		}
