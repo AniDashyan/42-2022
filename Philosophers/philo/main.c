@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:48:18 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/10 20:46:38 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/02/13 18:19:44 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,11 @@ int	main(int argc, char **argv)
 		init_philo(philo, forks, argv, argc);
 		while (1)
 		{
-			i = 0;
-			while (i < philo->number_of_philos)
+			i = -1;
+			while (++i < philo->number_of_philos)
 			{
-				if (check_death(philo))
+				if (is_dead(&philo[i]) == 1)
 					return (1);
-				i++;
 			}
 		}
 	}
@@ -42,7 +41,8 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-/* typedef	struct s_mut
+/* 
+typedef	struct s_mut
 {
 	pthread_mutex_t	*mutex;
 	int	*cnt;
@@ -82,4 +82,4 @@ int main()
 	pthread_join(thread2, NULL);
 	printf("*t.cnt: %d\n", *t.cnt);
 }
- */
+*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 14:47:58 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/10 20:50:22 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:41:17 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_philo(t_philo *philo, pthread_mutex_t *forks,
 		init_data(philo, argv, argc, &i);
 		philo[i].index = i + 1;
 		philo[i].eat_count = 0;
+		philo[i].last_eat = get_time();
 		philo[i].right_fork = &forks[i];
 		philo[i].left_fork = &(forks[(i + 1) % philo[i].number_of_philos]);
 		philo[i].start_time = get_time();
@@ -58,7 +59,7 @@ void	init_fork(pthread_mutex_t *forks, char **argv)
 	}
 }
 
-void	print_philo(t_philo *philo, int argc)
+/* void	print_philo(t_philo *philo, int argc)
 {
 	printf("number_of_philos-> %d\n", philo->number_of_philos);
 	printf("time_to_die-> %d\n", philo->time_to_die);
@@ -67,4 +68,5 @@ void	print_philo(t_philo *philo, int argc)
 	if (argc == 6)
 		printf("number_of_times_each_philo_must_eat-> %d\n",
 			philo->number_of_times_each_philo_must_eat);
-}
+} 
+*/

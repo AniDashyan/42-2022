@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 14:47:49 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/10 20:43:56 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/02/13 17:47:52 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void	init_philo(t_philo *philo, pthread_mutex_t *forks,
 void	init_fork(pthread_mutex_t *forks, char **argv);
 void	*routine(t_philo *philo);
 long	get_time(void);
-void	ft_usleep(int useconds);
+void	ft_usleep(long ms);
 void	ft_putstr_fd(char *s, int fd);
 int		ft_strlen(char *s);
-int		check_death(t_philo *philo);
+int		is_dead(t_philo *philo);
 void	free_philo(t_philo *philo, pthread_mutex_t *forks);
 
 #endif
