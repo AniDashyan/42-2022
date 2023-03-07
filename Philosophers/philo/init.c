@@ -3,70 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 14:47:58 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/13 17:41:17 by tumolabs         ###   ########.fr       */
+/*   Created: 2023/02/27 06:46:04 by adashyan          #+#    #+#             */
+/*   Updated: 2023/02/27 16:35:48 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_data(t_philo *philo, char **argv, int argc, int *i)
+void	eating(t_philo *p)
 {
-	philo[*i].number_of_philos = ft_atoi(argv[1]);
-	philo[*i].time_to_die = ft_atoi(argv[2]);
-	philo[*i].time_to_eat = ft_atoi(argv[3]);
-	philo[*i].time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		philo[*i].number_of_times_each_philo_must_eat = ft_atoi(argv[5]);
-	else
-		philo[*i].number_of_times_each_philo_must_eat = -1;
+	pthread_mutex_lock(p->left_fork);
+	print(p, LEFT, WHITE);
+	pthread_mutex_lock(p->right_fork);
+	print(p, RIGHT, WHITE);
+	print(p, EAT, ORANGE);
+	ft_usleep((long)p->data->time_to_eat);
+	pthread_mutex_lock(&p->data->l_eat_lock);
+	p->last_eat = get_time();
+	pthread_mutex_unlock(&p->data->l_eat_lock);
+	pthread_mutex_unlock(p->left_fork);
+	pthread_mutex_unlock(p->right_fork);
 }
 
-void	init_philo(t_philo *philo, pthread_mutex_t *forks,
-	char **argv, int argc)
+void	*philo(void *arg)
 {
-	int				i;
+	t_philo	*p;
 
-	i = -1;
-	while (++i < ft_atoi(argv[1]))
+	p = arg;
+	if (p->index % 2 != 0)
+		usleep(15000);
+	while (1)
 	{
-		init_data(philo, argv, argc, &i);
-		philo[i].index = i + 1;
-		philo[i].eat_count = 0;
-		philo[i].last_eat = get_time();
-		philo[i].right_fork = &forks[i];
-		philo[i].left_fork = &(forks[(i + 1) % philo[i].number_of_philos]);
-		philo[i].start_time = get_time();
-		if (pthread_create(&philo[i].id, NULL, (void *)routine, &philo[i]) != 0)
-			error("Error: Can't create thread\n");
-		if (pthread_detach(philo[i].id) != 0)
-			error("Error: Can't detach thread\n");
+		eating(p);
+		if (p->last != -1)
+			p->last--;
+		if (p->last == 0)
+			break ;
+		print(p, SLEEP, BLUE);
+		ft_usleep((long)p->data->time_to_sleep);
+		print(p, THINK, GREEN);
 	}
+	return (0);
 }
 
-void	init_fork(pthread_mutex_t *forks, char **argv)
+int	init(t_main *main, int argc, char **argv)
+{
+	main->data.num_philo = ft_atoi(argv[1]);
+	if (main->data.num_philo > 0)
+	{
+		main->p = (t_philo *)malloc(sizeof(t_philo) * main->data.num_philo);
+		main->forks = (t_mutex *)malloc(sizeof(t_mutex)
+				* main->data.num_philo);
+	}
+	if (!main->p || !main->forks)
+	{
+		error(ERR_MALLOC);
+		return (1);
+	}
+	init_mutexes(main);
+	main->data.time_to_die = ft_atoi(argv[2]);
+	main->data.time_to_eat = ft_atoi(argv[3]);
+	main->data.time_to_sleep = ft_atoi(argv[4]);
+	if (argc == 6)
+		main->data.num_must_eat = ft_atoi(argv[5]);
+	else
+		main->data.num_must_eat = -1;
+	return (0);
+}
+
+void	create_thread(t_main *main)
 {
 	int	i;
 
-	i = 0;
-	while (i < ft_atoi(argv[1]))
+	i = -1;
+	while (++i < main->data.num_philo)
 	{
-		if (pthread_mutex_init(&forks[i], NULL) != 0)
-			error("Error: Can't create mutex");
-		i++;
+		main->p[i].data = &main->data;
+		pthread_mutex_lock(&main->p->data->l_eat_lock);
+		main->p[i].last_eat = get_time();
+		pthread_mutex_unlock(&main->p->data->l_eat_lock);
+		main->p[i].index = i + 1;
+		main->p[i].last = main->data.num_must_eat;
+		main->p[i].right_fork = &main->forks[i];
+		main->p[i].left_fork = &main->forks[i - 1];
+		main->p[0].left_fork = &main->forks[main->data.num_philo - 1];
+	}
+	main->p->data->start_time = get_time();
+	main->p->data->cur_time = main->p->data->start_time;
+	i = -1;
+	while (++i < main->data.num_philo)
+	{
+		pthread_create(&main->p[i].pid, NULL, &philo, &main->p[i]);
 	}
 }
-
-/* void	print_philo(t_philo *philo, int argc)
-{
-	printf("number_of_philos-> %d\n", philo->number_of_philos);
-	printf("time_to_die-> %d\n", philo->time_to_die);
-	printf("time_to_eat-> %d\n", philo->time_to_eat);
-	printf("time_to_sleep-> %d\n", philo->time_to_sleep);
-	if (argc == 6)
-		printf("number_of_times_each_philo_must_eat-> %d\n",
-			philo->number_of_times_each_philo_must_eat);
-} 
-*/

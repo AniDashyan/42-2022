@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 14:48:27 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/10 14:48:28 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/02/27 16:48:35 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,20 @@ int	check_arg(char **argv, int argc)
 		i++;
 	}
 	return (1);
+}
+
+int	init_mutexes(t_main *main)
+{
+	int	i;
+
+	i = 0;
+	while (i < main->data.num_philo)
+	{
+		pthread_mutex_init(&main->forks[i], NULL);
+		i++;
+	}
+	pthread_mutex_init(&main->data.print_lock, NULL);
+	pthread_mutex_init(&main->data.l_eat_lock, NULL);
+	pthread_mutex_init(&main->data.death_lock, NULL);
+	return (0);
 }

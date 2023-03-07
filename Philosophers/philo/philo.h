@@ -3,65 +3,122 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 14:47:49 by adashyan          #+#    #+#             */
-/*   Updated: 2023/02/13 17:47:52 by tumolabs         ###   ########.fr       */
+/*   Created: 2023/02/27 06:36:57 by adashyan          #+#    #+#             */
+/*   Updated: 2023/02/27 16:48:42 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <pthread.h>
-# include <stdio.h>
-# include <sys/time.h>
+/* Used libraries */
+# include <unistd.h> /* usleep(), write() */
+# include <stdlib.h> /* malloc() */
+# include <pthread.h> /* pthread_*(), mutex */
+# include <stdio.h> /* printf() */
+# include <sys/time.h> /* gettimeofday() */
+/* -------------- */
 
-/* 
+/*--------------- Constants ----------------*/
+
+/* Actions */
+# define LEFT "has taken the left fork🍴"
+# define RIGHT "has taken the right fork🍴"
+# define EAT "is eating🍝"
+# define SLEEP "is sleeping😴"
+# define THINK "is thinking🤔"
+# define DEATH "is dead😵"
+/* ------ */
+
+/* Colours */
+# define RED "\033[1;31m"
+# define BLUE "\033[34m"
+# define ORANGE "\033[38;5;208m"
+# define GREEN "\033[32m"
+# define WHITE "\033[0m"
+/* ------- */
+
+/* Errors */
+# define ERR_MALLOC "Error: Could't allocate memory\n"
+# define ERR_ARG "Error: Invalid arguments!\n"
+/* ----- */
+
+/* ------------------------------------------ */
+
+/* --------------- Philo structs ---------------- */
+
+typedef pthread_mutex_t		t_mutex;
+
 typedef struct s_data
 {
-	int					number_of_philos;
-	int					time_to_die;
-	int					time_to_eat;
-	int					time_to_sleep;
-	int					number_of_times_each_philo_must_eat;
-}	t_data; 
-*/
+	int				num_philo;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				time_to_die;
+	int				num_must_eat;
+	long			start_time;
+	long			cur_time;
+	t_mutex			print_lock;
+	t_mutex			l_eat_lock;
+	t_mutex			death_lock;
+}					t_data;
 
 typedef struct s_philo
 {
-	pthread_t			id;
-	int					number_of_philos;
-	int					time_to_die;
-	int					time_to_eat;
-	int					time_to_sleep;
-	int					number_of_times_each_philo_must_eat;
-	int					index;
-	int					eat_count;
-	long				last_eat;
-	long				start_time;
-	pthread_mutex_t		*left_fork;
-	pthread_mutex_t		*right_fork;
-}	t_philo;
+	int				index;
+	int				last;
+	double			last_eat;
+	pthread_t		pid;
+	t_mutex			*right_fork;
+	t_mutex			*left_fork;
+	t_data			*data;
+}					t_philo;
 
-void	error(char *msg);
-int		check_arg(char **argv, int argc);
-int		ft_atoi(const char *str);
-int		ft_isdigit(int c);
-int		ft_isspace(char c);
-void	print_philo(t_philo *philo, int argc);
-void	init_data(t_philo *philo, char **argv, int argc, int *i);
-void	init_philo(t_philo *philo, pthread_mutex_t *forks,
-			char **argv, int argc);
-void	init_fork(pthread_mutex_t *forks, char **argv);
-void	*routine(t_philo *philo);
-long	get_time(void);
-void	ft_usleep(long ms);
-void	ft_putstr_fd(char *s, int fd);
-int		ft_strlen(char *s);
-int		is_dead(t_philo *philo);
-void	free_philo(t_philo *philo, pthread_mutex_t *forks);
+typedef struct s_main
+{
+	t_mutex			*forks;
+	t_philo			*p;
+	t_data			data;
+}					t_main;
 
+/* ---------------------------------------------- */
+
+/* --------------- Functions ---------------- */
+
+/* Argument parsing --- args_validation.c */
+int			ft_atoi(const char *str);
+int			check_arg(char **v, int c);
+/* -------------------------------------- */
+
+/* utils --- ft_utils.c */
+void		ft_putstr_fd(char *s, int fd);
+int			ft_strlen(char *s);
+int			ft_isspace(char c);
+int			ft_isdigit(int c);
+
+/* Init --- init.c */
+int			init_mutexes(t_main *main);
+int			init(t_main *main, int argc, char **argv);
+void		create_thread(t_main *main);
+/* --------------- */
+
+/* time management --- time.c */
+void		ft_usleep(long ms);
+long double	get_time(void);
+/* -------------------------- */
+
+/* Error handling --- error.c */
+void		error(char *msg);
+/* -------------------------- */
+
+/* death check --- death.c */
+int			check_death(t_philo *p);
+int			death_cond(t_main *main);
+/* ----------------------- */
+
+/* print */
+void		print(t_philo *p, char *str, char *col);
+/*-------------------------------------------*/
 #endif
