@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 16:02:25 by adashyan          #+#    #+#             */
-/*   Updated: 2022/12/28 22:05:56 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:45:45 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	key_hook(int keycode, t_map *map)
 		zoom(map, keycode);
 	if (keycode == X_KEY || keycode == Y_KEY)
 		rotate(map, keycode);
-	// mlx_destroy_image(map->mlx_ptr, map->img.img_ptr);
 	draw(map);
 	return (0);
 }
