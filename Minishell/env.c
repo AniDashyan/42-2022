@@ -40,6 +40,7 @@ void print_list_head_env(t_env *head_env)
 	}
 	// printf("HEEELOO\n");
 }
+
 void send_env(t_data *data)
 {
 	t_env	*head;
@@ -56,8 +57,8 @@ void send_env(t_data *data)
 		str1 = ft_strjoin(str1,str);
 		head = head->next;
 	}
-printf("str1=%s\n", str1);
-data->env = ft_split(str1, ' ');
+	printf("str1=%s\n", str1);
+	data->env = ft_split(str1, ' ');
 }
 
 void print_env(t_data *data)
@@ -68,5 +69,4 @@ void print_env(t_data *data)
 		printf("data.env = %s\n", data->env[i]);
 		i++;
 	}	
-
 }

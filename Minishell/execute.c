@@ -38,6 +38,7 @@ int lsh_launch(t_data *data)
 		// printf("hello%d, %s\n", i, args[i]);
 		i++;
 	}
+	dup2(data->fd_herdoc, 0);
 	if(execve(access_path(data), args, data->env)== -1)
 		perror("Could not execve");
 	return (1);

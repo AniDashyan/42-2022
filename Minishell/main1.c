@@ -19,7 +19,7 @@ t_redirect	*redirect_test(t_pipe *pipe) ;
 } */
 void pipe_in_out(int i,t_data *data,int count)
 {
-	if (i == 0)
+	/* if (i == 0)
 	{
 		close(data->pipe->fd[i][0]);
 		dup2(data->pipe->fd[i][1], STDOUT_FILENO);
@@ -28,7 +28,7 @@ void pipe_in_out(int i,t_data *data,int count)
 	else if (i > 0 && i < count)
 	{
 		close(data->pipe->fd[i - 1][0]);
-		dup2(data->pipe->fd[i - 1][1], STDIN_FILENO);
+		dup2(data->pipe->fd[i - 1][0], STDIN_FILENO);
 		close(data->pipe->fd[i - 1][1]);
 		close(data->pipe->fd[i][0]);
 		dup2(data->pipe->fd[i][1], STDOUT_FILENO);
@@ -40,6 +40,7 @@ void pipe_in_out(int i,t_data *data,int count)
 		dup2(data->pipe->fd[i - 1][0], STDIN_FILENO);
 		close(data->pipe->fd[i - 1][0]);
 	}
+ */
 	lsh_launch(data);
 	exit(0);
 }
@@ -91,8 +92,11 @@ int main(int ac,  char **av,  char **env)
 		if (*ptr)
 			add_history(ptr);
 		split_readline(ptr,/*  data.pipe, */ &data);
+		heredoc(ptr,&data);
 		pipe_exec(&data);
-		heredoc(ptr);	
+		
+		// append_redir(ptr);
+			
 		// print_list_head_env(data.head_env);	
 		// print_env(&data);
 	}
