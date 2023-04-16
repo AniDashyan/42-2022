@@ -1,53 +1,63 @@
-RED="\033[1;31m"
-GREEN='\033[3;32m'
-NONE='\033[0m'
-
 NAME = minishell
 
 CC = cc
 
-CFLAGS =  -I./readline_sona/include  -fsanitize=address -g  -ggdb3  #-Wall -Werror -Wextra 
+CFLAGS = -Wall -Wextra -Werror
 
-SRCS = $(wildcard *.c) 
+SRCS = $(wildcard ./src/*.c)
 
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 
-INCLUDES = -Ilibft  -I./include
+INCLUDES = -Ilibft -I./include
 
-LINKERS	= -L./libft  -L./readline_sona/lib -lreadline
+LINKERS	= -L./libft -lreadline
 
-LINKERLIB = ./libft/libft.a
+LINKERLIBFT = ./libft/libft.a
 
 LIBFT = ./libft
 
+LINKERLIBFTPRINTF = ./ft_printf/libftprintf.a
+
+FTPRINTF = ./ft_printf
+
+HEADER = $(wildcard ./src/*.h)
+
 RM = rm -f
 
-RD =  $(shell find ${HOME} -name readline_sona 2>/dev/null)
+RD = $(PWD)/readline-amalia
 
-LINKERS	= -lreadline
+ifeq ($(HOME), /Users/adashyan)
+LINKERS	+= -L./readline-amalia/lib
+INCLUDES += -I$(PWD)/readline-amalia/include
+# else
+# INCLUDES += -I$(PWD)/readline-sona/include
+# LINKERS	+= -L./readline_sona/lib
+endif
 
+%.o: %.c ${HEADER} Makefile
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-%.o: %.c
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-# all: readline $(NAME) 
-all: $(NAME) 
+all: $(NAME)
 	
-$(NAME): $(OBJS)
-	@$(MAKE) -C $(LIBFT)
-	@cp $(LINKERLIB) $(NAME)
-	@ar -rcs $(NAME) $(OBJS)
-	@$(CC) $(CFLAGS) $(LINKERS) $(INCLUDES) $(NAME) -o $(NAME)
-	@echo $(NONE) $(GREEN)"       >Compiled< $(NAME)" $(NONE)
+$(NAME): $(OBJS) $(LINKERLIBFT) $(LINKERLIBFTPRINTF)
+	$(CC) $(CFLAGS) $(LINKERS) $(LINKERLIBFT) $(LINKERLIBFTPRINTF) $(INCLUDES) $(OBJS) -o $(NAME)
+
+$(LINKERLIBFTPRINTF) :
+	$(MAKE) -C $(FTPRINTF)
+
+$(LINKERLIBFT) :
+	$(MAKE) -C $(LIBFT)
 
 clean:
-	@$(MAKE) clean -C $(LIBFT)
-	@$(RM) $(OBJS)
+	$(MAKE) clean -C $(LIBFT)
+	$(MAKE) clean -C $(FTPRINTF)
+	$(RM) $(OBJS)
 
 fclean: clean
-	@$(MAKE) fclean -C $(LIBFT)
-	@$(RM) $(NAME)
-	@echo $(NONE) $(RED)"       >Removed< $(NAME)" $(NONE)
+	$(MAKE) fclean -C $(LIBFT)
+	$(MAKE) fclean -C $(FTPRINTF)
+	$(RM) $(NAME)
+	echo $(NONE) $(RED)"     >Removed< $(NAME)" $(NONE)
 
 re: fclean all
 

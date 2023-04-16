@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/01 16:11:52 by sokhacha          #+#    #+#             */
-/*   Updated: 2023/01/24 11:55:47 by tumolabs         ###   ########.fr       */
+/*   Created: 2023/04/06 15:35:09 by adashyan          #+#    #+#             */
+/*   Updated: 2023/04/16 18:46:11 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	count(int n)
+static int	count(int n)
 {
 	int	count;
 
@@ -57,12 +57,14 @@ char	*ft_itoa(int n)
 	int		len;
 
 	len = count(n);
-	res = malloc(sizeof(char) * (len + 1));
+	res = ft_calloc(sizeof(char), (len + 2));
 	if (n < 0)
 		res [0] = '-';
-	res[len] = '\0';
 	if (n == 0)
-		return (ft_strcpy(res, "0"));
+	{
+		res[0] = '0';
+		return (res);
+	}
 	while (n != 0)
 	{
 		res[len - 1] = absolut(n % 10) + '0';
