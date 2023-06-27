@@ -1,0 +1,94 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   elements.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/27 12:45:52 by adashyan          #+#    #+#             */
+/*   Updated: 2023/06/27 13:01:36 by adashyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef ELEMENTS_H
+# define ELEMENTS_H
+
+# include "basics.h"
+
+typedef struct		s_ambient_light
+{
+	double			ratio;
+	t_rgb			color;
+}					t_ambient_light;
+
+typedef struct		s_camera
+{
+	t_vect			pos;
+	t_vect			orientation;
+	t_vect			up;
+	t_vect			b;
+	double			fov;
+}					t_camera;
+
+typedef struct		s_light
+{
+	t_vect			pos;
+	t_rgb			color;
+	double			ratio;
+}					t_light;
+
+typedef struct		s_sphere
+{
+	t_vect			pos;
+	t_rgb			color;
+	double			radius2;
+	double			reflec;
+}					t_sphere;
+
+typedef struct		s_plane
+{
+	t_vect			pos;
+	t_vect			normal;
+	t_rgb			color;
+}					t_plane;
+
+typedef struct		s_square
+{
+	t_vect			pos;
+	t_vect			normal;
+	t_vect			p1;
+	t_vect			p2;
+	t_vect			p3;
+	t_vect			p4;
+	t_rgb			color;
+	double			height;
+}					t_square;
+
+typedef struct		s_cylinder
+{
+	t_vect			pos;
+	t_vect			pos2;
+	t_vect			dir;
+	double			radius2;
+	double			height;
+	t_rgb			color;
+	int				is_closed;
+}					t_cylinder;
+
+typedef struct		s_disk
+{
+	t_vect			pos;
+	t_vect			normal;
+	double			radius2;
+	t_rgb			color;
+}					t_disk;
+
+typedef struct		s_triangle
+{
+	t_vect			v0;
+	t_vect			v1;
+	t_vect			v2;
+	t_rgb			color;
+}					t_triangle;
+
+#endif
