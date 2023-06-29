@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:59:18 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 20:36:27 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/28 18:31:04 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,23 @@ t_impact	*closest_object(const t_ray ray, \
 
 void	manage_light(const t_scene *scene, t_impact *impact, t_rgb *color)
 {
-	t_light		light;
 	t_ray		to_light;
 	void		*obstacle;
 	t_impact	*impact_obstacle;
 	t_rgb		diffuse;
-	t_rgb		color_l;
 	double		normal_dot_light;
 
 	diffuse = int_to_rgb(0, 0, 0);
 	obstacle = NULL;
-	light = *scene->light;
-	to_light = new_ray(impact->pos, sub_vect(light.pos, impact->pos));
+	to_light = new_ray(impact->pos, sub_vect(scene->light->pos, impact->pos));
 	impact_obstacle = closest_object(to_light, scene, &obstacle);
-	if (impact_obstacle->dist > distance(impact->pos, light.pos))
+	if (impact_obstacle->dist > distance(impact->pos, scene->light->pos))
 	{
 		normal_dot_light = ft_max_float(dot_product(impact->normal, \
 			to_light.dir), 0.0) / (distance(impact->pos, \
-			light.pos) * (distance(impact->pos, light.pos)));
-		color_l = mult_rgb_double(light.color, normal_dot_light);
-		diffuse = add_rgb_rgb(diffuse, color_l);
+			scene->light->pos) * (distance(impact->pos, scene->light->pos)));
+		diffuse = add_rgb_rgb(diffuse, \
+			mult_rgb_double(scene->light->color, normal_dot_light));
 	}
 	free(impact_obstacle->type);
 	free(impact_obstacle);
@@ -63,48 +60,43 @@ void	manage_light(const t_scene *scene, t_impact *impact, t_rgb *color)
 	min_rgb(color);
 }
 
-void	*routine(void *thr)
+static void	rout(t_thread *thread)
 {
 	t_impact	*impact;
-	t_thread	*thread;
 	t_rgb		color;
 	t_ray		ray;
-	t_couple	limit;
 	void		*object;
-	double		reflec;
-	int			depth;
+
+	color = int_to_rgb(0, 0, 0);
+	ray = generate_ray(*thread->window->scene->camera,
+			thread->window->scene->resolution, thread->start);
+	impact = closest_object(ray, thread->window->scene, &object);
+	if (object)
+	{
+		color = get_color(impact->type, object);
+		if (dot_product(impact->normal, ray.dir) >= 0)
+			impact->normal = minus_vect(impact->normal);
+		manage_light(thread->window->scene, impact, &color);
+	}
+	free(impact->type);
+	free(impact);
+	ft_put_pixel(thread->window->img->data,
+		thread->start, rgb_to_int(color));
+}
+
+void	*routine(void *thr)
+{
+	t_thread	*thread;
 
 	thread = (t_thread *)thr;
-	reflec = REFLEC;
-	object = NULL;
-	impact = NULL;
-	limit.h = thread->start.h + thread->resolution.h;
-	limit.w = thread->start.w + thread->resolution.w;
-	while (thread->start.h < limit.h)
+	thread->limit.h = thread->start.h + thread->resolution.h;
+	thread->limit.w = thread->start.w + thread->resolution.w;
+	while (thread->start.h < thread->limit.h)
 	{
-		thread->start.w = limit.w - thread->resolution.w;
-		while (thread->start.w < limit.w)
+		thread->start.w = thread->limit.w - thread->resolution.w;
+		while (thread->start.w < thread->limit.w)
 		{
-			color = int_to_rgb(0, 0, 0);
-			depth = DEPTH;
-			while (depth-- && reflec > EPSILON)
-			{
-				ray = generate_ray(*thread->window->scene->camera,
-						*thread->window->scene->resolution, thread->start);
-				impact = closest_object(ray, thread->window->scene, &object);
-				if (object)
-				{
-					color = get_color(impact->type, object);
-					if (dot_product(impact->normal, ray.dir) >= 0)
-						impact->normal = minus_vect(impact->normal);
-					manage_light(thread->window->scene, impact, &color);
-				}
-				free(impact->type);
-				free(impact);
-			}
-			ft_put_pixel(thread->window->img->data,
-				thread->start, rgb_to_int(color),
-				*thread->window->scene->resolution);
+			rout(thread);
 			thread->start.w++;
 		}
 		thread->start.h++;

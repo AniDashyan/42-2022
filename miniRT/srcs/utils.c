@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:04:07 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 20:31:42 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:50:05 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ double	to_rad(const double angle)
 	return (angle * M_PI / 180);
 }
 
-void	ft_put_pixel(unsigned char *data, const t_couple pixel, const int color,
-		const t_couple resolution)
+void	ft_put_pixel(unsigned char *data, const t_couple pixel, \
+		const int color)
 {
-	int	(*tab)[resolution.w][1];
+	int	(*tab)[RES_W][1];
 
 	tab = (void *)data;
 	*tab[pixel.h][pixel.w] = color;

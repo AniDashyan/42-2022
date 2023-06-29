@@ -12,7 +12,8 @@ SRCFILES=	main.c					\
 			set_objects.c			\
 			sphere.c				\
 			plane.c					\
-			sylinder.c				\
+			cylinder.c				\
+			cylinder_utils.c		\
 			vector.c				\
 			move_objects.c			\
 			hook.c					\
@@ -31,6 +32,7 @@ SRCFILES=	main.c					\
 			routine.c				\
 			make_image.c			\
 			key_function.c			\
+			object_manipulations.c	\
 			libft_utils.c			\
 			libft_utils_2.c			\
 			ft_split_set.c			\
@@ -49,7 +51,7 @@ INCLS	= $(addprefix $(INCLDIR), $(INCLFILES))
 CC		= cc
 RM		= rm -f
 
-CFLAGS	= -I $(INCLDIR) -DTHREADS=$(THREADS) -Wall -Wextra -Werror -fsanitize=address -g#3#-Ofast
+CFLAGS	= -I $(INCLDIR) -DTHREADS=$(THREADS) -Wall -Wextra -Werror #-fsanitize=address -g#3#-Ofast
 FLAGS = -L $(LIB)libft -lft -L $(LIB)libmlx -lmlx
 
 MACOS_MACRO = -DMACOS
@@ -70,7 +72,7 @@ ifeq ($(UNAME),Linux)
 	FLAGS += $(LINUX_FLAGS)
 endif
 
-$(NAME) : compilelibft compilelibmlx $(OBJS) $(INCLS)
+$(NAME) : compilelibft  compilelibmlx $(OBJS) $(INCLS) 
 	$(CC) $(CFLAGS) $(OBJS) $(FLAGS) -o $(NAME)
 
 compilelibft :
@@ -86,12 +88,10 @@ all:		$(NAME)
 
 clean:
 			make clean -C $(LIB)libft
-#			make clean -C $(LIB)libvector
 			$(RM) $(OBJS)
 
 fclean:		clean
 			make fclean -C $(LIB)libft
-#			make fclean -C $(LIB)libvector
 			$(RM) $(NAME)
 
 re:			fclean all
@@ -99,39 +99,13 @@ re:			fclean all
 run: $(NAME)
 	./$< scenes/test.rt
 
-run_scene: $(NAME)
-	./$< scenes/$(filter-out $@, $(MAKECMDGOALS)).rt
-
-run_save: $(NAME)
-	./$< scenes/test.rt -save
-
 run_all: $(NAME)
 	./$< scenes/90spheres.rt &
-	./$< scenes/circle.rt &
 	./$< scenes/cylinder.rt &
-	./$< scenes/default.rt &
 	./$< scenes/example.rt &
 	./$< scenes/gradient.rt &
 	./$< scenes/mollecules.rt &
 	./$< scenes/peach.rt &
-	./$< scenes/square.rt &
-	./$< scenes/triangle.rt &
 	./$< scenes/test.rt
 
-# ###########################
-# --BLACK_FG =	\033[38;5;0m
-# --RED_FG =	\033[38;5;196m
-# --REDL_FG =	\033[1;31m
-# --GREEN_FG =	\033[38;5;46m
-# --CYAN_FG =	\033[0;36m
-# --YELLOW_FG =	\033[1;33m
-
-# --BLACK_BG =	\033[48;5;0m
-# --BLUE_BG =	\033[48;5;39m
-# --PINK_BG =	\033[48;5;213m
-# --YELLOW_BG =	\033[48;5;11m
-# --RANLIB_BG =	\033[48;5;172m
-# --GREEN_BG =	\033[48;5;46m
-
-# --CLEAR_COLOR =	\033[m
-# ###########################
+.PHONY: $(NAME) all clean fclean re run run_all compilelibft compilelibmlx

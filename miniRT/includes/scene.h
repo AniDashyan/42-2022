@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:04:10 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 14:04:36 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:00:34 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 # include "minirt.h"
 
-typedef struct		s_scene
+typedef struct s_scene
 {
-	t_couple		*resolution;
+	t_couple		resolution;
 	t_ambient_light	*al;
 	t_camera		*camera;
 	t_light			*light;

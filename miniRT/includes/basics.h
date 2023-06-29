@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   basics.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:01:15 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 13:01:23 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:08:03 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,33 @@
 
 # include "minirt.h"
 
-typedef struct		s_couple
+typedef struct s_couple
 {
 	int				w;
 	int				h;
 }					t_couple;
 
-typedef struct		s_dcouple
+typedef struct s_dcouple
 {
 	double			w;
 	double			h;
 }					t_dcouple;
 
-typedef struct		s_rgb
+typedef struct s_rgb
 {
 	int				r;
 	int				g;
 	int				b;
 }					t_rgb;
 
-typedef struct		s_vect
+typedef struct s_vect
 {
 	double			x;
 	double			y;
 	double			z;
 }					t_vect;
 
-typedef struct		s_ray
+typedef struct s_ray
 {
 	double			t;
 	t_vect			pos;
@@ -49,7 +49,7 @@ typedef struct		s_ray
 }					t_ray;
 
 
-typedef struct		s_impact
+typedef struct s_impact
 {
 	double			dist;
 	t_vect			pos;

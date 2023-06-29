@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:21:21 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 20:37:54 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:36:20 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,9 @@ static int	set_ambient_light(t_scene *scene, const char *line, char **data)
 	return (1);
 }
 
-static int	set_resolution(t_scene *scene, const char *line, char **data)
-{
-	t_couple	*resolution;
-
-	if (!check_line(line, data, "R", NB_ELEM_RESOLUTION) || scene->resolution)
-		return (0);
-	if (check_resolution(data))
-		print_err_and_exit("resolution (R) must be 2 positive numbers", 20);
-	resolution = malloc(sizeof(*resolution));
-	if (!resolution)
-		print_err_and_exit("Malloc failed", MALLOC_ERROR);
-	resolution->w = ft_atoi_strict(data[1]);
-	resolution->h = ft_atoi_strict(data[2]);
-	scene->resolution = resolution;
-	return (1);
-}
-
 static int	set_objects(t_scene *scene, const char *line, char **data)
 {
-	if (set_resolution(scene, line, data)
-		|| set_ambient_light(scene, line, data)
+	if (set_ambient_light(scene, line, data)
 		|| set_camera(scene, line, data)
 		|| set_light(scene, line, data)
 		|| set_sphere(scene, line, data)
@@ -61,7 +43,8 @@ static int	set_objects(t_scene *scene, const char *line, char **data)
 
 static void	*init_scene(t_scene *scene)
 {
-	scene->resolution = NULL;
+	scene->resolution.w = 800;
+	scene->resolution.h = 600;
 	scene->al = NULL;
 	scene->camera = NULL;
 	scene->light = NULL;

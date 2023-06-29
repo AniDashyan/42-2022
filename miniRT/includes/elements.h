@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   elements.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:45:52 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 13:01:36 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:00:58 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 # include "basics.h"
 
-typedef struct		s_ambient_light
+typedef struct s_ambient_light
 {
 	double			ratio;
 	t_rgb			color;
 }					t_ambient_light;
 
-typedef struct		s_camera
+typedef struct s_camera
 {
 	t_vect			pos;
 	t_vect			orientation;
@@ -30,14 +30,14 @@ typedef struct		s_camera
 	double			fov;
 }					t_camera;
 
-typedef struct		s_light
+typedef struct s_light
 {
 	t_vect			pos;
 	t_rgb			color;
 	double			ratio;
 }					t_light;
 
-typedef struct		s_sphere
+typedef struct s_sphere
 {
 	t_vect			pos;
 	t_rgb			color;
@@ -45,14 +45,14 @@ typedef struct		s_sphere
 	double			reflec;
 }					t_sphere;
 
-typedef struct		s_plane
+typedef struct s_plane
 {
 	t_vect			pos;
 	t_vect			normal;
 	t_rgb			color;
 }					t_plane;
 
-typedef struct		s_square
+typedef struct s_square
 {
 	t_vect			pos;
 	t_vect			normal;
@@ -64,7 +64,7 @@ typedef struct		s_square
 	double			height;
 }					t_square;
 
-typedef struct		s_cylinder
+typedef struct s_cylinder
 {
 	t_vect			pos;
 	t_vect			pos2;
@@ -75,7 +75,7 @@ typedef struct		s_cylinder
 	int				is_closed;
 }					t_cylinder;
 
-typedef struct		s_disk
+typedef struct s_disk
 {
 	t_vect			pos;
 	t_vect			normal;
@@ -83,7 +83,7 @@ typedef struct		s_disk
 	t_rgb			color;
 }					t_disk;
 
-typedef struct		s_triangle
+typedef struct s_triangle
 {
 	t_vect			v0;
 	t_vect			v1;

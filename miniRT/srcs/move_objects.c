@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 14:57:02 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 20:38:54 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:36:57 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ void	ray_mouse(int x, int y, t_window *window)
 {
 	int	camera_disp;
 
-	camera_disp = window->scene->resolution->w;
-	if (camera_disp < window->scene->resolution->h)
-		camera_disp = window->scene->resolution->h;
+	camera_disp = window->scene->resolution.w;
+	if (camera_disp < window->scene->resolution.h)
+		camera_disp = window->scene->resolution.h;
 	if (window->object)
 	{
 		move_sphere(x, y, window, camera_disp);

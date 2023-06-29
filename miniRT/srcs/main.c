@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:23:23 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 20:40:28 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:33:12 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ t_window	*init_window(int argc, char **argv)
 		print_err_and_exit("Malloc failed", MALLOC_ERROR);
 	window->scene = get_scene(argc, argv);
 	window->mlx = init_mlx();
-	window->img = init_img(window->mlx, window->scene->resolution);
+	window->img = init_img(window->mlx, &window->scene->resolution);
 	window->object = NULL;
 	window->type = NULL;
 	title_window = ft_strjoin("miniRT - ", argv[1]);
 	mlx_ptr = window->mlx->mlx_ptr;
-	x = window->scene->resolution->w;
-	y = window->scene->resolution->h;
+	x = window->scene->resolution.w;
+	y = window->scene->resolution.h;
 	window->mlx->win_ptr = mlx_new_window(mlx_ptr, x, y, title_window);
 	free(title_window);
 	if (!window->mlx->win_ptr)

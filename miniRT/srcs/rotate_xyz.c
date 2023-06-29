@@ -6,7 +6,7 @@
 /*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:33:35 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 18:02:31 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:32:39 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	rot_x(const int keycode, t_window *w)
 	t_plane		*pl;
 	t_cylinder	*cy;
 
-	if (keycode != 7)
+	if (keycode != KEY_X)
 		return (0);
 	if (!w->type)
 		return (0);
@@ -39,7 +39,7 @@ int	rot_y(const int keycode, t_window *w)
 	t_plane		*pl;
 	t_cylinder	*cy;
 
-	if (keycode != 16)
+	if (keycode != KEY_Y)
 		return (0);
 	if (!w->type)
 		return (0);
@@ -61,7 +61,7 @@ int	rot_z(const int keycode, t_window *w)
 	t_plane		*pl;
 	t_cylinder	*cy;
 
-	if (keycode != 6)
+	if (keycode != KEY_Z)
 		return (0);
 	if (!w->type)
 		return (0);

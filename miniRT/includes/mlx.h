@@ -7,11 +7,9 @@
 ** Started on  Mon Jul 31 16:37:50 2000 Charlie Root
 ** Last update Tue May 15 16:23:28 2007 Olivier Crouzet
 */
-
 /*
 **   MinilibX -  Please report bugs
 */
-
 
 /*
 ** FR msg - FR msg - FR msg
@@ -26,9 +24,7 @@
 ** de ce type.
 */
 
-
 #ifndef MLX_H
-
 #define	MLX_H
 
 

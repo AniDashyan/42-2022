@@ -6,7 +6,7 @@
 /*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:15:42 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 17:59:08 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:37:29 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	close_function(t_window *w)
 	mlx_destroy_window(w->mlx->mlx_ptr, w->mlx->win_ptr);
 	free(w->mlx);
 	free(w->img);
-	free(w->scene->resolution);
 	free(w->scene->al);
 	free(w->scene->camera);
 	free(w->scene->light);
@@ -41,21 +40,9 @@ int	key_hook(const int keycode, t_window *window)
 		close_function(window);
 	if (increment_light_ratio(keycode, window)
 		|| decrement_light_ratio(keycode, window)
-		|| zoom_in(keycode, window)
-		|| zoom_out(keycode, window)
-		|| move_up(keycode, window)
-		|| move_down(keycode, window)
-		|| move_left(keycode, window)
-		|| move_right(keycode, window)
-		|| rot_left(keycode, window)
-		|| rot_right(keycode, window)
-		|| rot_center_left(keycode, window)
-		|| rot_center_right(keycode, window)
-		|| rot_up(keycode, window)
-		|| rot_down(keycode, window)
-		|| rot_x(keycode, window)
-		|| rot_y(keycode, window)
-		|| rot_z(keycode, window))
+		|| camera_move(keycode, window)
+		|| camera_rot(keycode, window)
+		|| object_rot(keycode, window))
 	{
 		make_img(window);
 		mlx_ptr = window->mlx->mlx_ptr;
@@ -92,7 +79,7 @@ int	mouse_fix(int button, int x, int y, t_window *window)
 	button++;
 	window->mouse_position.w = x;
 	window->mouse_position.h = y;
-	ray = generate_ray(*window->scene->camera, *window->scene->resolution,
+	ray = generate_ray(*window->scene->camera, window->scene->resolution,
 			window->mouse_position);
 	impact = closest_object(ray, window->scene, &window->object);
 	free(window->type);

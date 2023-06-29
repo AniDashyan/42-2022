@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 20:46:22 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 20:47:23 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:49:48 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ t_vect	str_to_vect(const char *str)
 	t_vect	vect;
 
 	tab = ft_split(str, ',');
-	// printf ("start:%p\n", tab);
-	// printf ("2: %p\n", tab[1]);
-	// printf ("3%p\n", tab[2]);
+	if (!tab || !tab[0] || !tab[1] || !tab[2])
+		print_err_and_exit("Bad arguments. Can't convert to vector\n",
+			VECTOR_ERROR);
 	vect = set_vect(tab[0], tab[1], tab[2]);
 	clear_matrix(tab);
 	return (vect);
