@@ -6,11 +6,11 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:30:30 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/29 13:50:05 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/07/01 17:09:30 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../includes/minirt.h"
 
 int	set_camera(t_scene *scene, const char *line, char **data)
 {
@@ -99,7 +99,7 @@ int	set_light(t_scene *scene, const char *line, char **data)
 {
 	t_light		*light;
 
-	if (!check_line(line, data, "L", NB_ELEM_LIGHT) || scene->light)
+	if (!check_line(line, data, "l", NB_ELEM_LIGHT))
 		return (0);
 	light = malloc(sizeof(*light));
 	if (!light)
@@ -107,6 +107,6 @@ int	set_light(t_scene *scene, const char *line, char **data)
 	light->pos = str_to_vect(data[1]);
 	light->ratio = ft_atof(data[2]) * 255;
 	light->color = mult_rgb_double(str_to_rgb(data[3]), light->ratio);
-	scene->light = light;
+	ft_lstadd_front(&(scene->lights), ft_lstnew(light));
 	return (1);
 }

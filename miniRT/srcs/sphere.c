@@ -6,11 +6,11 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:45:42 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 20:35:36 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/30 13:22:46 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../includes/minirt.h"
 
 int	solve_quadratic(const t_vect point, double *x0, double *x1)
 {

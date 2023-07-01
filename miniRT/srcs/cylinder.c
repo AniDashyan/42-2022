@@ -6,11 +6,11 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:52:05 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/28 13:47:18 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/30 13:21:38 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../includes/minirt.h"
 
 double	solve_plane(t_vect o, t_vect d, t_vect plane_p, t_vect plane_nv)
 {

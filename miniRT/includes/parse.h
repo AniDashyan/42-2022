@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:03:23 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 13:04:00 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/30 22:36:00 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "minirt.h"
 
-# define WHITE_SPACES " \t"
+# define WHITE_SPACES " \t\n"
 # define NB_ELEM_RESOLUTION 3
 # define NB_ELEM_AL 3
 # define NB_ELEM_CAMERA 4

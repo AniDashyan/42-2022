@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:45:52 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/29 15:00:58 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/30 15:50:10 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,6 @@ typedef struct s_plane
 	t_rgb			color;
 }					t_plane;
 
-typedef struct s_square
-{
-	t_vect			pos;
-	t_vect			normal;
-	t_vect			p1;
-	t_vect			p2;
-	t_vect			p3;
-	t_vect			p4;
-	t_rgb			color;
-	double			height;
-}					t_square;
-
 typedef struct s_cylinder
 {
 	t_vect			pos;
@@ -74,21 +62,5 @@ typedef struct s_cylinder
 	t_rgb			color;
 	int				is_closed;
 }					t_cylinder;
-
-typedef struct s_disk
-{
-	t_vect			pos;
-	t_vect			normal;
-	double			radius2;
-	t_rgb			color;
-}					t_disk;
-
-typedef struct s_triangle
-{
-	t_vect			v0;
-	t_vect			v1;
-	t_vect			v2;
-	t_rgb			color;
-}					t_triangle;
 
 #endif

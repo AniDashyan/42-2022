@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:04:10 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/29 15:00:34 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/30 12:02:43 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_scene
 	t_couple		resolution;
 	t_ambient_light	*al;
 	t_camera		*camera;
-	t_light			*light;
+	t_list			*lights;
 	t_list			*spheres;
 	t_list			*planes;
 	t_list			*cylinders;

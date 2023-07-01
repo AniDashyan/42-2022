@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:01:15 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/29 15:08:03 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/30 12:51:57 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_ray
 	t_vect			pos;
 	t_vect			dir;
 }					t_ray;
-
 
 typedef struct s_impact
 {

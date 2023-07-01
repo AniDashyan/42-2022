@@ -6,11 +6,11 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 14:57:02 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/28 17:36:57 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/30 13:20:53 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../includes/minirt.h"
 
 static void	move_cylinder(int x, int y, t_window *window, int camera_disp)
 {

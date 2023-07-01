@@ -6,11 +6,11 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:21:21 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/28 17:36:20 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/30 23:23:59 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../includes/minirt.h"
 
 static int	set_ambient_light(t_scene *scene, const char *line, char **data)
 {
@@ -47,25 +47,21 @@ static void	*init_scene(t_scene *scene)
 	scene->resolution.h = 600;
 	scene->al = NULL;
 	scene->camera = NULL;
-	scene->light = NULL;
+	scene->lights = ft_lstnew(NULL);
 	scene->spheres = ft_lstnew(NULL);
 	scene->planes = ft_lstnew(NULL);
 	scene->cylinders = ft_lstnew(NULL);
 	return (scene);
 }
 
-t_scene	*parse(int fd)
+int	read_and_check(t_scene *scene, char **data, int fd)
 {
-	t_scene	*scene;
 	char	*line;
-	char	**data;
 
-	scene = malloc(sizeof(*scene));
-	if (!scene)
-		print_err_and_exit("Malloc failed", MALLOC_ERROR);
-	if (!(init_scene(scene)))
-		return (NULL);
-	while (get_next_line(&line, fd) == 1)
+	line = get_next_line(fd);
+	if (line == NULL || !*line || *line == '\n')
+		return (0);
+	while (line && *line)
 	{
 		data = ft_split_set(line, WHITE_SPACES);
 		if (set_objects(scene, line, data))
@@ -74,11 +70,28 @@ t_scene	*parse(int fd)
 		{
 			free(line);
 			clear_matrix(data);
-			return (NULL);
+			return (0);
 		}
 		free(line);
+		line = get_next_line(fd);
 		clear_matrix(data);
 	}
 	free(line);
+	return (1);
+}
+
+t_scene	*parse(int fd)
+{
+	t_scene	*scene;
+	char	**data;
+
+	data = NULL;
+	scene = malloc(sizeof(*scene));
+	if (!scene)
+		print_err_and_exit("Malloc failed", MALLOC_ERROR);
+	if (!(init_scene(scene)))
+		return (NULL);
+	if (read_and_check(scene, data, fd) == 0)
+		return (NULL);
 	return (scene);
 }

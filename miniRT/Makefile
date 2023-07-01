@@ -22,16 +22,17 @@ SRCFILES=	main.c					\
 			zoom.c					\
 			move.c					\
 			rotate_xyz.c			\
-			rotate_dir.c			\
+			rotate_cam_dir.c		\
 			light_ratio.c			\
 			vector_operations.c		\
+			change_parameters.c		\
 			vector_utils.c			\
 			vector_utils_2.c		\
 			utils.c					\
 			ray.c					\
 			routine.c				\
 			make_image.c			\
-			key_function.c			\
+			rot_camera.c			\
 			object_manipulations.c	\
 			libft_utils.c			\
 			libft_utils_2.c			\
@@ -49,10 +50,10 @@ SRCS	= $(addprefix $(SRCDIR), $(SRCFILES))
 OBJS	= $(SRCS:.c=.o)
 INCLS	= $(addprefix $(INCLDIR), $(INCLFILES))
 CC		= cc
-RM		= rm -f
+RM		= rm -rf
 
-CFLAGS	= -I $(INCLDIR) -DTHREADS=$(THREADS) -Wall -Wextra -Werror #-fsanitize=address -g#3#-Ofast
-FLAGS = -L $(LIB)libft -lft -L $(LIB)libmlx -lmlx
+CFLAGS	= -I $(INCLDIR) -Wall -Wextra -Werror #-fsanitize=address -g#3#-Ofast
+FLAGS = -L $(LIB)libft -lft -L. -lmlx# $(LIB)libmlx
 
 MACOS_MACRO = -DMACOS
 LINUX_MACRO = -DLINUX
@@ -72,17 +73,14 @@ ifeq ($(UNAME),Linux)
 	FLAGS += $(LINUX_FLAGS)
 endif
 
-$(NAME) : compilelibft  compilelibmlx $(OBJS) $(INCLS) 
-	$(CC) $(CFLAGS) $(OBJS) $(FLAGS) -o $(NAME)
+$(NAME): compilelibft $(OBJS) $(INCLS)
+			$(CC) $(CFLAGS) $(OBJS) $(FLAGS) -o $(NAME)
 
-compilelibft :
-	make -C $(LIB)libft bonus
-
-compilelibmlx :
-	make -C $(LIB)libmlx all
+compilelibft:
+			make -C $(LIB)libft bonus
 
 %.o: %.c $(INCLS)
-	$(CC) $(CFLAGS) -c -I $(INCLDIR) -o $@ $<
+			$(CC) $(CFLAGS) -c -I $(INCLDIR) -o $@ $<
 
 all:		$(NAME)
 
@@ -97,15 +95,15 @@ fclean:		clean
 re:			fclean all
 
 run: $(NAME)
-	./$< scenes/test.rt
+			./$< scenes/test.rt
 
 run_all: $(NAME)
-	./$< scenes/90spheres.rt &
-	./$< scenes/cylinder.rt &
-	./$< scenes/example.rt &
-	./$< scenes/gradient.rt &
-	./$< scenes/mollecules.rt &
-	./$< scenes/peach.rt &
-	./$< scenes/test.rt
+			./$< scenes/90spheres.rt &
+			./$< scenes/cylinder.rt &
+			./$< scenes/example.rt &
+			./$< scenes/gradient.rt &
+			./$< scenes/mollecules.rt &
+			./$< scenes/peach.rt &
+			./$< scenes/test.rt
 
-.PHONY: $(NAME) all clean fclean re run run_all compilelibft compilelibmlx
+.PHONY: $(NAME) all clean fclean re run run_all compilelibft

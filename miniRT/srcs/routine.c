@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 15:59:18 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/28 18:31:04 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/30 11:53:47 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,43 @@ t_impact	*closest_object(const t_ray ray, \
 	return (impact);
 }
 
-void	manage_light(const t_scene *scene, t_impact *impact, t_rgb *color)
+static void	man_li(const t_scene *scene, t_rgb *diffuse,
+		t_impact *impact, t_light *light)
 {
 	t_ray		to_light;
-	void		*obstacle;
 	t_impact	*impact_obstacle;
-	t_rgb		diffuse;
+	void		*obstacle;
 	double		normal_dot_light;
 
-	diffuse = int_to_rgb(0, 0, 0);
 	obstacle = NULL;
-	to_light = new_ray(impact->pos, sub_vect(scene->light->pos, impact->pos));
+	to_light = new_ray(impact->pos, sub_vect(light->pos, impact->pos));
 	impact_obstacle = closest_object(to_light, scene, &obstacle);
-	if (impact_obstacle->dist > distance(impact->pos, scene->light->pos))
+	if (impact_obstacle->dist > distance(impact->pos, light->pos))
 	{
 		normal_dot_light = ft_max_float(dot_product(impact->normal, \
 			to_light.dir), 0.0) / (distance(impact->pos, \
-			scene->light->pos) * (distance(impact->pos, scene->light->pos)));
-		diffuse = add_rgb_rgb(diffuse, \
-			mult_rgb_double(scene->light->color, normal_dot_light));
+			light->pos) * (distance(impact->pos, light->pos)));
+		*diffuse = add_rgb_rgb(*diffuse, \
+			mult_rgb_double(light->color, normal_dot_light));
 	}
 	free(impact_obstacle->type);
 	free(impact_obstacle);
+}
+
+void	manage_light(const t_scene *scene, t_impact *impact, t_rgb *color)
+{
+	t_rgb		diffuse;
+	t_list		*lights;
+	t_light		*light;
+
+	lights = scene->lights;
+	diffuse = int_to_rgb(0, 0, 0);
+	while (lights->next)
+	{
+		light = (t_light *)lights->content;
+		man_li(scene, &diffuse, impact, light);
+		lights = lights->next;
+	}
 	diffuse = mult_rgb_double(diffuse, ALBEDO);
 	*color = mult_rgb_rgb(add_rgb_rgb(scene->al->color, diffuse), *color);
 	min_rgb(color);

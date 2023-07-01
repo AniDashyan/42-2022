@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:44:50 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/29 18:21:30 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/07/01 16:50:26 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 /* Used libraries */
 # include "../lib/libft/libft.h"
-# include "mlx.h"
 # include "basics.h"
 # include "elements.h"
 # include "scene.h"
@@ -23,6 +22,7 @@
 
 # include <fcntl.h>
 # include <stdlib.h>
+# include <mlx.h>
 # include <math.h>
 # include <errno.h>
 # include <time.h>
@@ -152,7 +152,7 @@ int			ft_min_int(int a, int b);
 float		ft_min_float(float a, float b);
 float		ft_max_float(const float a, const float b);
 void		ft_swap(void *a, void *b);
-int			get_next_line(char **line, int fd);
+char		*get_next_line(int fd);
 
 /**
  * parsing
@@ -174,6 +174,9 @@ t_rgb		dev_rgb_double(const t_rgb rgb, const double dev);
 /**
  * vectors
 **/
+int			change_sphere_radius(int keycode, t_window *window);
+int			change_cylinder_radius(int keycode, t_window *window);
+int			change_cylinder_height(int keycode, t_window *window);
 int			camera_move(int keycode, t_window *window);
 int			camera_rot(int keycode, t_window *window);
 int			object_rot(int keycode, t_window *window);
@@ -258,7 +261,6 @@ int			rot_y(const int keycode, t_window *w);
 int			rot_z(const int keycode, t_window *w);
 /* ------------- */
 
-void		save(const int keycode, t_window *w);
 int			ft_tab_size(char **tab);
 
 #endif

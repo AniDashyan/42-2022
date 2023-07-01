@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:48:53 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 18:01:13 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/30 13:22:26 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../includes/minirt.h"
 
 int	intersect_plane(const t_ray ray, const t_plane plane, t_impact *impact)
 {

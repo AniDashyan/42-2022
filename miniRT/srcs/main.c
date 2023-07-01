@@ -6,11 +6,11 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:23:23 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/28 17:33:12 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/30 13:21:11 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "../includes/minirt.h"
 
 t_img	*init_img(t_mlx *mlx, t_couple *resolution)
 {

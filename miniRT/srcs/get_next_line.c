@@ -3,72 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:11:10 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 17:11:13 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/06/30 23:21:48 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minirt.h"
+#include "../includes/minirt.h"
 
-static char	*recurs(int depth, int *ret, int fd)
+char	*line_ret(char *line, int fd)
 {
-	char	buff[1];
-	char	*out;
-	int		test;
+	char	buff[BUFFER_SIZE + 1];
+	long	i;
+	char	*tmp;
 
-	test = read(fd, buff, 1);
-	if (!test)
-		buff[0] = 0;
-	if (buff[0] == '\n' || buff[0] == 0)
+	while (1)
 	{
-		out = malloc(sizeof(char) * depth + 1);
-		out[depth] = 0;
-		*ret = 1;
-		if (buff[0] == 0)
-			*ret = 0;
-		return (out);
+		i = read(fd, buff, 1);
+		buff[i] = '\0';
+		if (i == -1)
+			return (0);
+		if (!line)
+			line = ft_strdup(buff);
+		else
+		{
+			tmp = line;
+			line = ft_strjoin(line, buff);
+			free(tmp);
+		}
+		if (ft_strchr(buff, '\n') || i == 0)
+			break ;
 	}
-	else
-	{
-		out = recurs(depth + 1, ret, fd);
-		out[depth] = buff[0];
-	}
-	return (out);
+	return (line);
 }
 
-int	get_next_line(char **out, int fd)
+char	*get_next_line(int fd)
 {
-	int	ret;
+	static char	*read_line;
+	char		*line;
+	char		*tmp;
+	long		len;
 
-	ret = 1;
-	*out = recurs(0, &ret, fd);
-	return (ret);
-}
-
-int	main_gnl(int argc, char **argv)
-{
-	int		fd;
-	char	*line;
-	int		ret;
-
-	if (argc == 2)
-		fd = open((argv[1]), O_RDONLY);
-	else
-		fd = 0;
-	ret = get_next_line(&line, fd);
-	while (ret == 1)
-	{
-		printf("\nret: %d\nline = |%s|\n", ret, line);
-		free(line);
-		ret = get_next_line(&line, fd);
-	}
-	if (ret == 0)
-		printf("\nret: %d\nline = |%s|\n", ret, line);
-	else if (ret == -1)
-		printf("\nret: %d\nline = |%s|\n", ret, line);
-	free(line);
-	close(fd);
-	return (0);
+	len = 0;
+	read_line = line_ret(read_line, fd);
+	if (!read_line)
+		return (0);
+	len = ft_strlen(read_line) - ft_strlen(ft_strchr(read_line, '\n')) + 1;
+	line = ft_substr(read_line, 0, len);
+	tmp = read_line;
+	read_line = ft_substr(read_line, len, ft_strlen(read_line));
+	free(tmp);
+	return (line);
 }
