@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:11:39 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/30 23:17:38 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/07/03 20:14:21 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,30 +46,6 @@ int	ft_in_charset(char const c, char const *charset)
 			return (1);
 	}
 	return (0);
-}
-
-int	ft_atoi_strict(const char *nptr)
-{
-	int	res;
-	int	sign;
-
-	res = 0;
-	sign = 1;
-	while ((*nptr >= '\t' && *nptr <= '\r') || *nptr == ' ')
-		nptr++;
-	if (*nptr == '+' || *nptr == '-')
-	{
-		if (*nptr++ == '-')
-			sign *= -1;
-	}
-	while (*nptr >= '0' && *nptr <= '9')
-	{
-		res *= 10;
-		res += *nptr++ - '0';
-	}
-	if (*nptr == '\0')
-		return (res * sign);
-	return (-1);
 }
 
 long	ft_atol(const char *nptr)

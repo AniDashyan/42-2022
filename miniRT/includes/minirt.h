@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:44:50 by adashyan          #+#    #+#             */
-/*   Updated: 2023/07/01 16:50:26 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/07/03 20:10:06 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define MINIRT_H
 
 /* Used libraries */
-# include "../lib/libft/libft.h"
+# include "../libft/libft.h"
+# include <mlx.h>
 # include "basics.h"
 # include "elements.h"
 # include "scene.h"
@@ -22,7 +23,6 @@
 
 # include <fcntl.h>
 # include <stdlib.h>
-# include <mlx.h>
 # include <math.h>
 # include <errno.h>
 # include <time.h>
@@ -32,10 +32,6 @@
 # include <stdio.h>
 # include <string.h>
 /* ------------- */
-
-# ifndef THREADS
-#  define THREADS 1
-# endif
 
 # define BUFFER_SIZE 40000
 # define RES_W 800
@@ -52,54 +48,44 @@
 # define VECTOR_ERROR -7
 /* ------------- */
 
-# define REFLEC 1
-# define DEPTH 1
-
 # define ALBEDO 0.3
 # define EPSILON 1e-4
 
 /*
 ** Keycodes and screen size LINUX and MAC
 */
-# ifdef LINUX
-#  define ESC		65307
-#  define LEFT		65361
-#  define RIGHT		65363
-#  define KEY_S		115
-#  define KEY_Q		113
-# else
-#  define ESC		53
-#  define LEFT		123
-#  define RIGHT		124
-#  define UP		126
-#  define DOWN		125
-#  define KEY_1		83
-#  define KEY_2		84
-#  define KEY_4		86
-#  define KEY_6		88
-#  define KEY_8		91
-#  define KEY_9		92
-#  define KEY_A		0
-#  define KEY_S		1
-#  define KEY_D		2
-#  define KEY_W		13
-#  define KEY_Q		12
-#  define KEY_E		14
-#  define KEY_J		38
-#  define KEY_K		40
-#  define KEY_X		7
-#  define KEY_Y		16
-#  define KEY_Z		6
-#  define KEY_L		37
-#  define KEY_I		34
-#  define KEY_U		32
-#  define KEY_O		31
-#  define KEY_F1	122
-#  define KEY_F2	120
-#  define KEY_SPACE	49
-#  define KEY_PLUS	69
-#  define KEY_MINUS	78
-# endif
+
+# define ESC		53
+# define LEFT		123
+# define RIGHT		124
+# define UP			126
+# define DOWN		125
+# define KEY_1		83
+# define KEY_2		84
+# define KEY_4		86
+# define KEY_6		88
+# define KEY_8		91
+# define KEY_9		92
+# define KEY_A		0
+# define KEY_S		1
+# define KEY_D		2
+# define KEY_W		13
+# define KEY_Q		12
+# define KEY_E		14
+# define KEY_J		38
+# define KEY_K		40
+# define KEY_X		7
+# define KEY_Y		16
+# define KEY_Z		6
+# define KEY_L		37
+# define KEY_I		34
+# define KEY_U		32
+# define KEY_O		31
+# define KEY_F1		122
+# define KEY_F2		120
+# define KEY_SPACE	49
+# define KEY_PLUS	69
+# define KEY_MINUS	78
 
 /* Structures */
 typedef struct s_mlx
@@ -142,7 +128,6 @@ typedef struct s_thread
 **/
 
 int			ft_in_charset(char const c, char const *charset);
-int			ft_atoi_strict(const char *nptr);
 long		ft_atol(const char *nptr);
 float		ft_atof(const char *str);
 int			ft_is_from_charset(const char *str, const char *charset);
@@ -199,10 +184,6 @@ void		ray_cylinders(const t_ray ray, const t_scene *scene,
 void		ray_planes(const t_ray ray, const t_scene *scene,
 				t_impact *impact, void **object);
 void		ray_spheres(const t_ray ray, const t_scene *scene,
-				t_impact *impact, void **object);
-void		ray_squares(const t_ray ray, const t_scene *scene,
-				t_impact *impact, void **object);
-void		ray_triangles(const t_ray ray, const t_scene *scene,
 				t_impact *impact, void **object);
 /* ----------- */
 

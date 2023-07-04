@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:21:21 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/30 23:23:59 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/07/03 20:28:31 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static int	set_objects(t_scene *scene, const char *line, char **data)
 
 static void	*init_scene(t_scene *scene)
 {
-	scene->resolution.w = 800;
-	scene->resolution.h = 600;
+	scene->resolution.w = RES_W;
+	scene->resolution.h = RES_H;
 	scene->al = NULL;
 	scene->camera = NULL;
 	scene->lights = ft_lstnew(NULL);

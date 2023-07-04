@@ -6,11 +6,10 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:11:10 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/30 23:21:48 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/07/03 21:02:43 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minirt.h"
 #include "../includes/minirt.h"
 
 char	*line_ret(char *line, int fd)

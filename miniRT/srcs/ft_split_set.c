@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_set.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adashyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:22:46 by adashyan          #+#    #+#             */
-/*   Updated: 2023/06/27 17:22:49 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/07/03 20:34:39 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ char	**ft_split_set(const char *str, char *charset)
 	words_len = malloc((words_count) * sizeof(int));
 	if (!words_len)
 		return (0);
-	words_count = count_words(str, charset);
 	tab = malloc((words_count + 1) * sizeof(char *));
 	if (!tab)
 		return (0);

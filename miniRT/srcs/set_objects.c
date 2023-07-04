@@ -6,7 +6,7 @@
 /*   By: adashyan <adashyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:30:30 by adashyan          #+#    #+#             */
-/*   Updated: 2023/07/01 17:09:30 by adashyan         ###   ########.fr       */
+/*   Updated: 2023/07/03 21:00:43 by adashyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	set_camera(t_scene *scene, const char *line, char **data)
 	if (camera->up.z < -EPSILON)
 		camera->up.z = -camera->up.z;
 	camera->fov = ft_atof(data[3]);
+	if (camera->fov < 0 || camera->fov > 180)
+		print_err_and_exit("Camera fov incorrect value\n", PARSE_ERROR);
 	scene->camera = camera;
 	return (1);
 }
@@ -51,7 +53,7 @@ int	set_cylinder(t_scene *scene, const char *line, char **data)
 	cy->pos2 = add_vect(cy->pos, multi_vect(cy->dir, cy->height));
 	cy->color = str_to_rgb(data[5]);
 	if (data[6])
-		cy->is_closed = ft_atoi_strict(data[6]);
+		cy->is_closed = ft_atoi(data[6]);
 	else
 		cy->is_closed = 1;
 	ft_lstadd_front(&(scene->cylinders), ft_lstnew(cy));
