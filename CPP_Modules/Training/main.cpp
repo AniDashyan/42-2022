@@ -1,24 +1,36 @@
-// hello.cpp: Maggie Johnson
-// Description: a program that prints the immortal saying "hello world"
-
+// include <iomanip>
 #include <iostream>
-#include <iomanip>
-// using namespace std;
+#include <string>
+#include <algorithm>
+
+namespace apple {
+	namespace func {
+		void print(const char* text)
+		{
+			std::cout << text << std::endl;
+		}
+	}
+	void print_again() {
+		std::cout << "Bye bye\n";
+	}
+}
+
+namespace orange {
+	void print(const char* text)
+	{
+		std::string temp = text;
+		std::reverse(temp.begin(), temp.end());
+		std::cout << temp << std::endl;
+	}
+	void print_again() {
+		std::cout << "Bye bye\n";
+	}
+ }
 
 int main() {
-  
-  for (int i = 0; i < 6; i++)
-  {
-	  for (int j = 0; j < 4; j++)
-	  {
-		//   for (int k = 0; k < 17; k++)
-		//   	cout << " ";
-		//   cout << "Hello World!";
-		
-		//setw(int) sets the column width
-		std::cout << std::setw(17) << "Hello World!";
-	  } 
-	  std::cout << std::endl;
-  }
-  return 0;
+	namespace a = apple::func;
+
+	a::print("Hello World!");
+	apple::print_again();
+	return (0);
 }
