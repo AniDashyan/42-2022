@@ -1,8 +1,11 @@
 #include <iostream>
+#include <string>
 #include "PhoneBook.hpp"
 
 int main()
 {
-	std::cout << "Hello World!" << std::endl;
+	PhoneBook phoneBook;
+	std::string command;
+	phoneBook.displayPrompt(command);
 	return (0);
 }
