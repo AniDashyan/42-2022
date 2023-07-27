@@ -10,6 +10,14 @@ void PhoneBook::displayPhoneBookHeader()
 	std::cout << "ADD, SEARCH or EXIT" << std::endl;
 }
 
+void PhoneBook::addContact()
+{
+	cout << "Enter first name: ";cin >> m_contacts.firstName;
+	cout << "Enter last name: ";cin >> m_contacts.lastName;
+	cout << "Enter nickname: ";cin >> m_contacts.nickname;
+	cout << "Enter darkest secret: ";cin >> m_contacts.darkestSecret;
+}
+
 void PhoneBook::displayPrompt(std::string command) {
 	displayPhoneBookHeader();
 	std::getline(std::cin, command);
@@ -18,10 +26,12 @@ void PhoneBook::displayPrompt(std::string command) {
 		{
 			// addContact();
 			std::cout << "Contact was added succesfully\n";
+			return;
 		}
 		else if (command.compare("SEARCH") == 0) {
 			// searchContact();
 			std::cout << "Contact SEARCH";
+			return;
 		}
 		else if (command.compare("EXIT") == 0)
 		{
@@ -32,6 +42,7 @@ void PhoneBook::displayPrompt(std::string command) {
 		{
 			std::cout << "Wrong command\n";
 			displayPhoneBookHeader();
+			return;
 		}
 	}
 }

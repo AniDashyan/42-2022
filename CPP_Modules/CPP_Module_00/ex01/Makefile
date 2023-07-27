@@ -1,18 +1,18 @@
 NAME		= phonebook
-CPP			= g++
-CPPFLAGS	= -Wall -Wextra -Werror -fsanitize=address -std=c++98
+CXX			= c++
+CXXFLAGS	= -Wall -Wextra -Werror -fsanitize=address -std=c++98
 RM			= rm -f
 
 SRCS	= $(wildcard *.cpp)
 OBJS	= $(patsubst %.cpp, %.o, $(SRCS))
 
 %.o: %.cpp
-	$(CPP) $(CPPFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 all:	$(NAME)
 
 $(NAME):	$(OBJS) 
-			 $(CPP) $(CPPFLAGS) -o $(NAME) $(OBJS)
+			 $(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
 
 clean:
 			$(RM) $(OBJS)
