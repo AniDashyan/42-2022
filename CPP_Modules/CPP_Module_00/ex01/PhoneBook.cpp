@@ -48,10 +48,22 @@ bool PhoneBook::addContact(int *numContacts)
 		return (0);
 	}
 	getline(std::cin, value);
-	m_contacts[*numContacts].setFirstName(value);
+	if (std::all_of(value.begin(), value.end(), ::isalpha))
+		m_contacts[*numContacts].setFirstName(value);
+	else
+	{
+		std::cout << "⚠️Wrong input: First name should only conatin letters⚠️"<< std::endl;
+		return (0);
+	}
 	std::cout << "2️⃣ Next, reveal your Last Name, and the melodies of your legacy shall resonate throughout the ethereal realms!" << std::endl;
 	getline(std::cin, value);
-	m_contacts[*numContacts].setLastName(value);
+	if (std::all_of(value.begin(), value.end(), ::isalpha))
+		m_contacts[*numContacts].setLastName(value);
+	else
+	{
+		std::cout << "⚠️Wrong input: Last name should only conatin letters⚠️"<< std::endl;
+		return (0);
+	}
 	std::cout << "3️⃣ Speak your chosen Nickname, a token of the secret charm that makes you uniquely enchanting in this mystical domain!" << std::endl;
 	getline(std::cin, value);
 	m_contacts[*numContacts].setNickname(value);
@@ -68,8 +80,6 @@ bool PhoneBook::addContact(int *numContacts)
 	getline(std::cin, value);
 	m_contacts[*numContacts].setDarkestSecret(value);
 	m_numContacts++;
-	std::cout << "m_numContacts:  " << m_numContacts << "\n";
-	std::cout << "numContacts:    " << numContacts << "\n";
 	return (1);
 }
 
@@ -81,6 +91,8 @@ bool PhoneBook::searchContact() {
 	std::cin >> index;
 	if (index < m_numContacts)
 	{
+		std::cout << "✨ \"Contact found,\" chants the chorus of benevolent spirits, guiding your steps to the long-sought gem hidden amidst the cosmic tapestry! ✨" << std::endl;
+		std::cout << "🌌 Behold the wondrous connection unveiled, like a shining star in the night sky, illuminating the path of your journey. 🌌" << std::endl;
 		m_contacts[index].displayContact(index);
 		return (1);
 	}
@@ -99,6 +111,8 @@ void PhoneBook::displayPrompt(std::string command) {
 			{
 				std::cout << "🌌 Your contact has been inscribed with the touch of magic, forever preserved within these enchanted pages: 🌌\n";
 				std::cout << "🌟✨📔 Celebrate the Birth of a New Contact: Your Cosmic Connection is Sealed! 📔✨🌟" << std::endl;
+				if (i == 8)
+					m_contacts[i] = m_contacts[0];
 				i++;
 			}
 			else
@@ -109,10 +123,7 @@ void PhoneBook::displayPrompt(std::string command) {
 		}
 		else if (command.compare("SEARCH") == 0) {	
 			if (searchContact())
-			{
-				std::cout << "✨ \"Contact found,\" chants the chorus of benevolent spirits, guiding your steps to the long-sought gem hidden amidst the cosmic tapestry! ✨" << std::endl;
-				std::cout << "🌌 Behold the wondrous connection unveiled, like a shining star in the night sky, illuminating the path of your journey. 🌌" << std::endl;
-			}
+				;
 			else
 			{
 				std::cout << "🏰 Though you have traversed the enchanted forest and ventured forth into the cosmic realm of Phoenbook, the contact you sought remains elusive! 🏰\n";
