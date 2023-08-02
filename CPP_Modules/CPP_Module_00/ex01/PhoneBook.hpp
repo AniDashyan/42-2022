@@ -14,8 +14,11 @@ class PhoneBook {
 		void displayPrompt(std::string command);
 		void displayPhoneBookHeader();
 		void displayPhoneBook();
-		bool addContact(int *numContacts);
-		bool searchContact();
+		void addContact(int *numContacts);
+		void searchContact();
 		~PhoneBook();
+	private:
+		bool onlyNumbers(std::string str);
+		bool onlyLetters(std::string str);
 };
 #endif

@@ -63,20 +63,12 @@ void Contact::setIndex(int _index) {
 }
 
 void Contact::displayContact(int index) {
-	// Displaying header
-	std::cout << std::setw(10) << "Index" << " | "
-			  << std::setw(10) << "First Name" << " | "
-	          << std::setw(10) << "Last Name" << " | "
-	          << std::setw(10) << "Nickname" << " | "
-	          << std::endl;
-
-	// Dis\playing seperator
-	std::cout << "----------------------------------------------------" << std::endl;
-    std::cout << std::setw(10) << index << " | "
-              << std::setw(10) << std::left << (getFirstName().length() <= 10 ? getFirstName() : getFirstName().substr(0, 9) + ".") << " | "
-              << std::setw(10) << std::left << (getLastName().length() <= 10 ? getLastName() : getLastName().substr(0, 9) + ".") << " | "
-              << std::setw(10) << std::left << (getNickname().length() <= 10 ? getNickname() : getNickname().substr(0, 9) + ".") << " | "
-			  << std::endl;
+	std::cout << "index: " << index << std::endl;
+	std::cout << "First Name: " << getFirstName() << std::endl;
+	std::cout << "Last Name: " <<  getLastName()  << std::endl;
+	std::cout << "Nickame: " << getNickname() << std::endl;
+	std::cout << "Phone Number: " << getPhoneNumber() << std::endl;
+	std::cout << "Darkest Secret: " << getDarkestSecret() << std::endl;
 }
 
 Contact::~Contact(void) 

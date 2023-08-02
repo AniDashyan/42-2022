@@ -2,6 +2,7 @@
 #define CONTACT_HPP
 #include <string>
 #include <iostream>
+#include <cctype>
 #include <iomanip>
 
 class Contact {
