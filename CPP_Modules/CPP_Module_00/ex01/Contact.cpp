@@ -62,8 +62,7 @@ void Contact::setIndex(int _index) {
 	index = _index;
 }
 
-void Contact::displayContact(int index) {
-	std::cout << "index: " << index << std::endl;
+void Contact::displayContact() {
 	std::cout << "First Name: " << getFirstName() << std::endl;
 	std::cout << "Last Name: " <<  getLastName()  << std::endl;
 	std::cout << "Nickame: " << getNickname() << std::endl;
@@ -73,5 +72,5 @@ void Contact::displayContact(int index) {
 
 Contact::~Contact(void) 
 {
-	std::cout << "Destructor of Contact called\n";
+	// std::cout << "⚠️⚔️ Beware the Destructor of Contact! 🌌⚔️⚠️\n";	
 }

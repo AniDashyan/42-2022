@@ -4,10 +4,11 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <sstream>
 
 class PhoneBook {
 	private:
-		Contact m_contacts[9];
+		Contact m_contacts[8];
 		int m_numContacts;
 	public:
 		PhoneBook();

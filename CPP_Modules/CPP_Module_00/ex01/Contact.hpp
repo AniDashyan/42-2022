@@ -35,7 +35,7 @@ class Contact {
 		void setDarkestSecret(std::string _darkestSecret);
 
 		// show 
-		void displayContact(int index);
+		void displayContact();
 		// Destructor
 		~Contact(void);
 };
