@@ -11,7 +11,7 @@ void PhoneBook::displayPhoneBookHeader()
 	std::cout << "📜 \"ADD\": to add a new contact to PhoneBook. 📜" << std::endl;
 	std::cout << "🔍 \"SEARCH\": to search for a specific contact in PhoneBook 🔍" << std::endl;
 	std::cout << "🚪 \"EXIT\": to close the PhoneBook 🚪" << std::endl;
-	std::cout << "⚠️ Any other command is wrong ⚠️" << std::endl;
+	std::cout << "❌ Any other command is wrong ❌" << std::endl;
 	std::cout << "------------------------------------------------------------------ \n";
 }
 
@@ -62,31 +62,33 @@ void PhoneBook::addContact(int *numContacts)
 	do {
 		std::cout << "1️⃣ Please enter your First Name" << std::endl;
 		getline(std::cin, value);
-	} while (!onlyLetters(value));
+	} while (!onlyLetters(value) || value.empty());
 	contact.setFirstName(value);
 
 	do {
 		std::cout << "2️⃣ Please enter your Last Name" << std::endl;
 		getline(std::cin, value);
-	} while (!onlyLetters(value));
+	} while (!onlyLetters(value) || value.empty());
 	contact.setLastName(value);
 
-	std::cout << "3️⃣Please enter your chosen Nickname." << std::endl;
+	std::cout << "3️⃣ Please enter your chosen Nickname." << std::endl;
 	getline(std::cin, value);
 	contact.setNickname(value);
 	
 	do {
 		std::cout  << "📞 Please enter your Phone Number 📞" << std::endl;
 		getline(std::cin, value);
-	} while (!onlyNumbers(value));
+	} while (!onlyNumbers(value) || value.empty());
 	contact.setPhoneNumber(value);
 
-	std::cout << "🔮 Now, prepare to embrace your true self by unveiling your Darkest Secret. 🔮\n";
-	getline(std::cin, value);
+	do {
+		std::cout << "🤫 Now, prepare to embrace your true self by unveiling your Darkest Secret. 🤫\n";
+		getline(std::cin, value);
+	} while (value.empty());
 	contact.setDarkestSecret(value);
 	value.clear();
 
-	if (*numContacts >= 8)
+	if (*numContacts > 8)
 		m_contacts[*numContacts % 8] = contact;
 	else
 		m_contacts[*numContacts] = contact;
@@ -96,39 +98,50 @@ void PhoneBook::addContact(int *numContacts)
 void PhoneBook::searchContact() {
 	std::string s_index;
 	int index;
+	std::stringstream ss;
 	
-	// std::stringstream 
-	std::cout << "🕵🏻‍♂️ To search for a Contact, enter the following 🕵🏻‍♂️" << std::endl; 
+	std::cout << "🕵🏻‍♂️ To search for a Contact, do the following 🕵🏻‍♂️" << std::endl; 
 	displayPhoneBook();
-	std::cout << "🔮 Enter the index of the entry you wish to display. 🔮" << std::endl;
-	getline(std::cin, s_index);
+	
+	do {
+		std::cout << "🔮 Enter the index of the entry you wish to display. 🔮" << std::endl;
+		getline(std::cin, s_index);
+		ss << s_index;
+		if (s_index.empty())
+			return ;
+		ss >> index;
+		ss.ignore();
+	} while (!onlyNumbers(s_index) || index >= 8);
 
-	std::stringstream ss(s_index);
-	ss >> index;
-
-	if (index <= m_numContacts)
+	if (index < m_numContacts)
 	{
 		std::cout << "✨ \"Contact found,\" in Phonebook ✨" << std::endl;
 		m_contacts[index].displayContact();
+		return ;
 	}
 	else if (index > 8)
-		std::cout << "⚠️ Error: Index is out of range ⚠️" << std::endl;
+	{
+		std::cout << "❌ Error: Index is out of range ❌" << std::endl;
+		return ;
+	}
 	else
+	{
 		std::cout << "⚠️ \"Contact not found,\" in Phonebook ⚠️" << std::endl;
-	std::cin.ignore();
-	ss.str("");
+		return ;
+	}
+	// std::cin.ignore();
 }
 
 void PhoneBook::displayPrompt(std::string command) {
 	int i = 0;
 	while (42) {
-		if (std::cin.eof())
-		{
-			std::cout << "⚠️ Error: cin format failure ⚠️\n";
-			break;
-		}
 		std::cout << "⌨️ Enter a command:" << std::endl;
 		std::getline(std::cin, command);
+		if (std::cin.eof())
+		{
+			std::cout << "❌ Error: cin format failure ❌\n";
+			break;
+		}
 		if (command.compare("ADD") == 0)
 		{
 			addContact(&i);
@@ -138,15 +151,15 @@ void PhoneBook::displayPrompt(std::string command) {
 		else if (command.compare("SEARCH") == 0)
 			searchContact();
 		else if (command.compare("EXIT") == 0) {
-			std::cout << "Closing PhoneBook" << std::endl;
+			std::cout << "🚪 Exiting PhoneBook 🚪" << std::endl;
 			break;
 		}
 		else
-			std::cout << "⚠️ Wrong command! Enter a valid command ⚠️\n";
+			std::cout << "❌ Wrong command! Enter a valid command ❌\n";
 		command.clear();
 	}
 }
 
 PhoneBook::~PhoneBook() {
-	std::cout << "⚠️⚔️🌌 Beware the Destructor of PhoneBook! 🌌⚔️⚠️\n";
+	std::cout << "📞📖 Beware the Destructor of PhoneBook! 📞📖\n";
 }

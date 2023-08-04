@@ -72,5 +72,5 @@ void Contact::displayContact() {
 
 Contact::~Contact(void) 
 {
-	// std::cout << "⚠️⚔️ Beware the Destructor of Contact! 🌌⚔️⚠️\n";	
+	// std::cout << "👤 Beware the Destructor of Contact! 👤\n";
 }
