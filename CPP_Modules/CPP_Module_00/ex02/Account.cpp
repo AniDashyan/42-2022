@@ -1,3 +1,6 @@
+#include <iostream>
+#include <ctime>
+#include <iomanip>
 #include "Account.hpp"
 
 int Account::_nbAccounts = 0;
@@ -28,6 +31,7 @@ Account::~Account() {
 	std::cout << "index:" << _accountIndex << ";";
 	std::cout << "amount:" << _amount << ";";
 	std::cout << "closed" << std::endl;
+	_nbAccounts--;
 }
 
 int	    Account::getNbAccounts( void ) {
@@ -43,7 +47,6 @@ int	    Account::getNbDeposits( void ) {
 	return _totalNbDeposits;
 }
 
-
 int	    Account::getNbWithdrawals( void ) {
 	return _totalNbWithdrawals;
 }
@@ -58,7 +61,13 @@ void    Account::displayAccountsInfos( void ) {
 }
 
 void	Account::_displayTimestamp( void ) {
-	// std::cout << "[20230608_091632]";
+	time_t now = std::time(0);
+    tm* local_time = std::localtime(&now);
+
+    const char* format = "[%Y%m%d_%H%M%S]";
+	char formatted_time[20];
+    std::strftime(formatted_time, sizeof(formatted_time), format, local_time);
+    std::cout << formatted_time << " ";
 }
 
 void	Account::makeDeposit( int deposit ) {
