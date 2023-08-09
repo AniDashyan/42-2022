@@ -62,11 +62,9 @@ void    Account::displayAccountsInfos( void ) {
 
 void	Account::_displayTimestamp( void ) {
 	time_t now = std::time(0);
-    tm* local_time = std::localtime(&now);
-
-    const char* format = "[%Y%m%d_%H%M%S]";
 	char formatted_time[20];
-    std::strftime(formatted_time, sizeof(formatted_time), format, local_time);
+	
+    std::strftime(formatted_time, sizeof(formatted_time), "[%Y%m%d_%H%M%S]", std::localtime(&now));
     std::cout << formatted_time << " ";
 }
 

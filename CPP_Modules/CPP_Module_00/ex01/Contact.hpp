@@ -1,5 +1,6 @@
 #ifndef CONTACT_HPP
 #define CONTACT_HPP
+
 #include <string>
 #include <iostream>
 #include <cctype>
@@ -14,7 +15,7 @@ class Contact {
 		std::string phoneNumber;
 		std::string darkestSecret;
 	public:
-		// Constructors default and initialized list
+		// default and parametrized constructor
 		Contact();
 		Contact(std::string firstName, std::string lastName, std::string nickname, std::string phoneNumber, std::string darkestSecret);
 

@@ -12,14 +12,13 @@ class PhoneBook {
 		int m_numContacts;
 	public:
 		PhoneBook();
-		void displayPrompt(std::string command);
-		void displayPhoneBookHeader();
-		void displayPhoneBook();
-		void addContact(int *numContacts);
+		bool addContact(int *numContacts);
 		void searchContact();
 		~PhoneBook();
 	private:
-		bool onlyNumbers(std::string str);
-		bool onlyLetters(std::string str);
+		void displayPhoneBook();
+		static bool onlyNumbers(std::string str);
+		static bool onlyLetters(std::string str);
+		std::string getInput(std::string prompt, bool (*check)(std::string));
 };
 #endif

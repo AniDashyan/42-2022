@@ -7,7 +7,7 @@ SRCS	= $(wildcard *.cpp)
 OBJS	= $(patsubst %.cpp, %.o, $(SRCS))
 
 %.o: %.cpp
-	$(CPP) $(CPPFLAGS) -c $< -o $@
+	$(CPP)  -c $< -o $@
 
 all:	$(NAME)
 

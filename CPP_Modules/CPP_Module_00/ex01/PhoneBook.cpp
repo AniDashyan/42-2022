@@ -2,17 +2,7 @@
 
 PhoneBook::PhoneBook() {
 	m_numContacts = 0;
-	std::cout << "📱 Greetings, welcome to My Awesome Phoenbook! 📱" << std::endl;
-}
-
-void PhoneBook::displayPhoneBookHeader()
-{
-	std::cout << "-------------------- 💡 Instructions of use 💡 -------------------- \n";
-	std::cout << "📜 \"ADD\": to add a new contact to PhoneBook. 📜" << std::endl;
-	std::cout << "🔍 \"SEARCH\": to search for a specific contact in PhoneBook 🔍" << std::endl;
-	std::cout << "🚪 \"EXIT\": to close the PhoneBook 🚪" << std::endl;
-	std::cout << "❌ Any other command is wrong ❌" << std::endl;
-	std::cout << "------------------------------------------------------------------ \n";
+	std::cout <<  "📱 Greetings, welcome to My Awesome Phoenbook! 📱" << std::endl;
 }
 
 void PhoneBook::displayPhoneBook() {
@@ -23,7 +13,7 @@ void PhoneBook::displayPhoneBook() {
 	          << std::setw(10) << "Nickname" << " | "
 	          << std::endl;
 
-	// Displaying seperator
+	// Displaying data
 	std::cout << "----------------------------------------------------" << std::endl;
 	for (int i = 0; i < m_numContacts; ++i) {
 		m_contacts[i].setIndex(i);
@@ -51,49 +41,55 @@ bool  PhoneBook::onlyLetters(std::string str) {
 }
 /* --------------------------------- */
 
-void PhoneBook::addContact(int *numContacts)
-{
+std::string PhoneBook::getInput(std::string prompt, bool (*check)(std::string) = 0) {
 	std::string value;
-	Contact 	contact;
-	
-	contact.setIndex(*numContacts);
-	std::cout << "📖 To add a new contact, enter the following: 📖" << std::endl << std::endl;
 
 	do {
-		std::cout << "1️⃣ Please enter your First Name" << std::endl;
-		getline(std::cin, value);
-	} while (!onlyLetters(value) || value.empty());
-	contact.setFirstName(value);
-
-	do {
-		std::cout << "2️⃣ Please enter your Last Name" << std::endl;
-		getline(std::cin, value);
-	} while (!onlyLetters(value) || value.empty());
-	contact.setLastName(value);
-
-	std::cout << "3️⃣ Please enter your chosen Nickname." << std::endl;
-	getline(std::cin, value);
-	contact.setNickname(value);
-	
-	do {
-		std::cout  << "📞 Please enter your Phone Number 📞" << std::endl;
-		getline(std::cin, value);
-	} while (!onlyNumbers(value) || value.empty());
-	contact.setPhoneNumber(value);
-
-	do {
-		std::cout << "🤫 Now, prepare to embrace your true self by unveiling your Darkest Secret. 🤫\n";
-		getline(std::cin, value);
-	} while (value.empty());
-	contact.setDarkestSecret(value);
-	value.clear();
-
-	if (*numContacts > 8)
-		m_contacts[*numContacts % 8] = contact;
-	else
-		m_contacts[*numContacts] = contact;
-	m_numContacts++;
+        std::cout << prompt << std::endl;
+		if (!getline(std::cin, value))
+		{
+			if (std::cin.eof())
+				break;
+		}
+		if (value.empty())
+            std::cout << "Error: Invalid input. Please try again." << std::endl; 
+		else if (check && !check(value))
+            std::cout << "Error: Invalid format. Please try again." << std::endl;
+		else 
+            break;
+    }
+	while (true);
+	return (value);
 }
+
+bool PhoneBook::addContact(int *numContacts) {
+    Contact contact;
+
+    contact.setIndex(*numContacts);
+    contact.setFirstName(getInput("1️⃣ Please enter your First Name", onlyLetters));
+	if (contact.getFirstName().empty())
+		return (0);
+    contact.setLastName(getInput("2️⃣ Please enter your Last Name", onlyLetters));
+	if (contact.getLastName().empty())
+		return (0);
+    contact.setNickname(getInput("3️⃣ Please enter your chosen Nickname."));
+	if (contact.getNickname().empty())
+		return (0);
+    contact.setPhoneNumber(getInput("📞 Please enter your Phone Number 📞", onlyNumbers));
+	if (contact.getPhoneNumber().empty())
+		return (0);
+    contact.setDarkestSecret(getInput("🤫 Now, prepare to embrace your true self by unveiling your Darkest Secret. 🤫"));
+	if (contact.getDarkestSecret().empty())
+		return (0);
+
+    if (*numContacts > 8)
+        m_contacts[*numContacts % 8] = contact;
+    else
+        m_contacts[*numContacts] = contact;
+	m_numContacts++;
+	return (1);
+}
+
 
 void PhoneBook::searchContact() {
 	std::string s_index;
@@ -110,8 +106,7 @@ void PhoneBook::searchContact() {
 		if (s_index.empty())
 			return ;
 		ss >> index;
-		ss.ignore();
-	} while (!onlyNumbers(s_index) || index >= 8);
+	} while (!onlyNumbers(s_index));
 
 	if (index < m_numContacts)
 	{
@@ -128,35 +123,6 @@ void PhoneBook::searchContact() {
 	{
 		std::cout << "⚠️ \"Contact not found,\" in Phonebook ⚠️" << std::endl;
 		return ;
-	}
-	// std::cin.ignore();
-}
-
-void PhoneBook::displayPrompt(std::string command) {
-	int i = 0;
-	while (42) {
-		std::cout << "⌨️ Enter a command:" << std::endl;
-		std::getline(std::cin, command);
-		if (std::cin.eof())
-		{
-			std::cout << "❌ Error: cin format failure ❌\n";
-			break;
-		}
-		if (command.compare("ADD") == 0)
-		{
-			addContact(&i);
-			std::cout << "✨ Contact added successfully ✨\n";
-			i++;
-		}
-		else if (command.compare("SEARCH") == 0)
-			searchContact();
-		else if (command.compare("EXIT") == 0) {
-			std::cout << "🚪 Exiting PhoneBook 🚪" << std::endl;
-			break;
-		}
-		else
-			std::cout << "❌ Wrong command! Enter a valid command ❌\n";
-		command.clear();
 	}
 }
 
