@@ -1,16 +1,14 @@
 #include "Zombie.hpp"
 
 int main() {
-	Zombie *zombie = new Zombie("Ani");
+	Zombie *zombie = new Zombie("Zombik");
 	if (!zombie)
 		return (-1);
 	zombie->announce();
-	Zombie *z = newZombie("Hacker");
+	Zombie *z = zombieHorde(5, "Lala");
 	if (!z)
 		return (-1);
-	z->announce();
-	randomChump("Zombik");
 	delete zombie;
-	delete z;
+	delete [] z;
 	return (0);
 }

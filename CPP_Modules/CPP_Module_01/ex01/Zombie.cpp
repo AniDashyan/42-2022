@@ -5,6 +5,10 @@ Zombie::Zombie(std::string name) {
 	std::cout << "🧟‍♂️ Zombie " << this->name << " created 🧟"<< std::endl;
 }
 
+Zombie::Zombie() {
+	Zombie("");
+}
+
 void Zombie::announce(void) {
 	std::cout << this->name << ": BraiiiiiiinnnzzzZ..." << std::endl;
 }
