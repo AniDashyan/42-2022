@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <string>
 
 int main() {
@@ -7,17 +8,21 @@ int main() {
 	std::string *stringPTR = &str;
 	std::string &stringREF = str;
 
-	// std::cout << "Memory address of str: " << stringPTR << std::endl;
-	std::cout << "---------- Memory addresses ----------\n";
-	std::cout << "Memory address of str: " << &str << std::endl;
-	std::cout << "Memory address of stringPTR: " << &stringPTR << std::endl;
-	std::cout << "Memory address of stringREF: " << &stringREF << std::endl;
-	std::cout << "--------------------------------------\n";
-
-	std::cout << "\n---------- Values ----------\n";
-	std::cout << "Values of str: " << str << std::endl;
-	std::cout << "Values of stringPTR: " << *stringPTR << std::endl;
-	std::cout << "Values of stringREF: " << stringREF << std::endl;
-	std::cout << "--------------------------------------\n";
+	// Display Table Header
+	std::cout << "--------------------------------------------------\n";
+	std::cout << "| " << std::setw(10) << "Variable" << " | "
+			  << std::setw(10) << "Memory Address" << " | "
+	          << std::setw(10) << "Value"
+			  << std::setw(9) << " | "
+	          << std::endl;
+	
+	// Displaying Table Values
+	std::cout << "--------------------------------------------------\n";
+	std::cout << "| " << std::setw(10) << std::left << "str" << " | " << &str << " | " << str << " | ";
+	std::cout << "\n--------------------------------------------------\n";
+	std::cout << "| " << std::setw(10) << std::left << "stringPTR" << " | " << stringPTR << " | " << *stringPTR << " | ";
+	std::cout << "\n--------------------------------------------------\n";
+	std::cout << "| " << std::setw(10) << std::left << "stringREF" << " | " << &stringREF << " | " << stringREF << " | ";
+	std::cout << "\n--------------------------------------------------\n";
 	return (0);
 }
