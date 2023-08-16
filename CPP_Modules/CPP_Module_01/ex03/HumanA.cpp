@@ -1,6 +1,6 @@
 #include "HumanA.hpp"
 
-HumanA::HumanA(std::string name, Weapon weapon) : _name(name), _weapon(weapon) {
+HumanA::HumanA(std::string name, Weapon &weapon) : _name(name), _weapon(weapon) {
 	std::cout << "🙎‍♂️ HumanA " << this->_name << " is created 🙎‍♂️" << std::endl;
 }
 
@@ -9,5 +9,5 @@ void HumanA::attack() {
 } 
 
 HumanA::~HumanA() {
-	std::cout << "❌🙎‍♂️ HumanA " << this->_name << " is destroyed ❌🙎‍♂️";
+	std::cout << "❌🙎‍♂️ HumanA " << this->_name << " is destroyed ❌🙎‍♂️" << std::endl;
 }

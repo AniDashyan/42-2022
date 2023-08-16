@@ -1,11 +1,12 @@
 #include "Weapon.hpp"
 
 Weapon::Weapon() {
-	std::cout << "🔫 Weapon is created 🔫" << std::endl;
+	// std::cout << "🔫 Weapon is created 🔫" << std::endl;
 }
 
 Weapon::Weapon(std::string _type) : type(_type)
 {
+    // this->type = _type;
     std::cout << "🔫 Weapon " << this->type << " is created 🔫" << std::endl;
 }
 
