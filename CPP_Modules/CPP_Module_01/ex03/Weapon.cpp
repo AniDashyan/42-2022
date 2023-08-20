@@ -6,7 +6,6 @@ Weapon::Weapon() {
 
 Weapon::Weapon(std::string _type) : type(_type)
 {
-    // this->type = _type;
     std::cout << "🔫 Weapon " << this->type << " is created 🔫" << std::endl;
 }
 

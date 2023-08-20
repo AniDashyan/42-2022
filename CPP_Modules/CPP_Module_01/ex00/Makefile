@@ -1,4 +1,4 @@
-NAME		= ./BraiiiiiiinnnzzzZ
+NAME		= ./braiiiiiiinnnzzzZ
 CPP			= c++
 CPPFLAGS	= -Wall -Wextra -Werror -fsanitize=address -std=c++98
 RM			= rm -f

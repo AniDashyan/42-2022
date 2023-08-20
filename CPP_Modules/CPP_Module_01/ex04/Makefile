@@ -1,4 +1,4 @@
-NAME		= ./harl
+NAME		= ./replace
 CPP			= c++
 CPPFLAGS	= -Wall -Wextra -Werror -fsanitize=address -std=c++98
 RM			= rm -f
