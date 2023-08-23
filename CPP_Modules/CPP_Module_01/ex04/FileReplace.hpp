@@ -9,12 +9,13 @@
 class FileReplace {
 	private:
 		std::ifstream file;
+		std::string _filename;
 		std::string _s1;
 		std::string _s2;
 	public:
 		// FileReplace();
 		FileReplace(std::string filename);
-		void replace(std::ifstream &file, std::string s1, std::string s2);
+		void replace();
 		void setS1(std::string s1);
 		void setS2(std::string s2);
 		std::string getS1();
