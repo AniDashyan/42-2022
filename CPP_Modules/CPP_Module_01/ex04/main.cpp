@@ -1,15 +1,13 @@
 #include "FileReplace.hpp"
 
 int main(int argc, char **argv) {
-	if (argc == 4)
-	{
-		// std::string filename = argv[1];
-		FileReplace file_replace(argv[1]);
-		file_replace.setS1(argv[2]);
-		file_replace.setS2(argv[3]);
-		file_replace.replace();
-	}
+    if (argc == 4) {
+        try {
+            FileReplace file_replace(argv[1], argv[2], argv[3]);
+            file_replace.replace();
+        } catch (...) {}
+    } 
 	else
-		std::cout << "❌ Error: Bad arguments ❌" << std::endl;
-	return (0);
+        std::cerr << "❌ Error: Bad arguments ❌" << std::endl;
+    return 0;
 }
