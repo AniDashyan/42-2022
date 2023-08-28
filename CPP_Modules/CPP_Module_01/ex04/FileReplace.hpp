@@ -8,8 +8,8 @@
 
 class FileReplace {
 	private:
-		std::ifstream file;
-		const std::string m_filename;
+		std::ifstream infile;
+		std::string m_filename;
 		const std::string m_s1;
 		const std::string m_s2;
 	public:
