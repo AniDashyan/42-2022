@@ -5,11 +5,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <stdexcept>
 
 class FileReplace {
 	private:
 		std::ifstream infile;
-		std::string m_filename;
+		const std::string m_filename;
 		const std::string m_s1;
 		const std::string m_s2;
 	public:
