@@ -1,11 +1,11 @@
 #include "Harl.hpp"
 
 int harl_filter(char *level) {
-    std::string levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR "};
+    std::string levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
     for (int i = 0; i < 4; i++)
         if (levels[i] == level)
             return (i);
-        return (-1);
+    return (-1);
 }
 
 void harl_switch(char *level, Harl &harl) {
@@ -19,7 +19,7 @@ void harl_switch(char *level, Harl &harl) {
         case 3:
             harl.complain("ERROR");
         default:
-            std::cout << "[😠 Probably complaining about insignificant problems ]" << std::endl;
+            std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
             break;
     }
 }
@@ -29,6 +29,6 @@ int main(int argc, char **argv) {
     if (argc == 2)
         harl_switch(argv[1], harl);
     else
-        std::cout << "[😠 Probably complaining about insignificant problems 😠]" << std::endl;
+        std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
     return (0);
 }

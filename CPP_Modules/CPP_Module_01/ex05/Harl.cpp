@@ -1,17 +1,17 @@
 #include "Harl.hpp"
 
 Harl::Harl() {
-    std::cout << "Hey there👋. I'm Harl, and if there's one thing I'm absolutely world-class at, it's complaining! 🏆😅" << std::endl;
+    std::cout << "Hello I'm Harl, and if there's one thing I'm absolutely world-class at, it's complaining! 🏆😅" << std::endl;
 }
 
 void Harl::debug() {
     std::cout << "🔍🐞 DEBUG:\n";
-    std::cout << "I love having extra bacon 7XL-double-cheese-triple-pickle-specialketchup burger. I really do! 🍔🥓🧀🍅" << std::endl;
+    std::cout << "I love having extra bacon 7XL-double-cheese-triple-pickle-specialketchup burger. I really do!" << std::endl;
 }
 
 void Harl::info(void) {
     std::cout << "📚 INFO:\n";
-    std::cout << "😱🥓 I cannot believe adding extra bacon costs more money. You didn’t put enough bacon in my burger! If you did, I wouldn’t be asking for more!  😤🍔" << std::endl;
+    std::cout << "I cannot believe adding extra bacon costs more money. You didn’t put enough bacon in my burger! If you did, I wouldn’t be asking for more!" << std::endl;
 }
 
 void Harl::warning() {
@@ -21,7 +21,7 @@ void Harl::warning() {
 
 void Harl::error() {
     std::cout << "🚫 ERROR:\n";
-    std::cout << "😡👔 This is unacceptable! I want to speak to the manager now. 🗣️🚨" << std::endl;
+    std::cout << "This is unacceptable! I want to speak to the manager now." << std::endl;
 }
 
 void Harl::complain(std::string level) {

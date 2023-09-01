@@ -20,8 +20,6 @@ void FileReplace::replace() {
 		std::cout << "❌ Error: Can't open the outfile ❌\n";
 		return ;
 	}
-	std::string line; // reading file line by line
-	int count = 0; // count of the found m_s1;
 	infile.seekg(0, std::ios::end);
 	int length = infile.tellg();
 	if (length == 0)
@@ -30,36 +28,34 @@ void FileReplace::replace() {
 		return ;
 	}
 	infile.seekg(0, std::ios::beg);
+	std::string line; // reading file line by line
+	int count = 0; // count of the found m_s1;
+	// std::cout << "count: " << count << std::endl;
 	while (!infile.eof())
 	{
-		// reading from infile line by line until meeting new line "\n" in this case hitting ENTER
 		getline(infile, line);
-		int pos = 0;  // starting position to search
-		std::string newLine;
-    	while (pos < line.length()) {
-			int foundPos = line.find(m_s1, pos); // find m_s1 in line starting from pos and assigning it to foundPos
-			if (foundPos == std::string::npos) // Doesn't find m_s1
-			{
-				newLine.append(line.substr(pos));
-				break;
-			}
-			else
-			{
-				count++;
-        		newLine.append(line.substr(pos, foundPos - pos));
-				newLine.append(m_s2);
-				pos += foundPos + m_s1.length();
-			}
-    	}
-		outfile << newLine << "\n";
-	}	
-
+		// std::cout << "line before: " << line << std::endl;
+		// std::string newLine;
+		int foundPos = line.find(m_s1); // finding m_s1 in line and assigning it to foundPos
+		while (foundPos != std::string::npos) // checking until m_s1 is not found
+		{
+			count++;
+			line.erase(foundPos, m_s1.length());
+			// std::cout << "line after erase: " << line << std::endl;
+			line.insert(foundPos, m_s2);
+			// std::cout << "line after insert: " << line << std::endl;
+			foundPos = line.find(m_s1, foundPos + m_s2.length());
+		}
+		outfile << line << "\n";
+		// std::cout << "hello while\n";
+	}
+	// std::cout << "hello\n";
 	infile.close();
 	outfile.close();
 	if (count != 0)
 		std::cout << "Replacement completed. Check '" << out_filename << "' for results." << std::endl;
 	else
-		std::cout << "String not found\n";
+		std::cout << m_s1 << " not found in '" << m_filename << "'." << std::endl;
 }
 
 FileReplace::~FileReplace() {

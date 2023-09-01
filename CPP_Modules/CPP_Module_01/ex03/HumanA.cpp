@@ -9,5 +9,5 @@ void HumanA::attack() {
 } 
 
 HumanA::~HumanA() {
-	std::cout << "❌🙎‍♂️ HumanA " << this->_name << " is destroyed ❌🙎‍♂️" << std::endl;
+	std::cout << "💀🙎‍♂️ HumanA " << this->_name << " is destroyed 💀🙎‍♂️" << std::endl;
 }

@@ -17,7 +17,6 @@ int main()
         jim.setWeapon(club);
         jim.attack();
         club.setType("some other type of club");
-        std::cout << "weapon type: " << club.getType() << std::endl;
         jim.attack();
     }
     return 0;
