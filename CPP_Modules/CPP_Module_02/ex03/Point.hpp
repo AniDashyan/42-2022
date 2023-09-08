@@ -14,11 +14,13 @@ class Point {
         Point(const Point& other);
         Point& operator=(const Point &other);
 
-        const Fixed getX() const;
-        const Fixed getY() const;
+        Fixed getX() const;
+        Fixed getY() const;
+
         ~Point();
 };
 
 bool bsp(Point const a, Point const b, Point const c, Point const point);
+float distance(Point const p1, Point const p2);
 
 #endif
