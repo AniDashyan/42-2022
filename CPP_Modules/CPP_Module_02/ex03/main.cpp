@@ -2,10 +2,10 @@
 
 int	main(void)
 {
-	Point	a(5, 5);
-	Point	b(2, 9);
-	Point	c(0, 5);
-	Point	p(3, 7);
+	Point	a(0, 3);
+	Point	b(4, 0);
+	Point	c(0, 0);
+	Point	p(1, 1);
 	Point	p2(4, 7);
 
 	std::cout << "Point a.x = " << a.getX() << " a.y = " << a.getY() << std::endl;

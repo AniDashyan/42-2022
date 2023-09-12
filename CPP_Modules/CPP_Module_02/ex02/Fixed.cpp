@@ -70,22 +70,30 @@ bool Fixed::operator!=(const Fixed& other) {
 }
 
 Fixed Fixed::operator+(const Fixed& other) {
-    Fixed c(this->getRawBits() + other.getRawBits());
+    Fixed c;
+    
+    c = this->getRawBits() + other.getRawBits();
     return (c);
 }
 
 Fixed Fixed::operator-(const Fixed& other) {
-    Fixed c(this->getRawBits() - other.getRawBits());
+    Fixed c;
+    
+    c.setRawBits(this->getRawBits() - other.getRawBits());
     return (c);
 }
 
 Fixed Fixed::operator*(const Fixed& other) {
-    Fixed c((this->toFloat() * other.toFloat()) * (1 << m_num_of_bits));
+    Fixed c;
+    
+    c.setRawBits(((this->toFloat() * other.toFloat()) * (1 << m_num_of_bits)));
     return (c);
 }
 
 Fixed Fixed::operator/(const Fixed& other) {
-    Fixed c((this->toFloat() / other.toFloat()) * (1 << m_num_of_bits));
+    Fixed c;
+    
+    c.setRawBits((this->toFloat() / other.toFloat()) * (1 << m_num_of_bits));
     return (c);
 }
 

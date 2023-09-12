@@ -41,12 +41,10 @@ void    Fixed::setRawBits(int const raw)
 }
 
 float Fixed::toFloat(void) const {
-    // return (roundf(this->m_fp_value * (1 >> 8)));
     return ((float)this->m_fp_value / (1 << 8));
 }
 
 int Fixed::toInt(void) const {
-    // return (this->m_fp_value * (1 >> 8));
     return (this->m_fp_value / (1 << 8));
 }
 

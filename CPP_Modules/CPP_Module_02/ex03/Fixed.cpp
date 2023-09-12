@@ -1,34 +1,34 @@
 #include "Fixed.hpp"
 
 Fixed::Fixed() : m_fp_value(0) {
-    // std::cout << "Default Constructor of Fixed called\n";
+    // std::cout << "Default Constructor called\n";
 }
 
 Fixed::Fixed(const Fixed& other) {
     this->m_fp_value = other.m_fp_value;
-    // std::cout << "Copy Constructor of Fixed called\n";
+    // std::cout << "Copy Constructor called\n";
 }
 
 Fixed::Fixed(const int integer) {
     this->m_fp_value = integer * (1 << m_num_of_bits);
-    // std::cout << "Constructor with integer parameter of Fixed called\n";
+    // std::cout << "Constructor with integer parameter called\n";
 }
 
 Fixed::Fixed(const float float_num) {
     this->m_fp_value = roundf(float_num * (1 << m_num_of_bits));
-    // std::cout << "Constructor with float parameter of Fixed called\n";
+    // std::cout << "Constructor with float parameter called\n";
 }
 
 Fixed& Fixed::operator=(const Fixed& other) {
     if (this != &other)
+    // std::cout << "Copy Assignment Operator called\n";
         this->m_fp_value = other.m_fp_value;
-    // std::cout << "Copy Assignment Operator of Fixed called\n";
     return (*this); 
 }
 
 Fixed::~Fixed()
 {
-    // std::cout << "Destructor of Fixed called\n";
+    // std::cout << "Destructor called\n";
 }
 
 int     Fixed::getRawBits(void) const
@@ -70,22 +70,30 @@ bool Fixed::operator!=(const Fixed& other) {
 }
 
 Fixed Fixed::operator+(const Fixed& other) {
-    Fixed c(this->getRawBits() + other.getRawBits());
+    Fixed c;
+    
+    c = this->getRawBits() + other.getRawBits();
     return (c);
 }
 
 Fixed Fixed::operator-(const Fixed& other) {
-    Fixed c(this->getRawBits() - other.getRawBits());
+    Fixed c;
+    
+    c.setRawBits(this->getRawBits() - other.getRawBits());
     return (c);
 }
 
 Fixed Fixed::operator*(const Fixed& other) {
-    Fixed c((this->toFloat() * other.toFloat()) * (1 << m_num_of_bits));
+    Fixed c;
+    
+    c.setRawBits(((this->toFloat() * other.toFloat()) * (1 << m_num_of_bits)));
     return (c);
 }
 
 Fixed Fixed::operator/(const Fixed& other) {
-    Fixed c((this->toFloat() / other.toFloat()) * (1 << m_num_of_bits));
+    Fixed c;
+    
+    c.setRawBits((this->toFloat() / other.toFloat()) * (1 << m_num_of_bits));
     return (c);
 }
 

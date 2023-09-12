@@ -10,9 +10,9 @@ Fixed::Fixed(const Fixed& other) {
 }
 
 Fixed& Fixed::operator=(const Fixed& other) {
-    std::cout << "Copy Assignment Operator called\n";
     if (this != &other)
         this->m_fp_value = other.m_fp_value;
+    std::cout << "Copy Assignment Operator called\n";
     return (*this); 
 }
 

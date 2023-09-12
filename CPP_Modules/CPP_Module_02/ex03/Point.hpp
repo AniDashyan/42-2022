@@ -21,6 +21,5 @@ class Point {
 };
 
 bool bsp(Point const a, Point const b, Point const c, Point const point);
-float distance(Point const p1, Point const p2);
 
 #endif
