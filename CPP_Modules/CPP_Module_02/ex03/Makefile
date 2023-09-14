@@ -1,4 +1,4 @@
-NAME		= ./bsp
+NAME		= ./fixed
 CPP			= c++
 CPPFLAGS	= -Wall -Wextra -Werror -fsanitize=address -std=c++98
 RM			= rm -f
@@ -6,12 +6,14 @@ RM			= rm -f
 SRCS	= $(wildcard *.cpp)
 OBJS	= $(patsubst %.cpp, %.o, $(SRCS))
 
-%.o: %.cpp
-	$(CPP)  -c $< -o $@
+HEADRERS = $(wildcard *.hpp)
+
+%.o: %.cpp $(HEADRERS) Makefile
+	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 all:	$(NAME)
 
-$(NAME):	$(OBJS) 
+$(NAME):	$(OBJS) $(HEADRERS) Makefile
 			 $(CPP) $(CPPFLAGS) -o $(NAME) $(OBJS)
 
 clean:

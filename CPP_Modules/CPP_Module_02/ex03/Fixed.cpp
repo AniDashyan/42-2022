@@ -20,8 +20,8 @@ Fixed::Fixed(const float float_num) {
 }
 
 Fixed& Fixed::operator=(const Fixed& other) {
-    if (this != &other)
     // std::cout << "Copy Assignment Operator called\n";
+    if (this != &other)
         this->m_fp_value = other.m_fp_value;
     return (*this); 
 }
@@ -72,7 +72,7 @@ bool Fixed::operator!=(const Fixed& other) {
 Fixed Fixed::operator+(const Fixed& other) {
     Fixed c;
     
-    c = this->getRawBits() + other.getRawBits();
+    c.setRawBits(this->getRawBits() + other.getRawBits());
     return (c);
 }
 

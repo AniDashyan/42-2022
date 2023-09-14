@@ -72,7 +72,7 @@ bool Fixed::operator!=(const Fixed& other) {
 Fixed Fixed::operator+(const Fixed& other) {
     Fixed c;
     
-    c = this->getRawBits() + other.getRawBits();
+    c.setRawBits(this->getRawBits() + other.getRawBits());
     return (c);
 }
 
@@ -119,7 +119,7 @@ Fixed  Fixed::operator--() {
     return (*this);
 }
 
-Fixed& min(Fixed &num1, Fixed &num2) {
+Fixed& Fixed::min(Fixed &num1, Fixed &num2) {
     return (num1.getRawBits() < num2.getRawBits() ? num1 : num2);
 }
 

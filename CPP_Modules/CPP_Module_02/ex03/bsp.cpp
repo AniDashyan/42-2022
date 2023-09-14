@@ -1,21 +1,16 @@
 #include "Point.hpp"
 
-Fixed sign (Point p1, Point p2, Point p3)
-{
-    return (p1.getX() - p3.getX()) * (p2.getY() - p3.getY()) - (p2.getX() - p3.getX()) * (p1.getY() - p3.getY());
+
+Fixed ft_abs(Fixed num) {
+    return (num < 0 ? (num * (-1)) : num);
 }
 
-bool bsp(Point const a, Point const b, Point const c, Point const point)
-{
-    Fixed d1, d2, d3;
-    bool has_neg, has_pos;
+bool bsp(Point const a, Point const b, Point const c, Point const point) {
 
-    d1 = sign(point, a, b);
-    d2 = sign(point, b, c);
-    d3 = sign(point, c, a);
+    Fixed areaABC = ft_abs(((a.getX() * b.getY()) + (b.getX() * c.getY()) + (c.getX() * a.getY()) - (a.getX() * c.getY()) - (c.getX() * b.getY()) - (b.getX() * a.getY()))) / 2;
+    Fixed areaABP = ft_abs(((a.getX() * b.getY()) + (b.getX() * point.getY()) + (point.getX() * a.getY()) - (a.getX() * point.getY()) - (point.getX() * b.getY()) - (b.getX() * a.getY()))) / 2;
+    Fixed areaAPC = ft_abs(((a.getX() * point.getY()) + (point.getX() * c.getY()) + (c.getX() * a.getY()) - (a.getX() * c.getY()) - (c.getX() * point.getY()) - (point.getX() * a.getY()))) / 2;
+    Fixed areaPBC = ft_abs(((point.getX() * b.getY()) + (b.getX() * c.getY()) + (c.getX() * point.getY()) - (point.getX() * c.getY()) - (c.getX() * b.getY()) - (b.getX() * point.getY()))) / 2;
 
-    has_neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
-    has_pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
-
-    return !(has_neg && has_pos);
+    return (areaABC == areaABP + areaAPC + areaPBC);
 }
