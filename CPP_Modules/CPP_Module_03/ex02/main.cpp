@@ -1,19 +1,24 @@
 #include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
 int main() {
-    ScavTrap st1("A");
-    ScavTrap st2("B");
+    FragTrap obj("obj");
+    FragTrap obj_2("obj_2");
 
-    st1.setDamage(5);
-    st2.setDamage(3);
-
-    st1.attack("B");
-    st2.takeDamage(st1.getDamage());
-    st2.beRepaired(3);
-    st1.guardGate();
-    st2.attack("A");
-    st2.guardGate();
-    st1.takeDamage(st2.getDamage());
-    st1.beRepaired(10);
+    obj_2.highFivesGuys();
+    obj.setDamage(42);
+    obj.attack("obj_2");
+    obj_2.takeDamage(20);
+    obj_2.beRepaired(15);
+    obj.attack("obj_2");
+    obj_2.takeDamage(3);
+    obj.attack("obj_2");
+    obj_2.takeDamage(2);
+    obj.attack("obj_2");
+    obj_2.takeDamage(10);
+    obj_2.attack("obj");
+    obj.attack("obj_2");
+    obj_2.highFivesGuys();
+  
     return (0);
 }

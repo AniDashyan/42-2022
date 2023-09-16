@@ -1,17 +1,19 @@
 #include "ClapTrap.hpp"
 
 int main() {
-    ClapTrap ct1("A");
-    ClapTrap ct2("B");
-
-    ct1.setDamage(5);
-    ct2.setDamage(10);
-
-    ct1.attack("B");
-    ct2.takeDamage(ct1.getDamage());
-    ct2.beRepaired(3);
-    ct2.attack("A");
-    ct1.takeDamage(ct2.getDamage());
-    ct1.beRepaired(10);
+    ClapTrap obj("Jack");
+    ClapTrap obj_2("Supermarket");
+   
+    obj.setDamage(5);
+    obj.attack("Supermarket");
+    obj_2.takeDamage(obj.getDamage());
+    obj_2.beRepaired(3);
+    obj.attack("Supermarket");
+    obj_2.takeDamage(obj.getDamage());
+    obj.attack("Supermarket");
+    obj_2.takeDamage(obj.getDamage());
+    obj_2.beRepaired(3);
+    obj_2.attack("Jack");
+    obj.takeDamage(obj.getDamage());
     return (0);
 }

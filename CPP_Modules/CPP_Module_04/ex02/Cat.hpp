@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Animal.hpp"
+#include "Brain.hpp"
 
 class Cat : public Animal
 {
@@ -10,4 +11,6 @@ class Cat : public Animal
         ~Cat();
         Cat& operator=(const Cat &obj);
         void makeSound() const;
+    private:
+        Brain* brain;
 };

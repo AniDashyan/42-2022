@@ -1,19 +1,23 @@
 #include "ScavTrap.hpp"
 
 int main() {
-    ScavTrap st1("A");
-    ScavTrap st2("B");
+    ClapTrap obj("obj");
+    ScavTrap obj_2("obj_2");
 
-    st1.setDamage(5);
-    st2.setDamage(3);
-
-    st1.attack("B");
-    st2.takeDamage(st1.getDamage());
-    st2.beRepaired(3);
-    st1.guardGate();
-    st2.attack("A");
-    st2.guardGate();
-    st1.takeDamage(st2.getDamage());
-    st1.beRepaired(10);
+    obj.setDamage(41);
+    obj.attack("obj_2");
+    obj_2.takeDamage(obj.getDamage());
+    obj_2.beRepaired(12);
+    obj.attack("obj_2");
+    obj_2.guardGate();
+    obj_2.takeDamage(10);
+    obj.attack("obj_2");
+    obj_2.takeDamage(obj.getDamage());
+    obj.attack("obj_2");
+    obj_2.takeDamage(9);
+    obj_2.attack("obj");
+    obj.attack("obj_2");
+    obj_2.guardGate();
+  
     return (0);
 }

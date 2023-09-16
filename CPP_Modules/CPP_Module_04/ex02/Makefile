@@ -4,7 +4,7 @@ TMP = objs
 
 CXX = c++
 
-CXXFLAGS = -std=c++98 -Wall -Wextra -Werror
+CXXFLAGS = -std=c++98 -Wall -Wextra -Werror -fsanitize=address
 
 SRCS = $(wildcard *.cpp)
 
