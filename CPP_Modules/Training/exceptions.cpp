@@ -4,7 +4,8 @@
 // Header file for handling exceptions
 #include <exception>
 #include <string>
-
+// the header file from where invalid_argument and runtime_exception come from
+#include <stdexcept>
 
 // Throwing and Catching Exceptions
 // void    readIntegerFile(const std::string& fileName, std::vector<int>& dest)
@@ -56,9 +57,7 @@
 // ----------------------------------------------------------------------------------
 
 /* Although by default streams do not throw exceptions, you can tell the streams to throw exceptions for
-error conditions by calling their exceptions() method. However, no less a luminary than Bjarne
-Stroustrup (who created C++) recommends against this approach. In The C++ Programming
-Language, third edition, he says “ . . . I prefer to deal with the stream state directly. What can be handled with local control structures within a function is rarely improved by the use of exceptions.” */
+error conditions by calling their exceptions() method. However, no less a luminary than Bjarne Stroustrup (who created C++) recommends against this approach. In The C++ Programming Language, third edition, he says “ . . . I prefer to deal with the stream state directly. What can be handled with local control structures within a function is rarely improved by the use of exceptions.” */
 
 // ----------------------------------------------------------------------------------
 
@@ -180,38 +179,36 @@ Language, third edition, he says “ . . . I prefer to deal with the stream stat
 
 /* Alternatively wer can throw 2 different types of exception from readIntegerFile() function, so that the caller can tell which error occured. */
 
-// the header file from where invalid_argument and runtime_exception come from
-#include <stdexcept>
-void    readIntegerFile(const std::string& fileName, std::vector<int>& dest)
-{
-    std::ifstream istr;
-    int tmp;
+// void    readIntegerFile(const std::string& fileName, std::vector<int>& dest)
+// {
+//     std::ifstream istr;
+//     int tmp;
 
    
-    istr.open(fileName.c_str());
-    if (istr.fail()) 
-    {
-        // Open failed: throw an exception
-        throw std::invalid_argument(""); 
-    }
+//     istr.open(fileName.c_str());
+//     if (istr.fail()) 
+//     {
+//         // Open failed: throw an exception
+//         throw std::invalid_argument(""); 
+//     }
 
-    // Reading ints one by one and adding them to the vector
-    while (istr >> tmp)
-    {
-        dest.push_back(tmp);
-    }
+//     // Reading ints one by one and adding them to the vector
+//     while (istr >> tmp)
+//     {
+//         dest.push_back(tmp);
+//     }
 
-    if (istr.eof()) {
-        // We reached the end of file
-        istr.close();
-    }
-    else {
-        // Some other error throw an exception
-        istr.close();
-        throw std::runtime_error("");
+//     if (istr.eof()) {
+//         // We reached the end of file
+//         istr.close();
+//     }
+//     else {
+//         // Some other error throw an exception
+//         istr.close();
+//         throw std::runtime_error("");
       
-    }
-} 
+//     }
+// } 
 
 // int main(int argc, char** argv)
 // {
@@ -259,23 +256,143 @@ modifying them.
 
 // Matching Any Exception
 /* To match any type of exception we can do this */
-int main(int argc, char** argv)
+// int main(int argc, char** argv)
+// {
+//     std::vector<int> myInts;
+//     const std::string fileName = "IntegerFile.txt";
+
+//     try {
+//         readIntegerFile(fileName, myInts);
+//     } 
+//     catch (...) /*  ... are not a typo. They are a wildcard that match any exception type. Whem you are calling poorly documented code, this technique cam be useful to ensure that you catch all possible exceptions. However, in situations where you have complete information about the set of thrown exceptions, this technique is considered suboptimal because it handles every exception type identically. It's better to match exception types explicitly and take appropriate, targeted action. */
+//     {
+//         std::cerr << "Error reading or opening file "  << fileName << std::endl;
+//         exit(1);
+//     } 
+
+//     for (size_t i = 0; i < myInts.size(); i++)
+//     {
+//         std::cout << myInts[i] << " ";
+//     }
+//     std::cout << std::endl;
+//     return (0);
+// }
+
+// -----------------------------------------------------------------
+
+// Uncaught Exceptions
+
+/* If your program throws an exception that is not caught anywhere, the program will terminate. This behavior is not usually what you want. 
+
+Catch and handle all possible exceptions thrown in your programs.
+
+It is also possible to change the behavior of your program if there is an uncaught exception. When the program encounters an uncaught exception, it calls the built-in `terminate()` function, which simply calls `abort()` from <cstdlib> to kill the program.
+
+We can set our terminate_handler by calling `set_terminate()` with a pointer to a callback function thta takes no arguments and returns no value.
+
+terminate(), set_terminate(), and terminate_handler are all declared in the <exception> header.
+
+*/
+
+/* Before you get too excited about this feature, you should know that your callback function must still terminate the program, or else `abort()` will be called anyway. It can’t just ignore the error. However, you can use it to print a helpful error message before exiting */
+// void myTerminate()
+// {
+//     std::cout << "Uncaught exception\n";
+//     exit(1);
+// }
+
+// int main(int argc, char** argv)
+// {
+//     std::vector<int> myInts;
+//     const std::string fileName = "IntegerFile.txt";
+
+//     /* `set_terminate()` returns the old terminate_handler when it sets the new one. The `terminate_handler` applies program-wide, so it's considered good style to reset the old `terminate_handler` when you have completed the code that needed the new terminate_handler. In this case, the entire program needs the new_terminate, so there's no poiny in resetting it. Although  `set_terminate()`, it’s not a very effective exception-handling approach. It's recommended trying to catch and handle each exception individually in order to provide more precise error handling */
+//     std::set_terminate(myTerminate);
+
+//     readIntegerFile(fileName, myInts);
+
+//     for (size_t i = 0; i < myInts.size(); i++)
+//     {
+//         std::cerr << myInts[i] << " ";
+//     }
+//     std::cout << std::endl;
+//     return (0);
+// }
+
+// -------------------------------------------------------------------------
+
+// Throw Lists
+
+/* C++ allows you to specify the exceptions a function or method intends to throw. This specification is called the `throw list` or the `exception specification` */
+
+// void    readIntegerFile(const std::string& fileName, std::vector<int>& dest)
+// throw(std::invalid_argument, std::runtime_error) // throw list simply lists the types of exceptions that can be thrown from the function
+// {
+//     std::ifstream istr;
+//     int tmp;
+
+//     istr.open(fileName.c_str());
+//     if (istr.fail()) 
+//     {
+//         // Open failed: throw an exception
+//         throw std::invalid_argument(""); 
+//     }
+
+//     // Reading ints one by one and adding them to the vector
+//     while (istr >> tmp)
+//     {
+//         dest.push_back(tmp);
+//     }
+
+//     if (istr.eof()) {
+//         // We reached the end of file
+//         istr.close();
+//     }
+//     else {
+//         // Some other error throw an exception
+//         istr.close();
+//         throw std::runtime_error("");
+      
+//     }
+// }
+
+// Unlike const, the exception specification is not part of the function or method signature. You cannot overload a function based solely on different exceptions in the throw list.
+
+// If a function or method specifies no throw list, it can throw any exception. If you want to specify that a function or method throws no exceptions, we need to write an empty throw list explicitly 
+/* void readIntegerFile(const std::string& fileName, std::vector<int>& dest)
+throw (); */
+
+/* A function without a throw list can throw exceptions of any type. A function with an
+empty throw list shouldn’t throw any exception. */
+
+// ------------------------------------------------------------------------------------
+
+// Unexpected Exceptions
+/* Unfortunately, the throw list is not enforced at compile time in C++. Code that calls readIntegerFile() does not need to catch the exceptions listed in the throw list. This behavior is different from that in other languages, such as Java, which requires a function or method to catch exceptions or declare them in their own function or method throw lists. */
+
+void readIntegerFile(const std::string& fileName, std::vector<int>& dest)
+throw (std::invalid_argument, std::runtime_error)
 {
+    throw (5);
+}
+
+/* When this program runs and readIntegerFile() throws the int exception, the program terminates. It does not allow main() to catch the int. */
+int main(int argc, char** argv) {
     std::vector<int> myInts;
     const std::string fileName = "IntegerFile.txt";
 
     try {
         readIntegerFile(fileName, myInts);
-    } 
-    catch (...) {
-        std::cerr << "Error reading or opening file "  << fileName << std::endl;
-        exit(1);
-    } 
-
-    for (size_t i = 0; i < myInts.size(); i++)
-    {
-        std::cout << myInts[i] << " ";
     }
-    std::cout << std::endl;
+    catch (int x) {
+        std::cerr << "Caught int\n";
+    }
     return (0);
-} 
+}
+
+// There is a way to change this behaviour
+/*  Throw lists don't prevent functions from throwing unlisted exception types, but they prevent the excpetion from leaving the function 
+
+When a function throws n exception that is not listed in its throw list, C++ calls a special function `unexpected()`. The built-in implementation of `unexpected()` simply calls `terminate()`. However, just as 
+
+*/
