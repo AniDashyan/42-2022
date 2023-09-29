@@ -6,6 +6,7 @@
 class Bureaucrat {
     public:
         Bureaucrat();
+        Bureaucrat(const std::string& name, int grade);
         Bureaucrat(const Bureaucrat& other);
         Bureaucrat operator=(const Bureaucrat& other);
         ~Bureaucrat();
@@ -26,7 +27,6 @@ class Bureaucrat {
 
         void incrementGrade();
         void decrementGrade();
-
     private:
         const std::string m_name;
         int m_grade;

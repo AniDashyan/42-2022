@@ -749,11 +749,9 @@ int main(void) {
     }
 }
 
-/* There is one trick to writing classes whose objects will be used as exceptions. When a piece of code
-throws an exception, the object or value thrown is copied. That is, a new object is constructed from the
-old object using the copy constructor. It must be copied because the original could go out of scope (and
-be destroyed and have its memory reclaimed) before the exception is caught, higher up in the stack. Thus,
+/* There is one trick to writing classes whose objects will be used as exceptions. When a piece of code throws an exception, the object or value thrown is copied. That is, a new object is constructed from the old object using the copy constructor. It must be copied because the original could go out of scope (and be destroyed and have its memory reclaimed) before the exception is caught, higher up in the stack. Thus,
 if you write a class whose objects will be thrown as exceptions, you must make those objects copyable.
 This means that if you have dynamically allocated memory, you must write a destructor, copy constructor, and assignment operator */
 
 // Objects thrown as exceptions are always copied by value at least once.
+// Catch exception objects by reference to avoid unnecessary copying.
