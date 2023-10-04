@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 #include <iostream>
 #include <sstream>
 
@@ -61,6 +62,11 @@ void Bureaucrat::decrementGrade() {
     if (this->m_grade > 150)
         throw GradeTooLowException();
     std::cout << "Grade of Bureaucrat " << this->m_name << " decremented\n";
+}
+
+void Bureaucrat::signForm(Form& form) {
+    std::cout << "Bureacrat " << this->m_name << " signed " << "form " << std::endl;
+    std::cout << "Bureacrat " << this->m_name << " signed " << "form because " << " reason " << std::endl;
 }
 
 std::ostream& operator<<(std::ostream &stream, const Bureaucrat& other) {

@@ -3,6 +3,9 @@
 
 #include <string>
 
+// Fordward Decleration
+class Form; // You can do this when you only have pointers and references to a type, but you don't actually use any of the objects methods or properties.
+
 class Bureaucrat {
     public:
         Bureaucrat();
@@ -28,7 +31,7 @@ class Bureaucrat {
         void incrementGrade();
         void decrementGrade();
 
-        void signForm();
+        void signForm(Form& form);
     private:
         const std::string m_name;
         int m_grade;
