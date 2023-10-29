@@ -1,5 +1,6 @@
 #include "Bureaucrat.hpp"
 #include <iostream>
+#include <sstream>
 
 Bureaucrat::Bureaucrat() {
     std::cout << "Constructor of Bureaucrat is called" << std::endl;
@@ -33,11 +34,11 @@ Bureaucrat::~Bureaucrat() {
 }
 
 const char* Bureaucrat::GradeTooHighException::what() const throw() {
-    std::cout << "❌ Grade of BureauCrat is too high ❌" << std::endl;
+    return ("❌ Grade of BureauCrat is too high ❌");
 }
 
 const char* Bureaucrat::GradeTooLowException::what() const throw() {
-    std::cout << "❌ Grade of BureauCrat is too low ❌" << std::endl;
+    return ("❌ Grade of BureauCrat is too low ❌");
 }
 
 std::string Bureaucrat::getName() const {
@@ -50,12 +51,26 @@ int Bureaucrat::getGrade() const {
 
 void Bureaucrat::incrementGrade() {
     --(this->m_grade);
+    if (this->m_grade < 1)
+        throw GradeTooHighException();
+    std::cout << "Grade of Bureaucrat " << this->m_name << " incremented\n";
 }
 
 void Bureaucrat::decrementGrade() {
     ++(this->m_grade);
+    if (this->m_grade > 150)
+        throw GradeTooLowException();
+    std::cout << "Grade of Bureaucrat " << this->m_name << " decremented\n";
 }
 
 std::ostream& operator<<(std::ostream &stream, const Bureaucrat& other) {
-    stream << (other.getName() + ",  bureaucrat grade ").append(other.getGrade());
+    // Making int to string using stringstream
+    std::stringstream str;
+    std::string grade;
+    str << other.getGrade();
+    str >> grade;
+
+    // << operator overload
+    stream << other.getName() + ", bureaucrat grade " + grade;
+    return (stream);
 }
