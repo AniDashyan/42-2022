@@ -23,11 +23,16 @@ class AForm {
                 const char* what() const throw();
         };
 
+        class FormNotSigned : public std::exception {
+            public:
+                const char* what() const throw();
+        }
+
         // Getters
         std::string getName() const;
         bool getSigned() const;
-        int getRequiredGrade() const;
-        int getExecutedGrade() const;
+        unsigned int getRequiredGrade() const;
+        unsigned int getExecutedGrade() const;
 
         void beSigned(Bureaucrat& b);
 

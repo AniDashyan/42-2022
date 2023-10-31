@@ -1,5 +1,5 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
 #include <iostream>
 #include <sstream>
 
@@ -65,7 +65,7 @@ void Bureaucrat::decrementGrade() {
 }
 
 // TODO: Think
-void Bureaucrat::signForm(Form& form) {
+void Bureaucrat::signForm(AForm& form) {
     try
     {
         form.beSigned(*this);

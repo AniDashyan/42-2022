@@ -4,7 +4,7 @@
 #include <string>
 
 // Fordward Decleration
-class Form; // You can do this when you only have pointers and references to a type, but you don't actually use any of the objects methods or properties.
+class AForm; // You can do this when you only have pointers and references to a type, but you don't actually use any of the objects methods or properties.
 
 class Bureaucrat {
     public:
@@ -31,8 +31,8 @@ class Bureaucrat {
         void incrementGrade();
         void decrementGrade();
 
-        void signForm(Form& form);
-        void executeForm(Form const & form); 
+        void signForm(AForm& form);
+        void executeForm(AForm const & form); 
     private:
         const std::string m_name;
         unsigned int m_grade;
