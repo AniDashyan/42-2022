@@ -47,3 +47,18 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
     os << "   * /i///*/\\\\\\o\\   *" << std::endl;
     os << "  *    *   ||     *" << std::endl;
 }
+
+std::ostream& operator<<(std::ostream &stream, const ShrubberyCreationForm& other) {
+    std::stringstream str;
+    std::string req_grade;
+    std::string exec_grade;
+
+    str << other.getRequiredGrade();
+    str >> req_grade;
+
+    str << other.getExecutedGrade();
+    str >> exec_grade;
+    stream << "ShrubberyCreationForm name: " << other.getName() << ",  is_signed: " << other.getSigned() << ", required grade: " << req_grade << ", executed grade: " << exec_grade;
+
+    str.str(std::string()); // Clear stringstream
+}
