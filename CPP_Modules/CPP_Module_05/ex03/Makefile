@@ -1,4 +1,4 @@
-NAME =  animal
+NAME = bureaucrat
 
 TMP = objs
 
@@ -10,7 +10,7 @@ SRCS = $(wildcard *.cpp)
 
 OBJS = $(patsubst %.cpp, ./$(TMP)/%.o, $(SRCS))
 
-RM = rm -fr
+RM = rm -rf
 
 HEADER = $(wildcard *.hpp)
 
@@ -23,7 +23,7 @@ $(NAME): $(TMP) $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 $(TMP):
-	@mkdir $(TMP)
+	@mkdir -p $(TMP)
 
 clean:
 	$(RM) $(OBJS_DIR)
@@ -34,4 +34,4 @@ fclean: clean
 
 re:	fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
