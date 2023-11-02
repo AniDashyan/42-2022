@@ -33,7 +33,7 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
     if (executor.getGrade() > this->getExecutedGrade())
         throw GradeTooLowException();
     std::ofstream os(this->m_target + "_shrubbery");
-    os << " *    *  ()   *   * " << std::endl;
+    os << " *    *    ()   *   * " << std::endl;
     os << "*        * /\\         *" << std::endl;
     os << "      *   /i\\    *  *" << std::endl;
     os << "    *     o/\\  *      *" << std::endl;
@@ -42,24 +42,14 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
     os << "   *    /i//\\*\\      *" << std::endl;
     os << "        /o/*\\i\\   *" << std::endl;
     os << "  *    //i//o\\\\     *" << std::endl;
-    os << "    * /*////\\\\i\\*" << std::endl;
+    os << "    * /*////\\\\i\\ *" << std::endl;
     os << " *    //o//i\\*\\\\   *" << std::endl;
     os << "   * /i///*/\\\\\\o\\   *" << std::endl;
     os << "  *    *   ||     *" << std::endl;
 }
 
 std::ostream& operator<<(std::ostream &stream, const ShrubberyCreationForm& other) {
-    // std::stringstream str;
-    // std::string req_grade;
-    // std::string exec_grade;
-
-    // str << other.getRequiredGrade();
-    // str >> req_grade;
-
-    // str << other.getExecutedGrade();
-    // str >> exec_grade;
     stream << "ShrubberyCreationForm name: " << other.getName() << ",  is_signed: " << other.getSigned() << ", required grade: " << other.getRequiredGrade() << ", executed grade: " << other.getExecutedGrade();
 
-    // str.str(std::string()); // Clear stringstream
     return (stream);
 }

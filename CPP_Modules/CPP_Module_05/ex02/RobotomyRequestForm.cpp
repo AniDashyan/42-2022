@@ -34,3 +34,9 @@ void RobotomyRequestForm::execute(Bureaucrat const & executor) const {
     if (executor.getGrade() > this->getExecutedGrade())
         throw GradeTooLowException();
 }
+
+std::ostream& operator<<(std::ostream &stream, const RobotomyRequestForm& other) {
+    stream << "RobotomyRequestForm name: " << other.getName() << ",  is_signed: " << other.getSigned() << ", required grade: " << other.getRequiredGrade() << ", executed grade: " << other.getExecutedGrade();
+
+    return (stream);
+}
