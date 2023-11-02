@@ -26,7 +26,7 @@ class AForm {
         class FormNotSigned : public std::exception {
             public:
                 const char* what() const throw();
-        }
+        };
 
         // Getters
         std::string getName() const;

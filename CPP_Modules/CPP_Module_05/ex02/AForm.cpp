@@ -60,11 +60,11 @@ bool AForm::getSigned() const {
     return (this->m_is_signed);
 }
 
-int AForm::getRequiredGrade() const {
+unsigned int AForm::getRequiredGrade() const {
     return (this->m_req_grade);
 }
 
-int AForm::getExecutedGrade() const {
+unsigned int AForm::getExecutedGrade() const {
     return (this->m_exec_grade);
 }
 

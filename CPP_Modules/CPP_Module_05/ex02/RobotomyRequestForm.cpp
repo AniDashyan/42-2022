@@ -1,6 +1,7 @@
 #include "RobotomyRequestForm.hpp"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 RobotomyRequestForm::RobotomyRequestForm() : AForm("Default", 72, 45), m_target("defTarget") {
     std::cout << "Constructor of RobotomyRequestForm is called" << std::endl;
@@ -10,7 +11,7 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string& target) : AForm("Rob
     std::cout << "Constructor with parameters of RobotomyRequestForm is called" << std::endl;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other) : m_target(other.m_target) {
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other) : AForm("RobotomyForm", 72, 45), m_target(other.m_target) {
     std::cout << "Copy Constructor of RobotomyRequestForm is called" << std::endl;
 }
 
