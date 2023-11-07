@@ -32,7 +32,8 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
         throw FormNotSigned();
     if (executor.getGrade() > this->getExecutedGrade())
         throw GradeTooLowException();
-    std::ofstream os(this->m_target + "_shrubbery");
+    std::string filename = this->m_target + "_shrubbery";
+    std::ofstream os(filename);
     os << " *    *    ()   *   * " << std::endl;
     os << "*        * /\\         *" << std::endl;
     os << "      *   /i\\    *  *" << std::endl;
@@ -46,6 +47,8 @@ void ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
     os << " *    //o//i\\*\\\\   *" << std::endl;
     os << "   * /i///*/\\\\\\o\\   *" << std::endl;
     os << "  *    *   ||     *" << std::endl;
+
+    std::cout << "ShrubberyCreationForm was executed look into '" << filename << "' file to see the result." << std::endl;
 }
 
 std::ostream& operator<<(std::ostream &stream, const ShrubberyCreationForm& other) {

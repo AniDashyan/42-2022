@@ -20,13 +20,17 @@ int main() {
         b1.signForm(scf);
         b2.signForm(rrf);
         b3.signForm(ppf);
-        std::cout << scf << std::endl;
-        std::cout << rrf << std::endl;
-        std::cout << ppf << std::endl;
+        // std::cout << scf << std::endl;
+        // std::cout << rrf << std::endl;
+        // std::cout << ppf << std::endl;
         
         scf.execute(b1);
         rrf.execute(b2);
-        ppf.execute(b1);
+        ppf.execute(b3);
+
+        b1.executeForm(scf);
+        b2.executeForm(rrf);
+        b3.executeForm(ppf);
     }
     catch (std::exception& e) {
         std::cout << e.what() << std::endl;

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <sstream>
 
-Bureaucrat::Bureaucrat() {
+Bureaucrat::Bureaucrat() : m_name("Default"), m_grade(45) {
     std::cout << "Constructor of Bureaucrat is called" << std::endl;
 }
 
@@ -11,7 +11,7 @@ Bureaucrat:: Bureaucrat(const std::string& name, int grade) : m_name(name), m_gr
         throw GradeTooHighException();
     else if (grade > 150)
         throw GradeTooLowException();
-    std::cout << "Parameter Constructor called\n";
+    std::cout << "Parameter Constructor of Bureaucrat called\n";
 }
 
 // Throw exception in constructor
@@ -47,6 +47,10 @@ std::string Bureaucrat::getName() const {
 
 int Bureaucrat::getGrade() const {
     return (this->m_grade);
+}
+
+void Bureaucrat::setGrade(int grade) {
+    this->m_grade = grade;
 }
 
 void Bureaucrat::incrementGrade() {

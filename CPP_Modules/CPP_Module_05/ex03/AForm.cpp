@@ -1,7 +1,6 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
 #include <iostream>
-#include <sstream>
 
 AForm::AForm() : m_name("Default"), m_is_signed(false), m_req_grade(20), m_exec_grade(30)
 {
@@ -23,7 +22,7 @@ AForm::AForm(const AForm& other)
         std::cout << "Copy Constructor of AForm is called" << std::endl;
 }
 
-// AForm AForm::operator=(const AForm& other) {
+// AForm& AForm::operator=(const AForm& other) {
 //     if (this != &other)
 //     {
 //         // Do nothing

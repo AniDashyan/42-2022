@@ -11,7 +11,7 @@ class Bureaucrat {
         Bureaucrat();
         Bureaucrat(const std::string& name, unsigned int grade);
         Bureaucrat(const Bureaucrat& other);
-        Bureaucrat operator=(const Bureaucrat& other);
+        Bureaucrat& operator=(const Bureaucrat& other);
         ~Bureaucrat();
 
         // exception classes

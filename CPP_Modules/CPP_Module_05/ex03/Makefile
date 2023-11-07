@@ -1,4 +1,4 @@
-NAME = bureaucrat
+NAME = intern
 
 TMP = objs
 

@@ -1,19 +1,28 @@
 #include <iostream>
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
+#include "Intern.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
-#include "Intern.hpp"
 
 int main() {
     try {
-        Intern  someRandomIntern;
-        Form*   rrf;
-        rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+        Intern someRandomIntern;
+        AForm* scf;
+        scf = someRandomIntern.makeForm("shrubbery creation", "Bender");
+
+        AForm *rrf;
+        rrf = someRandomIntern.makeForm("robotomy request", "Jack");
+
+        AForm *ppf;
+        ppf = someRandomIntern.makeForm("presidential pardon", "Hack");
+
+        AForm *nef;
+        nef = someRandomIntern.makeForm("hello", "Blah Blah");
     }
     catch (std::exception& e) {
         std::cout << e.what() << std::endl;
     }
     return (0);
-}       
+}

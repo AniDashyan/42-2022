@@ -1,7 +1,6 @@
 #include "Form.hpp"
 #include "Bureaucrat.hpp"
 #include <iostream>
-#include <sstream>
 
 Form::Form() : m_name("Default"), m_is_signed(false),m_req_grade(20), m_exec_grade(30)
 {
@@ -72,17 +71,7 @@ void Form::beSigned(Bureaucrat& b) {
 }
 
 std::ostream& operator<<(std::ostream &stream, const Form& other) {
-    std::stringstream str;
-    std::string req_grade;
-    std::string exec_grade;
+    stream << "Form name: " << other.getName() << ",  is_signed: " << other.getSigned() << ", required grade: " << other.getRequiredGrade() << ", executed grade: " << other.getExecutedGrade();
 
-    str << other.getRequiredGrade();
-    str >> req_grade;
-
-    str << other.getExecutedGrade();
-    str >> exec_grade;
-    stream << "Form name: " << other.getName() << ",  is_signed: " << other.getSigned() << ", required grade: " << req_grade << ", executed grade: " << exec_grade;
-
-    str.str(std::string()); // Clear stringstream
     return (stream);
 }

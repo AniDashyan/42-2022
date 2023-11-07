@@ -1,7 +1,6 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
 #include <iostream>
-#include <sstream>
 
 AForm::AForm() : m_name("Default"), m_is_signed(false), m_req_grade(20), m_exec_grade(30)
 {
