@@ -9,7 +9,7 @@ class Form; // You can do this when you only have pointers and references to a t
 class Bureaucrat {
     public:
         Bureaucrat();
-        Bureaucrat(const std::string& name, unsigned int grade);
+        Bureaucrat(const std::string& name, int grade);
         Bureaucrat(const Bureaucrat& other);
         Bureaucrat operator=(const Bureaucrat& other);
         ~Bureaucrat();
@@ -26,15 +26,17 @@ class Bureaucrat {
         };
 
         std::string getName() const;
-        unsigned int getGrade() const;
+        int getGrade() const;
+
+        void setGrade(int grade);
 
         void incrementGrade();
         void decrementGrade();
 
-        void signForm(Form& form);
+        void signForm(Form& form); 
     private:
         const std::string m_name;
-        unsigned int m_grade;
+        int m_grade;
 };
 
 std::ostream& operator<<(std::ostream &stream, const Bureaucrat& other);

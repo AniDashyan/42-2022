@@ -1,32 +1,31 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 #include <iostream>
-#include <sstream>
 
-Bureaucrat::Bureaucrat() : m_name("Default"), m_grade(25) {
+Bureaucrat::Bureaucrat() : m_name("Default"), m_grade(45) {
     std::cout << "Default Constructor of Bureaucrat is called" << std::endl;
 }
 
-Bureaucrat:: Bureaucrat(const std::string& name, unsigned int grade) : m_name(name), m_grade(grade) {
+Bureaucrat::Bureaucrat(const std::string& name, int grade) : m_name(name), m_grade(grade) {
     if (grade < 1)
         throw GradeTooHighException();
     else if (grade > 150)
         throw GradeTooLowException();
-    std::cout << "Parameter Constructor called\n";
+    std::cout << "Constructor with parameters of Bureaucrat is called\n";
 }
 
-// Throw exception in constructor
 Bureaucrat::Bureaucrat(const Bureaucrat& other): m_name(other.m_name), m_grade(other.m_grade) {
    std::cout << "Copy Constructor of Bureaucrat is called" << std::endl; 
 }
 
 Bureaucrat Bureaucrat::operator=(const Bureaucrat& other) {
-    std::cout << "Copy Assignment Operator is called" << std::endl;
     if (this != &other)
     {
-        (std::string)this->m_name = other.m_name;
+        // TODO: const_cast
+        // (std::string)this->m_name = other.m_name;
         this->m_grade = other.m_grade;
     }
+    std::cout << "Copy Assignment Operator is called" << std::endl;
     return (*this);
 }
 
@@ -35,36 +34,39 @@ Bureaucrat::~Bureaucrat() {
 }
 
 const char* Bureaucrat::GradeTooHighException::what() const throw() {
-    return ("❌ Grade of BureauCrat is too high ❌");
+    return ("❌ Grade of Bureaucrat is too high ❌");
 }
 
 const char* Bureaucrat::GradeTooLowException::what() const throw() {
-    return ("❌ Grade of BureauCrat is too low ❌");
+    return ("❌ Grade of Bureaucrat is too low ❌");
 }
 
 std::string Bureaucrat::getName() const {
     return (this->m_name);
 }
 
-unsigned int Bureaucrat::getGrade() const {
+int Bureaucrat::getGrade() const {
     return (this->m_grade);
+}
+
+void Bureaucrat::setGrade(int grade) {
+    this->m_grade = grade;
 }
 
 void Bureaucrat::incrementGrade() {
     --(this->m_grade);
     if (this->m_grade < 1)
         throw GradeTooHighException();
-    std::cout << "Grade of Bureaucrat " << this->m_name << " incremented\n";
+    std::cout << "Grade of Bureaucrat " << this->m_name << " has been incremented\n";
 }
 
 void Bureaucrat::decrementGrade() {
     ++(this->m_grade);
     if (this->m_grade > 150)
         throw GradeTooLowException();
-    std::cout << "Grade of Bureaucrat " << this->m_name << " decremented\n";
+    std::cout << "Grade of Bureaucrat " << this->m_name << " has been decremented\n";
 }
 
-// TODO: Think
 void Bureaucrat::signForm(Form& form) {
     try
     {
@@ -78,15 +80,7 @@ void Bureaucrat::signForm(Form& form) {
 }
 
 std::ostream& operator<<(std::ostream &stream, const Bureaucrat& other) {
-    // Making int to string using stringstream
-    std::stringstream str;
-    std::string grade;
-    str << other.getGrade();
-    str >> grade;
+    stream << other.getName() << ", bureaucrat grade " << other.getGrade() << std::endl;
 
-    // << operator overload
-    stream << other.getName() + ", bureaucrat grade " + grade;
-
-    str.str(std::string()); // Clear stringstream
     return (stream);
 }

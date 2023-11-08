@@ -9,7 +9,6 @@ Form::Form() : m_name("Default"), m_is_signed(false),m_req_grade(20), m_exec_gra
 
 Form::Form(const std::string& name, unsigned int req_grade, unsigned int exec_grade) 
    : m_name(name), m_is_signed(false), m_req_grade(req_grade), m_exec_grade(exec_grade) {
-    // this->exec_grade = exec_grade;
     if (this->m_req_grade < 1 || this->m_exec_grade < 1)
         throw GradeTooHighException();
     else if (this->m_req_grade > 150 || this->m_exec_grade > 150)
@@ -26,10 +25,6 @@ Form Form::operator=(const Form& other) {
     if (this != &other)
     {
         // Do nothing
-        // this->m_name = other.m_name;
-        // this->m_is_signed = other.m_is_signed;
-        // this->m_req_grade = other.m_req_grade;
-        // this->m_exec_grade = this->m_exec_grade;
     }
     std::cout << "Copy Assignment of Form is called" << std::endl;
     return (*this);
@@ -67,7 +62,10 @@ void Form::beSigned(Bureaucrat& b) {
     if (b.getGrade() > 150)
         throw GradeTooLowException();
     else if (b.getGrade() <= this->m_req_grade)
+    {
         this->m_is_signed = true;
+        std::cout << "The form has been signed" << std::endl;
+    }
 }
 
 std::ostream& operator<<(std::ostream &stream, const Form& other) {

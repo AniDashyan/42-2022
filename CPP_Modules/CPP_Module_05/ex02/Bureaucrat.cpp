@@ -49,6 +49,10 @@ unsigned int Bureaucrat::getGrade() const {
     return (this->m_grade);
 }
 
+void Bureaucrat::setGrade(int grade) {
+    this->m_grade = grade;
+}
+
 void Bureaucrat::incrementGrade() {
     --(this->m_grade);
     if (this->m_grade < 1)

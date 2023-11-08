@@ -24,9 +24,8 @@ int main() {
         // b1.incrementGrade();
 
         // GradeTooLow Exception Check
-        Bureaucrat b2("Jack", 2147483647);
+        Bureaucrat b2("Jack", 120);
         std::cout << b2 << std::endl;
-        b2.decrementGrade();
 
         // Copy Constructor Check
         Bureaucrat b3(b1);
@@ -38,6 +37,9 @@ int main() {
         Bureaucrat b4;
         b4 = b2;
         std::cout << b4 << std::endl;
+
+        Bureaucrat b5 = b4;
+        std::cout << b5 << std::endl;
     }
     catch(Bureaucrat::GradeTooHighException& e) {
         std::cout << e.what() << std::endl;
