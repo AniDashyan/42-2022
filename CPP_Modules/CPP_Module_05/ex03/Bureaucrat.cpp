@@ -14,7 +14,6 @@ Bureaucrat:: Bureaucrat(const std::string& name, unsigned int grade) : m_name(na
     std::cout << "Parameter Constructor of Bureaucrat is called\n";
 }
 
-// Throw exception in constructor
 Bureaucrat::Bureaucrat(const Bureaucrat& other): m_name(other.m_name), m_grade(other.m_grade) {
    std::cout << "Copy Constructor of Bureaucrat is called" << std::endl;
 }

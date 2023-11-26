@@ -12,20 +12,16 @@ int main() {
         Bureaucrat b3("BlackJack", 2);
 
         ShrubberyCreationForm scf("home");
+        std::cout << scf << std::endl;
         RobotomyRequestForm rrf("robot");
+        std::cout << rrf << std::endl;
         PresidentialPardonForm ppf("president");
-
-        b1.incrementGrade();
-        b2.decrementGrade();
+        std::cout << ppf << std::endl;
 
         b1.signForm(scf);
-        b1.setGrade(149);
         b2.signForm(rrf);
         b3.signForm(ppf);
-        std::cout << scf << std::endl;
-        std::cout << rrf << std::endl;
-        std::cout << ppf << std::endl;
-        
+       
         scf.execute(b1);
         rrf.execute(b2);
         ppf.execute(b3);

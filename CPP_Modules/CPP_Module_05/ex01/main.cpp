@@ -20,7 +20,7 @@ int main() {
 
         Form form2(defform);
         std::cout << form2 << std::endl;
-        form2.beSigned();
+        form2.beSigned(b1);
         std::cout << form2 << std::endl;
 
 

@@ -12,7 +12,6 @@ class Form {
         Form operator=(const Form& other);
         ~Form();
 
-        // Exception clases
         class GradeTooHighException : public std::exception {
             public:
                 const char* what() const throw();
@@ -34,8 +33,8 @@ class Form {
     private:
         const std::string m_name;
         bool m_is_signed;
-        const unsigned int m_req_grade;
-        const unsigned int m_exec_grade;
+        const int m_req_grade;
+        const int m_exec_grade;
 };
 
 std::ostream& operator<<(std::ostream &stream, const Form& other);

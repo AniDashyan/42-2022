@@ -1,6 +1,5 @@
 #include "RobotomyRequestForm.hpp"
 #include <iostream>
-// #include <fstream>
 
 RobotomyRequestForm::RobotomyRequestForm() : AForm("Default", 72, 45), m_target("defTarget") {
     std::cout << "Constructor of RobotomyRequestForm is called" << std::endl;

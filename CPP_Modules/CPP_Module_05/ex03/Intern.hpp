@@ -11,6 +11,7 @@ class Intern {
         ~Intern();
 
         AForm *makeForm(std::string formName, std::string targetForm);
+        typedef void (Intern::*form_ptr)(void);
         class NotExistingForm : public std::exception {
                public:
                     const char* what() const throw();

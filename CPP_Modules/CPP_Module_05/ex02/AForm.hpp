@@ -9,10 +9,9 @@ class AForm {
         AForm();
         AForm(const std::string& name, unsigned int req_grade, unsigned int exec_grade);
         AForm(const AForm& other);
-        // AForm operator=(const AForm& other);
+        AForm& operator=(const AForm& other);
         ~AForm();
 
-        // Exception clases
         class GradeTooHighException : public std::exception {
             public:
                 const char* what() const throw();
@@ -28,7 +27,6 @@ class AForm {
                 const char* what() const throw();
         };
 
-        // Getters
         std::string getName() const;
         bool getSigned() const;
         unsigned int getRequiredGrade() const;

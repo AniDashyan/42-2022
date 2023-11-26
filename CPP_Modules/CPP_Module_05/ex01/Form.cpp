@@ -24,7 +24,7 @@ Form::Form(const Form& other)
 Form Form::operator=(const Form& other) {
     if (this != &other)
     {
-        // Do nothing
+        this->m_is_signed = other.m_is_signed;
     }
     std::cout << "Copy Assignment of Form is called" << std::endl;
     return (*this);
@@ -62,10 +62,7 @@ void Form::beSigned(Bureaucrat& b) {
     if (b.getGrade() > 150)
         throw GradeTooLowException();
     else if (b.getGrade() <= this->m_req_grade)
-    {
         this->m_is_signed = true;
-        std::cout << "The form has been signed" << std::endl;
-    }
 }
 
 std::ostream& operator<<(std::ostream &stream, const Form& other) {

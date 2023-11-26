@@ -3,7 +3,7 @@
 
 #include <string>
 
-// Fordward Decleration
+// Forward Decleration
 class AForm; // You can do this when you only have pointers and references to a type, but you don't actually use any of the objects methods or properties.
 
 class Bureaucrat {
@@ -14,7 +14,6 @@ class Bureaucrat {
         Bureaucrat& operator=(const Bureaucrat& other);
         ~Bureaucrat();
 
-        // exception classes
         class GradeTooHighException : public std::exception {
                public:
                     const char* what() const throw();

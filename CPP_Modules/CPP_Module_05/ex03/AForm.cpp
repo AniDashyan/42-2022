@@ -9,7 +9,6 @@ AForm::AForm() : m_name("Default"), m_is_signed(false), m_req_grade(20), m_exec_
 
 AForm::AForm(const std::string& name, unsigned int req_grade, unsigned int exec_grade) 
    : m_name(name), m_is_signed(false), m_req_grade(req_grade), m_exec_grade(exec_grade) {
-    // this->exec_grade = exec_grade;
     if (this->m_req_grade < 1 || this->m_exec_grade < 1)
         throw GradeTooHighException();
     else if (this->m_req_grade > 150 || this->m_exec_grade > 150)
@@ -22,18 +21,14 @@ AForm::AForm(const AForm& other)
         std::cout << "Copy Constructor of AForm is called" << std::endl;
 }
 
-// AForm& AForm::operator=(const AForm& other) {
-//     if (this != &other)
-//     {
-//         // Do nothing
-//         // this->m_name = other.m_name;
-//         // this->m_is_signed = other.m_is_signed;
-//         // this->m_req_grade = other.m_req_grade;
-//         // this->m_exec_grade = this->m_exec_grade;
-//     }
-//     std::cout << "Copy Assignment of AForm is called" << std::endl;
-//     return (*this);
-// }
+AForm& AForm::operator=(const AForm& other) {
+    if (this != &other)
+    {
+        this->m_is_signed = other.m_is_signed;
+    }
+    std::cout << "Copy Assignment of AForm is called" << std::endl;
+    return (*this);
+}
 
 AForm::~AForm() {
     std::cout << "Destructor of AForm " << this->m_name << " is called" << std::endl;
