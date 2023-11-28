@@ -1,6 +1,10 @@
 #ifndef SCALAR_CONVERTER_HPP
 #define SCALAR_CONVERTER_HPP
 
+#define WHITESPACES  " \r\n\t\v\f"
+
+#include <string>
+
 class ScalarConverter {
     private:
         // By making ctr, copy-ctr, copy =operator private we make the class not instantiable and copyable
@@ -11,11 +15,13 @@ class ScalarConverter {
         ~ScalarConverter();
     public:
         // The convert() method is static because we made class non instantiable
-        static void convert(const std::string& literal); // Read more about static functions
-        // static bool convertToChar(double literal);
-        // static bool convertToInt(double literal);
-        // static bool convertToFloat(double literal);
-        // static bool convertToDouble(const std::string& literal);
+        static void convert(std::string& literal); // Read more about static functions
 };
 
+double parsing(std::string& literal);
+bool isInDecimalNotation(std::string& literal);
+void convertToChar(double literal);
+void convertToInt(double literal);
+void convertToFloat(double literal);
+void convertToDouble(double literal);
 #endif
