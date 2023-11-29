@@ -10,7 +10,7 @@ int main(int argc, char** argv) {
     }
     else
     {
-        std::cout << "❌ Error: Bad arguments! ❌" << std::endl;
+        std::cout << "Error: Bad arguments!" << std::endl;
     }
     return (0);
 }

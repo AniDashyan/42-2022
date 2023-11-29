@@ -19,7 +19,8 @@ class ScalarConverter {
 };
 
 double parsing(std::string& literal);
-bool isInDecimalNotation(std::string& literal);
+bool isInScientificNotation(std::string& literal);
+int countDecimalDigit(double number);
 void convertToChar(double literal);
 void convertToInt(double literal);
 void convertToFloat(double literal);
