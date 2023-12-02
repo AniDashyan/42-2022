@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <sstream>
 #include <cerrno>
+#include <cassert>
 
 ScalarConverter::ScalarConverter() {
 
@@ -35,9 +36,10 @@ void ScalarConverter::convert(std::string& literal) {
             convertToChar(num);
         else if (isInt(num))
             convertToInt(num);
-        // convertToInt(num);
-        // convertToFloat(num);
-        // convertToDouble(num);
+        else if (isFloat(num))
+            convertToFloat(num);
+        else if (isDouble(num))
+            convertToDouble(num);
     }
     catch (std::exception& e)
     {
@@ -90,6 +92,8 @@ std::string parsing(std::string& literal) {
         throw std::domain_error(literal);
     else if (isdigit(literal[0]) || ((literal[0] == '-' || literal[0] == '+') && isdigit(literal[1])))
     {
+        if ((literal[0] == '-' || literal[0] == '+') && literal[1] == '0')
+            throw std::invalid_argument("Error: Invalid input");
         // checking if there is a number after "."
         size_t dotPos = literal.find(".");
         if (dotPos != std::string::npos && !isdigit(literal[dotPos + 1]))
@@ -130,6 +134,41 @@ bool isInt(std::string& literal) {
     return (true);
 }
 
+bool isDouble(std::string& literal) {
+    size_t i = 0;
+    bool hasDot = false;
+    if (literal[0] == '+' || literal[0] == '-')
+        i++;
+    for (; i < literal.length(); i++)
+    {
+        if (!isdigit(literal[i]) && literal[i] != '.')
+            return (false);
+        if (literal[i] == '.')
+            hasDot = true;
+    }
+    return (hasDot);
+}
+
+bool isFloat(std::string& literal) {
+    size_t i = 0;
+    bool hasDot = false;
+    if (literal[0] == '+' || literal[0] == '-')
+        i++;
+    for (; i < literal.length(); i++)
+    {
+        if ((!isdigit(literal[i]) && literal[i] != '.' && literal[i] != 'f'))
+            return (false);
+        if (literal[i] == '.')
+            hasDot = true;
+        if (literal[i] == 'f' && i != literal.length() - 1)
+            return (false);
+    }
+    if (literal.find("f") == std::string::npos)
+        return (false);
+
+    return (hasDot);
+}
+
 bool isInScientificNotation(std::string& literal) {
     size_t found = literal.find_first_of("eE");
     if (found == std::string::npos) {
@@ -152,71 +191,82 @@ bool isInScientificNotation(std::string& literal) {
 void convertToChar(std::string& literal) {
     char symbol = literal[0];
     if (symbol < std::numeric_limits<char>::min() || symbol > std::numeric_limits<char>::max())
-        // throw std::range_error("char: impossible");
         std::cout << "char: impossible" << std::endl;
     else if (!isprint(symbol))
-        // throw std::runtime_error("char: Non displayable");
         std::cout << "char: Non displayable" << std::endl;
     else
         std::cout << "char: '" << symbol << "'" << std::endl;
 
     std::cout << "int: " << static_cast<int>(symbol) << std::endl;
-    std::cout << std::fixed << std::setprecision(countDecimalDigit(literal)) << "float: " << static_cast<float>(symbol) << "f" << std::endl;
-    std::cout << std::fixed << std::setprecision(countDecimalDigit(literal)) << "double: " << static_cast<double>(symbol) << std::endl;
+    std::cout << std::fixed << std::setprecision(countDecimalDigits(literal)) << "float: " << static_cast<float>(symbol) << "f" << std::endl;
+    std::cout << "double: " << static_cast<double>(symbol) << std::endl;
     
 }
 
 void convertToInt(std::string& literal) {
-    int result = std::atoi(literal.c_str());
-    if (result > std::numeric_limits<char>::max() || result < std::numeric_limits<char>::min())
-        // throw std::range_error("char: impossible");
+    double result = std::strtod(literal.c_str(), NULL);
+    if (result > std::numeric_limits<char>::max() || result < 0)
         std::cout << "char: impossible" << std::endl;
+    else if (!isprint(result))
+        std::cout << "char: Non displayable" << std::endl;
     else
         std::cout << "char: " << static_cast<char>(result) << std::endl;
 
     if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min())
-        // throw std::out_of_range("int: impossible");
         std::cout << "int: impossible" << std::endl;
     else
-        std::cout << "int: " << result << std::endl;
+        std::cout << "int: " << static_cast<int>(result) << std::endl;
 
-    std::cout << std::fixed << std::setprecision(countDecimalDigit(literal)) << "float: " << static_cast<float>(result) << "f" << std::endl;
-    std::cout << std::fixed << std::setprecision(countDecimalDigit(literal)) << "double: " << static_cast<double>(result) << std::endl;
+    std::cout << std::fixed << std::setprecision(countDecimalDigits(literal)) << "float: " << static_cast<float>(result) << "f" << std::endl;
+    std::cout <<  "double: " << result << std::endl;
 }
 
 // When defining float without suffix 'f' it defines it as a double by default
-// void convertToFloat(std::string& literal) {
-//     try {
-//         // int decimalCount = countDecimalDigit(literal);
-//         // std::cout << "count: " << decimalCount << std::endl;
-//         if (literal > FLT_MAX || literal < -FLT_MAX)
-//             throw std::out_of_range("float: inf");
-//         else
-//             std::cout << "hello\n";
-//             // std::cout << std::fixed << std::setprecision(decimalCount) << "float: " << static_cast<float>(literal) << "f" << std::endl;
-//     }
-//     catch (std::exception& e)
-//     {
-//         std::cout << e.what() << std::endl;
-//     }
-// }
+void convertToFloat(std::string& literal) {
+    double result = std::strtod(literal.c_str(), NULL);
+    if (result > std::numeric_limits<char>::max() || result < 0)
+        std::cout << "char: impossible" << std::endl;
+    else if (!isprint(result))
+        std::cout << "char: Non displayable" << std::endl;
+    else
+        std::cout << "char: " << static_cast<char>(result) << std::endl;
 
-// void convertToDouble(std::string&) {
-//     try {
-//         // int decimalCount = countDecimalDigit(literal);
-//         if (literal > std::numeric_limits<double>::max())
-//             throw std::out_of_range("double: inf");
-//         else
-//             std::cout << "Hello\n";
-//             // std::cout << std::fixed << std::setprecision(decimalCount) << "double:" << literal << std::endl;
-//     }
-//     catch (std::exception& e)
-//     {
-//         std::cout << e.what() << std::endl;
-//     }
-// }
+    if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min())
+        std::cout << "int: impossible" << std::endl;
+    else
+        std::cout << "int: " << static_cast<int>(result) << std::endl;
 
-int countDecimalDigit(std::string& number) {
+    if (result > FLT_MAX || result < -FLT_MAX)
+        std::cout << "float: impossible";
+    else
+        std::cout << std::fixed << std::setprecision(countDecimalDigits(literal)) << "float: " << static_cast<float>(result) << "f" << std::endl;
+
+    std::cout << "double: " << result << std::endl;
+}
+
+void convertToDouble(std::string& literal) {
+    double result = std::strtod(literal.c_str(), NULL);
+    if (result > std::numeric_limits<char>::max() || result < 0)
+        std::cout << "char: impossible" << std::endl;
+    else if (!isprint(result))
+        std::cout << "char: Non displayable" << std::endl;
+    else
+        std::cout << "char: " << static_cast<char>(result) << std::endl;
+
+    if (result > std::numeric_limits<int>::max() || result < std::numeric_limits<int>::min())
+        std::cout << "int: impossible" << std::endl;
+    else
+        std::cout << "int: " << static_cast<int>(result) << std::endl;
+
+    if (result > FLT_MAX || result < -FLT_MAX)
+        std::cout << "float: impossible";
+    else
+        std::cout << std::fixed << std::setprecision(countDecimalDigits(literal)) << "float: " << static_cast<int>(result) << "f" << std::endl;
+
+    std::cout << "double: " << result << std::endl;
+}
+
+int countDecimalDigits(std::string& number) {
     size_t dotPos = number.find(".");
     if (dotPos == std::string::npos)
         return (1);
