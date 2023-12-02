@@ -18,11 +18,15 @@ class ScalarConverter {
         static void convert(std::string& literal); // Read more about static functions
 };
 
-double parsing(std::string& literal);
+std::string parsing(std::string& literal);
 bool isInScientificNotation(std::string& literal);
-int countDecimalDigit(double number);
-void convertToChar(double literal);
-void convertToInt(double literal);
-void convertToFloat(double literal);
-void convertToDouble(double literal);
+bool isChar(std::string& literal);
+bool isInt(std::string& literal);
+bool isDouble(std::string& literal);
+bool isDouble(std::string& literal);
+int countDecimalDigit(std::string& number);
+void convertToChar(std::string& literal);
+void convertToInt(std::string& literal);
+void convertToFloat(std::string& literal);
+void convertToDouble(std::string& literal);
 #endif

@@ -1,4 +1,4 @@
-NAME = bureaucrat
+NAME = realType
 
 TMP = objs
 
