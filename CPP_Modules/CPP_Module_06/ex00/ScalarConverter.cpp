@@ -8,9 +8,7 @@
 #include <cmath>
 #include <cctype>
 #include <iomanip>
-#include <sstream>
 #include <cerrno>
-#include <cassert>
 
 ScalarConverter::ScalarConverter() {
 
@@ -40,6 +38,8 @@ void ScalarConverter::convert(std::string& literal) {
             convertToFloat(num);
         else if (isDouble(num))
             convertToDouble(num);
+        else
+            std::cout << "Can't determine the type" << std::endl;
     }
     catch (std::exception& e)
     {
@@ -94,6 +94,7 @@ std::string parsing(std::string& literal) {
     {
         if ((literal[0] == '-' || literal[0] == '+') && literal[1] == '0')
             throw std::invalid_argument("Error: Invalid input");
+            
         // checking if there is a number after "."
         size_t dotPos = literal.find(".");
         if (dotPos != std::string::npos && !isdigit(literal[dotPos + 1]))
@@ -134,21 +135,6 @@ bool isInt(std::string& literal) {
     return (true);
 }
 
-bool isDouble(std::string& literal) {
-    size_t i = 0;
-    bool hasDot = false;
-    if (literal[0] == '+' || literal[0] == '-')
-        i++;
-    for (; i < literal.length(); i++)
-    {
-        if (!isdigit(literal[i]) && literal[i] != '.')
-            return (false);
-        if (literal[i] == '.')
-            hasDot = true;
-    }
-    return (hasDot);
-}
-
 bool isFloat(std::string& literal) {
     size_t i = 0;
     bool hasDot = false;
@@ -166,6 +152,21 @@ bool isFloat(std::string& literal) {
     if (literal.find("f") == std::string::npos)
         return (false);
 
+    return (hasDot);
+}
+
+bool isDouble(std::string& literal) {
+    size_t i = 0;
+    bool hasDot = false;
+    if (literal[0] == '+' || literal[0] == '-')
+        i++;
+    for (; i < literal.length(); i++)
+    {
+        if (!isdigit(literal[i]) && literal[i] != '.')
+            return (false);
+        if (literal[i] == '.')
+            hasDot = true;
+    }
     return (hasDot);
 }
 
@@ -261,14 +262,17 @@ void convertToDouble(std::string& literal) {
     if (result > FLT_MAX || result < -FLT_MAX)
         std::cout << "float: impossible";
     else
-        std::cout << std::fixed << std::setprecision(countDecimalDigits(literal)) << "float: " << static_cast<int>(result) << "f" << std::endl;
+        std::cout << std::fixed << std::setprecision(countDecimalDigits(literal)) << "float: " << static_cast<float>(result) << "f" << std::endl;
 
     std::cout << "double: " << result << std::endl;
 }
 
 int countDecimalDigits(std::string& number) {
     size_t dotPos = number.find(".");
+    size_t len = number.length();
     if (dotPos == std::string::npos)
         return (1);
+    if (number[len - 1] == 'f')
+        return (len - dotPos - 2);
     return (number.length() - dotPos - 1);
 }

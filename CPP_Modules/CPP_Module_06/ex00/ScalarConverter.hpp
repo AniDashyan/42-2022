@@ -15,7 +15,7 @@ class ScalarConverter {
         ~ScalarConverter();
     public:
         // The convert() method is static because we made class non instantiable
-        static void convert(std::string& literal); // Read more about static functions
+        static void convert(std::string& literal);
 };
 
 std::string parsing(std::string& literal);
