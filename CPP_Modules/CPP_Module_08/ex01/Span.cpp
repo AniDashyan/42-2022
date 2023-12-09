@@ -6,13 +6,16 @@
 
 Span::Span() : m_N(0) {
     this->m_vector.reserve(0);
+    // std::cout << "Default Constructor of Span Called" << std::endl;
 }
 
 Span::Span(unsigned int N) : m_N(N) {
     this->m_vector.reserve(N);
+    // std::cout << "Parameter Constructor of Span Called" << std::endl;
 }
 
 Span::Span(const Span& other) : m_N(other.m_N), m_vector(other.m_vector) {
+    // std::cout << "Copy Constructor of Span Called" << std::endl;
 }
 
 Span& Span::operator=(const Span& other) {
@@ -20,11 +23,12 @@ Span& Span::operator=(const Span& other) {
         this->m_N = other.m_N;
         this->m_vector = other.m_vector;
     }
+    // std::cout << "Copy Assignment Operator of Span Called" << std::endl;
     return (*this);
 }
 
 Span::~Span() {
-
+    // std::cout << "Destructor of Span Called" << std::endl;
 }
 
 std::vector<int> Span::getVector() const {
@@ -32,7 +36,7 @@ std::vector<int> Span::getVector() const {
 }
 
 void Span::addNumber(int num) {
-    if (this->m_vector.size() > this->m_vector.capacity())
+    if (this->m_vector.size() >= this->m_N)
         throw std::out_of_range("Error: Maximum capacity reached. Can't add more elements!");
 
     this->m_vector.push_back(num);
@@ -44,8 +48,9 @@ int Span::shortestSpan() {
 
     std::sort(this->m_vector.begin(), this->m_vector.end());
     std::vector<int>result(this->m_vector.size());
-    std::adjacent_difference(std::begin(this->m_vector), std::end(this->m_vector), result.begin());
-    return (*std::min_element(result.begin(), result.end()));
+    std::adjacent_difference(this->m_vector.begin(), this->m_vector.end(), result.begin());
+
+    return (*std::min_element(result.begin() + 1, result.end()));
 }
 
 int Span::longestSpan() {

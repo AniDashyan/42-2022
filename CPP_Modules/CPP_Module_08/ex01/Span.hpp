@@ -5,20 +5,20 @@
 
 class Span {
     public:
-        Span();
         Span(unsigned int N);
         Span(const Span& other);
         Span& operator=(const Span& other);
         ~Span();
 
         void addNumber(int num);
-        // TODO: implement
-        // template<typename Iterator>
-        // typename std::iterator_traits<Iterator>::value_type
-        void addManyNumbers(std::vector<int>::iterator begin, std::vector<int>::iterator end) {
-            for (std::vector<int>::iterator it = begin; it != end; it++)
-                addNumber(*it);
+        template <typename Iterator>
+        void addManyNumbers(Iterator begin, Iterator end) {
+            if (this->m_vector.size() + std::distance(begin, end) > this->m_N)
+                throw std::length_error("Error: Can't add more elements. Capacity overflow");
+
+            this->m_vector.insert(this->m_vector.end(), begin, end);
         }
+
         int shortestSpan();
         int longestSpan();
 
@@ -26,6 +26,7 @@ class Span {
     private:
         unsigned int m_N;
         std::vector<int> m_vector;
+        Span();
 };
 
 #endif

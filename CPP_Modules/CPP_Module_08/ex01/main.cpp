@@ -1,49 +1,50 @@
 #include "Span.hpp"
 #include <iostream>
 #include <vector>
-
-// int main() {
-//     Span sp = Span(5);
-//     sp.addNumber(6);
-//     sp.addNumber(3);
-//     sp.addNumber(17);
-//     sp.addNumber(9);
-//     sp.addNumber(11);
-
-//     std::cout << sp.shortestSpan() << std::endl;
-//     std::cout << sp.longestSpan() << std::endl;
-//     return (0);
-// }
+#include <stdexcept>
 
 int main() {
-    Span sp(5);
-    sp.addNumber(7);
-    sp.addNumber(4);
-    sp.addNumber(3);
-    sp.addNumber(7);
-    sp.addNumber(8);
-    sp.addNumber(12);
-    sp.addNumber(123);
+    try {
+        Span sp = Span(5);
+        sp.addNumber(6);
+        sp.addNumber(3);
+        sp.addNumber(17);
+        sp.addNumber(9);
+        sp.addNumber(11);
+        // sp.addNumber(8);
+        // sp.addNumber(12);
 
-    std::vector<int> vec = sp.getVector();
-    std::vector<int>::iterator it;
-    int i = 0;
-    for (it = vec.begin(); it != vec.end(); it++)
-    {
-        std::cout << "it[" << i << "]= " << *it << std::endl;
-        i++;
+        std::cout << "------- Subject Test -------" << std::endl;
+        std::vector<int> vec = sp.getVector();
+        std::vector<int>::iterator it;
+        int i = 0;
+        std::cout << "Vector: " << std::endl; 
+        for (it = vec.begin(); it != vec.end(); it++)
+        {
+            std::cout << "vec[" << i << "]= " << *it << std::endl;
+            i++;
+        }
+
+        std::cout << "--------------------------" << std::endl;
+        std::cout << "longest span: " << sp.longestSpan() << std::endl;
+        std::cout << "shortest span: " << sp.shortestSpan() << std::endl;
+        std::cout << "--------------------------" << std::endl << std::endl;
+
+
+        Span sp2 = Span(15000);
+        std::cout << "------- Test with size 15000 -------" << std::endl;
+        std::vector<int> vec2;
+        for (int i = 0; i < 15000; i++)
+            vec2.push_back(i);
+
+        sp2.addManyNumbers(vec2.begin(), vec2.end());
+
+        std::cout << "shortest span: " << sp2.shortestSpan() << std::endl;
+        std::cout << "longest span: " << sp2.longestSpan() << std::endl;
+        std::cout << "------------------------------------" << std::endl;
     }
-
-    std::cout << "longest span: " << sp.longestSpan() << std::endl;
-    std::cout << "shortest span: " << sp.shortestSpan() << std::endl;
-
-    sp.addManyNumbers((vec.begin() + 3), vec.end());
-    std::vector<int> vec2 = sp.getVector();
-    i = 0;
-    for (it = vec.begin(); it != vec.end(); it++)
-    {
-        std::cout << "it[" << i << "]= " << *it << std::endl;
-        i++;
+    catch (std::exception& e) {
+        std::cout << e.what() << std::endl;
     }
     return (0);
 }
