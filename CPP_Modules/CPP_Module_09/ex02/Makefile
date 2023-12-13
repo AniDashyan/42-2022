@@ -1,4 +1,4 @@
-NAME = pmergeMe
+NAME = PmergeMe
 
 TMP = objs
 
