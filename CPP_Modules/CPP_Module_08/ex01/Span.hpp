@@ -13,10 +13,8 @@ class Span {
         void addNumber(int num);
         template <typename Iterator>
         void addManyNumbers(Iterator begin, Iterator end) {
-            if (this->m_vector.size() + std::distance(begin, end) > this->m_N)
-                throw std::length_error("Error: Can't add more elements. Capacity overflow");
-
-            this->m_vector.insert(this->m_vector.end(), begin, end);
+            for (; begin != end; begin++)
+                addNumber(*begin);
         }
 
         int shortestSpan();

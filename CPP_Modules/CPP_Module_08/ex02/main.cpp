@@ -1,10 +1,11 @@
 #include "MutantStack.hpp"
 #include <iostream>
 
-#include <list>
+#include <vector>
 
 int main()
 {
+    // Mutant stack
     MutantStack<int> mstack;
     mstack.push(5);
     mstack.push(17);
@@ -20,7 +21,8 @@ int main()
     --it;
     while (it != ite) {
         std::cout << *it << std::endl;
-    ++it; }
+    ++it;
+    }
     std::stack<int> s(mstack);
     return (0);
 }

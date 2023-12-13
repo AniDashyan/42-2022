@@ -21,7 +21,7 @@ int main(void) {
             vec.push_back(i);
 
         std::vector<int>::iterator itv;
-        itv = easyfind(vec, 3);
+        itv = easyfind(vec, 4);
         std::cout << "element was found in vector: " << *itv << std::endl;
     }
     catch (std::exception& e) {

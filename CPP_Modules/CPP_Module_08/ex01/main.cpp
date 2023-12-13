@@ -14,34 +14,35 @@ int main() {
         // sp.addNumber(8);
         // sp.addNumber(12);
 
-        std::cout << "------- Subject Test -------" << std::endl;
+        std::cout << "Subject test" << std::endl;
         std::vector<int> vec = sp.getVector();
         std::vector<int>::iterator it;
         int i = 0;
-        std::cout << "Vector: " << std::endl; 
         for (it = vec.begin(); it != vec.end(); it++)
         {
             std::cout << "vec[" << i << "]= " << *it << std::endl;
             i++;
         }
 
-        std::cout << "--------------------------" << std::endl;
         std::cout << "longest span: " << sp.longestSpan() << std::endl;
         std::cout << "shortest span: " << sp.shortestSpan() << std::endl;
-        std::cout << "--------------------------" << std::endl << std::endl;
 
-
-        Span sp2 = Span(15000);
-        std::cout << "------- Test with size 15000 -------" << std::endl;
+        // Span sp2 = Span(15000);
+        Span s(10);
+        std::cout << "Test 2: Adding many numbers" << std::endl;
         std::vector<int> vec2;
-        for (int i = 0; i < 15000; i++)
-            vec2.push_back(i);
+        int arr[7] = {1, 2, 3, 4, 5, 6, 7};
+        for (int i = 0; i < 7; i++)
+            vec2.push_back(arr[i]);
 
-        sp2.addManyNumbers(vec2.begin(), vec2.end());
+        s.addManyNumbers(vec2.begin(), vec2.end());
+        std::vector<int>vec3 = s.getVector();
+        for (size_t i = 0; i < vec3.size(); i++)
+            std::cout << "vec3[" << i << "]= " << vec3.at(i) << std::endl;
 
-        std::cout << "shortest span: " << sp2.shortestSpan() << std::endl;
-        std::cout << "longest span: " << sp2.longestSpan() << std::endl;
-        std::cout << "------------------------------------" << std::endl;
+        std::cout << "shortest span: " << s.shortestSpan() << std::endl;
+        std::cout << "longest span: " << s.longestSpan() << std::endl;
+
     }
     catch (std::exception& e) {
         std::cout << e.what() << std::endl;

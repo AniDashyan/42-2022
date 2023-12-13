@@ -11,7 +11,7 @@ typename T::iterator easyfind(T& Container, int value) {
     it = std::find(Container.begin(), Container.end(), value);
     if (it == Container.end())
         throw std::invalid_argument("Error: value wasn't found!");
-
     return (it);
 }
+
 #endif
