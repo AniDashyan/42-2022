@@ -21,11 +21,10 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
 }
 
 BitcoinExchange::~BitcoinExchange() {
-    
 }
 
 void BitcoinExchange::read_data_file() {
-    std::fstream data;
+    std::ifstream data;
 
     std::string line;
     std::string date;
@@ -50,8 +49,10 @@ void BitcoinExchange::read_data_file() {
 }
 
 void BitcoinExchange::read_input_file(std::string file) {
-    std::string line;
     std::ifstream data(file);
+    std::string line;
+    std::string date;
+    double value;
 
     // Check file validity
     if (file.empty())
@@ -72,13 +73,19 @@ void BitcoinExchange::read_input_file(std::string file) {
     
     while (!data.eof()) {
         getline(data, line);
-        std::cout << line << "\n";
+        if (line.empty()) {
+            std::cout << "Error: Empty line =>" << std::endl;
+            return;
+        }
+        // TODO: check format of line "date | value"
+        // TODO: cut the  `date` and `value` from `line`
+        std::cout << line << std::endl;
     }
 }
 
 void BitcoinExchange::function(std::string file) {
     try {
-        read_data_file(); // TODO: Fix the function
+        read_data_file();
         read_input_file(file);
     }
     catch (std::exception& e) {
@@ -86,63 +93,36 @@ void BitcoinExchange::function(std::string file) {
     }
 }
 
-bool BitcoinExchange::isValidDate(std::string line) {
-    if (line.length() != 10)
-        return (false);
+// bool BitcoinExchange::isValidDate(std::string line) {
+//     if (line.length() != 10)
+//         return (false);
 
-    // Check validity of dashes
-    for (size_t i = 0; i < line.size(); i++)
-    {
-        if (i == 4 || i == 7) {
-            if (line[i] != '-')
-                return (false);
-        }
-        else {
-            if (!isdigit(line[i]))
-                return (false);
-        }
-    }
+//     // Check validity of dashes
+//     for (size_t i = 0; i < line.size(); i++)
+//     {
+//         if (i == 4 || i == 7) {
+//             if (line[i] != '-')
+//                 return (false);
+//         }
+//         else {
+//             if (!isdigit(line[i]))
+//                 return (false);
+//         }
+//     }
 
-    std::istringstream ss(line.c_str());
-    std::string splitted_date;
-    int year, month, day;
-    int index = 0;
-    while (getline(ss, splitted_date, '-')) {
-        if (index == 0)
-        {
-            std::istringstream(splitted_date) >> year;
-            if (year > MAX_YEAR || year < MIN_YEAR)
-                return (false);
-        }
-        else if (index == 1) {
-            std::istringstream(splitted_date) >> month;
-            if (month < 1 || month > 12)
-                return (false);
-        }
-        else if (index == 2) {
-            std::istringstream(splitted_date) >> day;
-            if (day < 1 || day > 31)
-                return (false);
+//     std::istringstream ss(line.c_str());
+//     std::string splitted_date;
+//     int year, month, day;
+//     // int index = 0;
+//     while (getline(ss, splitted_date, '-')) {
+//         std::istringstream(splitted_date) >> year;
+//     }
 
-            if ((month == 4 || month == 7 || month == 9 || month == 11) && day == 31) // months which have 30 days
-                return (false);
-            
-            if(isLeapYear(year)) // leap year
-            {
-                if (month == 2 && day > 29)
-                    return (false);
-            }
-            else if (month == 2 && day > 28)
-                return (false);
-        }
-        index++;
-    }
+//     // if (index != 3)
+//     //     return (false);
 
-    if (index != 3)
-        return (false);
-
-    return (true);
-}
+//     return (true);
+// }
 
 bool BitcoinExchange::isLeapYear(int year) {
     return ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
