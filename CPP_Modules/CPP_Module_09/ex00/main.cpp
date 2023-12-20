@@ -6,7 +6,7 @@ int main(int argc, char** argv) {
     if (argc == 2) {
         try {
             BitcoinExchange btc;
-            std::string file(argv[1]);
+            std::string file(argv[1]); 
             btc.function(file);
         }
         catch (std::exception& e) {
@@ -14,6 +14,6 @@ int main(int argc, char** argv) {
         }
     }
     else
-        std::cout << "Error: Argument has to be one" << std::endl;
+        std::cout << "Error: Bad arguments" << std::endl;
     return (0);
 }

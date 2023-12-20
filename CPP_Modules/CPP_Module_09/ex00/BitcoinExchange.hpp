@@ -4,9 +4,6 @@
 #include <map>
 #include <fstream>
 
-const int MIN_YEAR = 2009;
-const int MAX_YEAR = 2022;
-
 class BitcoinExchange {
     public:
         BitcoinExchange();
@@ -18,11 +15,12 @@ class BitcoinExchange {
     private:
         void read_input_file(std::string file);
         bool isValidDate(std::string line);
-        bool isValidValue(std::string line);
+        int isValidValue(std::string line);
         void read_data_file();
+        std::string clearSpaces(std::string line);
         bool isLeapYear(int year);
     private:
-        std::map<std::string, double> m_map;
+        std::map<std::string, double, std::greater<std::string> > m_map;
 };
 
 #endif

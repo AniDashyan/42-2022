@@ -1,4 +1,4 @@
-NAME = rpn
+NAME = RPN
 
 TMP = objs
 
