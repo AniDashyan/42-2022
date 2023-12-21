@@ -4,10 +4,12 @@
 
 int main(int argc, char** argv) {
     if (argc > 2) {
-        std::vector<std::string> args(argv + 1, argv + argc);
-        for (size_t i = 0; i < args.size(); i++)
-        {
-            std::cout << "vec[" << i << "]= " << args[i] << std::endl;
+        try {
+            PMergeMe pmg;
+            pmg.parsing(argv);
+        }
+        catch (std::exception& e) {
+            std::cout << e.what() << std::endl;
         }
     }
     else

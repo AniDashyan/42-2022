@@ -39,7 +39,7 @@ double RPN::calculate(std::string line)
         throw std::invalid_argument("Error: Empty string");
     
     std::string line_2;
-    std::unique_copy(cleared_line.begin(), cleared_line.end(), std::back_inserter(line_2), isSpace); // usumnasirel
+    std::unique_copy(cleared_line.begin(), cleared_line.end(), std::back_insert_iterator<std::string>(line_2), isSpace); // usumnasirel
 
     std::istringstream iss(line_2);
     std::string splitted_data;

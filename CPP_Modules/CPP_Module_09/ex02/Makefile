@@ -34,4 +34,4 @@ fclean: clean
 
 re:	fclean all
 
-.PHONY: all clean fclean re PmergeMe
+.PHONY: all clean fclean re

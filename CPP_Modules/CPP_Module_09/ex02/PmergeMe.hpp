@@ -1,20 +1,20 @@
-#ifndef PMERGE_ME_HPP
-#define PMERGE_ME_HPP
+#ifndef P_MERGE_ME_HPP
+#define P_MERGE_ME_HPP
 
 #include <vector>
-#include <deque>
+#include <list>
 
-class PmergeMe {
+class PMergeMe {
     public:
-        PmergeMe();
-        PmergeMe(const PmergeMe& other);
-        PmergeMe& operator=(const PmergeMe& other);
-        ~PmergeMe();
-
-        static bool parsing(std::vector<std::string> args);
+        PMergeMe();
+        PMergeMe(const PMergeMe& other);
+        PMergeMe& operator=(const PMergeMe& other);
+        ~PMergeMe();
+    // private:
+        void parsing(char** argv);
     private:
         std::vector<int> m_vec;
-        std::deque<int> m_deq;
+        std::list<int> m_list;
 };
 
 #endif
