@@ -12,8 +12,9 @@ class PMergeMe {
         ~PMergeMe();
     // private:
         void parsing(char** argv);
-        void FordJohnsonVector(std::vector<int> vec);
-        void FordJohnsonList(std::list<int> list);
+        void FordJohnsonVector();
+        void FordJohnsonList();
+        void sortPairs(std::vector<std::pair<int, int> > &pairs);
     private:
         std::vector<int> m_vec;
         std::list<int> m_list;

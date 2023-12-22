@@ -5,7 +5,8 @@
 #include <stdexcept>
 #include <limits>
 #include <cstdlib>
-#include <pair>
+#include <utility>
+#include <algorithm>
 
 PMergeMe::PMergeMe() {
 
@@ -61,11 +62,49 @@ void PMergeMe::parsing(char** argv) {
         std::cout << "list[" << j++ << "] = " << *it << std::endl; 
 }
 
-void PMergeMe::FordJohnsonVector(std::vector<int> vec) {
-    std::vector<std::pair<int, int> > new_vec;
-    std::vector<int>::iterator it;
-    for (it = this->m_vec.begin(); it != this->m_vec.end(); it+= 2)
+void PMergeMe::sortPairs(std::vector<std::pair<int, int> > &pairs) {
+    for (size_t i = 0; i < pairs.size(); i++)
     {
-           
+        if (pairs[i].first < pairs[i].second)
+            std::swap(pairs[i].first, pairs[i].second);
+    }
+}
+
+void PMergeMe::FordJohnsonVector() {
+    std::vector<std::pair<int, int> > new_vec;
+    size_t end = this->m_vec.size();
+    bool unpaired = 0;
+    for (size_t i = 0; i < end; i += 2) {
+        if (end % 2 == 1 && i == end - 1)
+        {
+            unpaired = 1;
+            break;
+        }
+        new_vec.push_back(std::make_pair(this->m_vec[i], this->m_vec[i + 1]));
+    }
+    sortPairs(new_vec);
+
+    std::vector<int> largests;
+    std::vector<int> smallests;
+
+    for (size_t i = 0; i < new_vec.size(); i++)
+    {
+        largests.push_back(new_vec[i].first);
+        smallests.push_back(new_vec[i].second);
+    }
+
+    if (unpaired == 1)
+        smallests.push_back(this->m_vec[end - 1]);
+
+    std::cout << "Largest numbers: " << std::endl;
+    for (size_t i = 0; i < largests.size(); i++)
+    {
+        std::cout << "largests[" << i << "] = " << largests[i] << std::endl;
+    }
+
+    std::cout << "Smallest numbers: " << std::endl;
+    for (size_t i = 0; i < smallests.size(); i++)
+    {
+         std::cout << "smallests[" << i << "] = " << smallests[i] << std::endl;
     }
 }

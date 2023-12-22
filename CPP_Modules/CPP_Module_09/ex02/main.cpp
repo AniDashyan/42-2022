@@ -7,6 +7,7 @@ int main(int argc, char** argv) {
         try {
             PMergeMe pmg;
             pmg.parsing(argv);
+            pmg.FordJohnsonVector();
         }
         catch (std::exception& e) {
             std::cout << e.what() << std::endl;
