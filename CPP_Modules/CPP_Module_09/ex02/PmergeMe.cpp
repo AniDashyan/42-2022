@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <limits>
 #include <cstdlib>
+#include <pair>
 
 PMergeMe::PMergeMe() {
 
@@ -58,4 +59,13 @@ void PMergeMe::parsing(char** argv) {
     int j = 0;
     for (; it != this->m_list.end(); it++)
         std::cout << "list[" << j++ << "] = " << *it << std::endl; 
+}
+
+void PMergeMe::FordJohnsonVector(std::vector<int> vec) {
+    std::vector<std::pair<int, int> > new_vec;
+    std::vector<int>::iterator it;
+    for (it = this->m_vec.begin(); it != this->m_vec.end(); it+= 2)
+    {
+           
+    }
 }
