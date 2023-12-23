@@ -77,7 +77,7 @@ void PMergeMe::parsingDeque(char** argv) {
     }
 }
 
-void PMergeMe::sortPairs(std::vector<std::pair<int, int> > &pairs) {
+void PMergeMe::sortPairElements(std::vector<std::pair<int, int> > &pairs) {
     for (size_t i = 0; i < pairs.size(); i++)
     {
         if (pairs[i].first < pairs[i].second)
@@ -85,108 +85,117 @@ void PMergeMe::sortPairs(std::vector<std::pair<int, int> > &pairs) {
     }
 }
 
-void PMergeMe::FordJohnsonVector(std::vector<int>& vec) {
-    std::vector<std::pair<int, int> > new_vec;
-    size_t end = vec.size();
-    bool unpaired = false;
-    for (size_t i = 0; i < end; i += 2) {
-        if (end % 2 == 1 && i == end - 1)
-        {
-            unpaired = true;
-            break;
-        }
-        new_vec.push_back(std::make_pair(vec[i], vec[i + 1]));
-    }
-    sortPairs(new_vec);
+bool sortPairs(std::pair<int, int>& a, std::pair<int, int>& b) {
+    if (a.first < b.first)
+        return (true);
 
-    std::vector<int> largests;
+    return (false);
+}
+
+void PMergeMe::FordJohnsonVector() {
+    size_t size = getVectorSize();
+    bool is_odd = size % 2;
+    std::vector<std::pair<int, int> > new_vec;
+    new_vec.reserve(size / 2);
+    size_t end = is_odd ? size - 1: size;
+    int last = this->m_vec[size - 1];
+    for (size_t i = 0; i < end; i += 2) {
+        new_vec.push_back(std::make_pair(this->m_vec[i], this->m_vec[i + 1]));
+    }
+
+    sortPairElements(new_vec);
+    std::sort(new_vec.begin(), new_vec.end(), sortPairs);
+    
+    this->m_vec.clear();
+    this->m_vec.push_back(new_vec[0].second);
     std::vector<int> smallests;
 
     for (size_t i = 0; i < new_vec.size(); i++)
     {
-        largests.push_back(new_vec[i].first);
+        this->m_vec.push_back(new_vec[i].first);
+    }
+
+    for (size_t i = 1; i < new_vec.size(); i++)
+    {
         smallests.push_back(new_vec[i].second);
     }
 
-    if (unpaired == true)
-        smallests.push_back(vec[end - 1]);
+    if (is_odd)
+        smallests.push_back(last);
 
-    std::sort(largests.begin(), largests.end());
-
-    largests.insert(largests.begin(), smallests[0]);
     int Jn_2 = 1;
-    int Jn_1 = 1;
-    int Jn = Jn_1 + 2 * Jn_1;
-    while (Jn - 1 < static_cast<int>(smallests.size()))
-    {
-        for (int j = Jn - 2; j >= Jn_1; --j)
-        {
-            std::vector<int>::iterator it = std::upper_bound(largests.begin(), largests.end(), smallests[j]);
-            largests.insert(it, smallests[j]);
-        }
-        Jn_2 = Jn_1;
-        Jn_1 = Jn;
-        Jn = Jn_1 + 2 * Jn_2;
-    }
-
-    for (int j = smallests.size() - 1; j > Jn_1 - 1; --j)
-    {
-        std::vector<int>::iterator it = std::upper_bound(largests.begin(), largests.end(), smallests[j]);
-        largests.insert(it, smallests[j]);
-    }
-    vec = largests;
+	int Jn_1 = 1;
+	int Jn = Jn_1 + 2 * Jn_2;
+	while (Jn - 2 < static_cast<int>(smallests.size()))
+	{
+		for (int j = Jn - 2; j >= Jn_1 - 1; --j)
+		{
+			std::vector<int>::iterator it = std::upper_bound(this->m_vec.begin(), this->m_vec.end(), smallests[j]);
+			this->m_vec.insert(it, smallests[j]);
+		}
+		Jn_2 = Jn_1;
+		Jn_1 = Jn;
+		Jn = Jn_1 + 2 * Jn_2;
+	}
+	for (int j = smallests.size() - 1; j > Jn_1 - 2; --j)
+	{
+		std::vector<int>::iterator it = std::upper_bound(this->m_vec.begin(), this->m_vec.end(), smallests[j]);
+		this->m_vec.insert(it, smallests[j]);
+	}
 }
 
-void PMergeMe::FordJohnsonDeque(std::deque<int>& deq) {
-    std::vector<std::pair<int, int> > new_vec;
-    size_t end = deq.size();
-    bool unpaired = false;
+void PMergeMe::FordJohnsonDeque() {
+    size_t size = getVectorSize();
+    bool is_odd = size % 2;
+    std::vector<std::pair<int, int> > new_deq;
+    new_deq.reserve(size / 2);
+    size_t end = is_odd ? size - 1: size;
+    int last = this->m_vec[size - 1];
     for (size_t i = 0; i < end; i += 2) {
-        if (end % 2 == 1 && i == end - 1)
-        {
-            unpaired = true;
-            break;
-        }
-        new_vec.push_back(std::make_pair(deq[i], deq[i + 1]));
+        new_deq.push_back(std::make_pair(this->m_vec[i], this->m_vec[i + 1]));
     }
-    sortPairs(new_vec);
 
-    std::deque<int> largests;
-    std::deque<int> smallests;
+    sortPairElements(new_deq);
+    std::sort(new_deq.begin(), new_deq.end(), sortPairs);
+    
+    this->m_vec.clear();
+    this->m_vec.push_back(new_deq[0].second);
+    std::vector<int> smallests;
 
-    for (size_t i = 0; i < new_vec.size(); i++)
+    for (size_t i = 0; i < new_deq.size(); i++)
     {
-        largests.push_back(new_vec[i].first);
-        smallests.push_back(new_vec[i].second);
+        this->m_vec.push_back(new_deq[i].first);
     }
 
-    if (unpaired == true)
-        smallests.push_back(deq[end - 1]);
+    for (size_t i = 1; i < new_deq.size(); i++)
+    {
+        smallests.push_back(new_deq[i].second);
+    }
 
-    std::sort(largests.begin(), largests.end());
+    if (is_odd)
+        smallests.push_back(last);
 
-    largests.insert(largests.begin(), smallests[0]);
     int Jn_2 = 1;
-    int Jn_1 = 1;
-    int Jn = Jn_1 + 2 * Jn_1;
-    while (Jn - 1 < static_cast<int>(smallests.size()))
-    {
-        for (int j = Jn - 2; j >= Jn_1 - 1; --j)
-        {
-            std::deque<int>::iterator it = std::upper_bound(largests.begin(), largests.end(), smallests[j]);
-            largests.insert(it, smallests[j]);
-        }
-        Jn_2 = Jn_1;
-        Jn_1 = Jn;
-        Jn = Jn_1 + 2 * Jn_2;
-    }
-    for (int j = smallests.size() - 1; j > Jn_1 - 1; --j)
-    {
-        std::deque<int>::iterator it = std::upper_bound(largests.begin(), largests.end(), smallests[j]);
-        largests.insert(it, smallests[j]);
-    }
-    deq = largests;
+	int Jn_1 = 1;
+	int Jn = Jn_1 + 2 * Jn_2;
+	while (Jn - 2 < static_cast<int>(smallests.size()))
+	{
+		for (int j = Jn - 2; j >= Jn_1 - 1; --j)
+		{
+			std::vector<int>::iterator it = std::upper_bound(this->m_vec.begin(), this->m_vec.end(), smallests[j]);
+			this->m_vec.insert(it, smallests[j]);
+		}
+		Jn_2 = Jn_1;
+		Jn_1 = Jn;
+		Jn = Jn_1 + 2 * Jn_2;
+	}
+	for (int j = smallests.size() - 1; j > Jn_1 - 2; --j)
+	{
+		std::vector<int>::iterator it = std::upper_bound(this->m_vec.begin(), this->m_vec.end(), smallests[j]);
+		this->m_vec.insert(it, smallests[j]);
+	}
 }
+
 
 std::vector<int> PMergeMe::getVector() const {
     return (this->m_vec);
@@ -204,12 +213,12 @@ size_t PMergeMe::getDequeSize() const {
     return (this->m_deq.size());
 }
 
-void PMergeMe::printVector(std::vector<int> vec) {
+void PMergeMe::printVector(const std::vector<int>& vec) {
     for (size_t i = 0; i < vec.size(); i++)
         std::cout << vec[i] << " ";
 }
 
-void PMergeMe::printDeque(std::deque<int> deq) {
+void PMergeMe::printDeque(const std::deque<int>& deq) {
     for (size_t i = 0; i < deq.size(); i++)
         std::cout << deq[i] << " ";
 }

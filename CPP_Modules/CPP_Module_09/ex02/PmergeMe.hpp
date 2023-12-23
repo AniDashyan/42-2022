@@ -13,10 +13,11 @@ class PMergeMe {
 
         void parsingVector(char** argv);
         void parsingDeque(char** argv);
-        void FordJohnsonVector(std::vector<int>& vec);
-        void FordJohnsonDeque(std::deque<int>& deq);
-        void printVector(std::vector<int> vec);
-        void printDeque(std::deque<int> deq);
+        // void FordJohnsonVector(std::vector<int>& vec);
+        void FordJohnsonVector();
+        void FordJohnsonDeque();
+        void printVector(const std::vector<int>& vec);
+        void printDeque(const std::deque<int>& deq);
         double get_time(void);
 
         std::vector<int> getVector() const;
@@ -24,10 +25,12 @@ class PMergeMe {
         size_t getVectorSize() const;
         size_t getDequeSize() const;
     private:
-        void sortPairs(std::vector<std::pair<int, int> > &pairs);
+        void sortPairElements(std::vector<std::pair<int, int> > &pairs);
     private:
         std::vector<int> m_vec;
         std::deque<int> m_deq;
 };
+
+bool sortPairs(std::pair<int, int>& a, std::pair<int, int>& b);
 
 #endif
