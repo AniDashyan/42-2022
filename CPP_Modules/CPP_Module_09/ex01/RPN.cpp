@@ -29,7 +29,7 @@ bool RPN::isOperator(char op) {
     return (op == '+' || op == '-' || op == '*' || op == '/');
 }
 
-double RPN::calculate(std::string line) 
+void RPN::calculate(std::string line) 
 {
     if (line.empty())
         throw std::invalid_argument("Error: Empty argument!");
@@ -39,12 +39,13 @@ double RPN::calculate(std::string line)
         throw std::invalid_argument("Error: Empty string");
     
     std::string line_2;
-    std::unique_copy(cleared_line.begin(), cleared_line.end(), std::back_insert_iterator<std::string>(line_2), isSpace); // usumnasirel
+    std::unique_copy(cleared_line.begin(), cleared_line.end(), std::back_insert_iterator<std::string>(line_2), isSpace);
 
     std::istringstream iss(line_2);
     std::string splitted_data;
     double value1, value2;
     double result;
+    bool flag = false;
     while (getline(iss, splitted_data, ' ')) {
         if (splitted_data.size() == 1 && splitted_data.find_first_not_of("0123456789+-/*") == std::string::npos) {
             if (isdigit(splitted_data[0]))
@@ -52,6 +53,7 @@ double RPN::calculate(std::string line)
             
             else if (isOperator(splitted_data[0]) && this->m_stack.size() >= 2)
             {
+                flag = true;
                 value1 = this->m_stack.top();
                 this->m_stack.pop();
                 value2 = this->m_stack.top();
@@ -65,8 +67,8 @@ double RPN::calculate(std::string line)
         else
             throw std::invalid_argument("Error: Invalid values");
     }
-    if (this->m_stack.size() == 1)
-        return (this->m_stack.top());
+    if (this->m_stack.size() == 1 && flag)
+        std::cout << "result: " << this->m_stack.top() << std::endl;
     else
         throw std::runtime_error("Error: bad input");
 }

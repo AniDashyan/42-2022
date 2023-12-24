@@ -29,7 +29,7 @@ PMergeMe::~PMergeMe() {
 
 }
 
-void PMergeMe::parsingVector(char** argv) {
+void PMergeMe::parsing(char** argv) {
     int i = 1;
     int value;
     while (argv[i] != NULL) {
@@ -41,33 +41,10 @@ void PMergeMe::parsingVector(char** argv) {
             value = atoi(str.c_str());
             if (value > std::numeric_limits<int>::max() || value < std::numeric_limits<int>::min())
                 throw std::out_of_range("Error: Numbers have to be in the range of int!");
-            else if (value <= 0)
-                throw std::runtime_error("Error: Numbers must be positive!");
+            else if (value < 0)
+                throw std::runtime_error("Error: Invalid arguments");
             else {
                 this->m_vec.push_back(value);
-            }
-        }
-        else
-            throw std::invalid_argument("Error: Invalid arguments");
-        i++;
-    }
-}
-
-void PMergeMe::parsingDeque(char** argv) {
-    int i = 1;
-    int value;
-    while (argv[i] != NULL) {
-        std::string str(argv[i]);
-        if (str.empty())
-            throw std::invalid_argument("Error: Arguments must not be empty!");
-
-        if (str.find_first_not_of("0123456789") == std::string::npos) {
-            value = atoi(str.c_str());
-            if (value > std::numeric_limits<int>::max() || value < std::numeric_limits<int>::min())
-                throw std::out_of_range("Error: Numbers have to be in the range of int!");
-            else if (value <= 0)
-                throw std::runtime_error("Error: Numbers must be positive!");
-            else {
                 this->m_deq.push_back(value);
             }
         }
@@ -77,7 +54,15 @@ void PMergeMe::parsingDeque(char** argv) {
     }
 }
 
-void PMergeMe::sortPairElements(std::vector<std::pair<int, int> > &pairs) {
+void PMergeMe::swapPairElementsVector(std::vector<std::pair<int, int> > &pairs) {
+    for (size_t i = 0; i < pairs.size(); i++)
+    {
+        if (pairs[i].first < pairs[i].second)
+            std::swap(pairs[i].first, pairs[i].second);
+    }
+}
+
+void PMergeMe::swapPairElementsDeque(std::deque<std::pair<int, int> > &pairs) {
     for (size_t i = 0; i < pairs.size(); i++)
     {
         if (pairs[i].first < pairs[i].second)
@@ -103,9 +88,9 @@ void PMergeMe::FordJohnsonVector() {
         new_vec.push_back(std::make_pair(this->m_vec[i], this->m_vec[i + 1]));
     }
 
-    sortPairElements(new_vec);
+    swapPairElementsVector(new_vec);
     std::sort(new_vec.begin(), new_vec.end(), sortPairs);
-    
+
     this->m_vec.clear();
     this->m_vec.push_back(new_vec[0].second);
     std::vector<int> smallests;
@@ -113,11 +98,8 @@ void PMergeMe::FordJohnsonVector() {
     for (size_t i = 0; i < new_vec.size(); i++)
     {
         this->m_vec.push_back(new_vec[i].first);
-    }
-
-    for (size_t i = 1; i < new_vec.size(); i++)
-    {
-        smallests.push_back(new_vec[i].second);
+        if (i > 0)
+             smallests.push_back(new_vec[i].second);
     }
 
     if (is_odd)
@@ -145,31 +127,28 @@ void PMergeMe::FordJohnsonVector() {
 }
 
 void PMergeMe::FordJohnsonDeque() {
-    size_t size = getVectorSize();
+    size_t size = getDequeSize();
     bool is_odd = size % 2;
-    std::vector<std::pair<int, int> > new_deq;
-    new_deq.reserve(size / 2);
+    std::deque<std::pair<int, int> > new_deq;
     size_t end = is_odd ? size - 1: size;
     int last = this->m_vec[size - 1];
     for (size_t i = 0; i < end; i += 2) {
-        new_deq.push_back(std::make_pair(this->m_vec[i], this->m_vec[i + 1]));
+        new_deq.push_back(std::make_pair(this->m_deq[i], this->m_deq[i + 1]));
     }
 
-    sortPairElements(new_deq);
+    swapPairElementsDeque(new_deq);
     std::sort(new_deq.begin(), new_deq.end(), sortPairs);
+
     
-    this->m_vec.clear();
-    this->m_vec.push_back(new_deq[0].second);
-    std::vector<int> smallests;
+    this->m_deq.clear();
+    this->m_deq.push_back(new_deq[0].second);
+    std::deque<int> smallests;
 
     for (size_t i = 0; i < new_deq.size(); i++)
     {
-        this->m_vec.push_back(new_deq[i].first);
-    }
-
-    for (size_t i = 1; i < new_deq.size(); i++)
-    {
-        smallests.push_back(new_deq[i].second);
+        this->m_deq.push_back(new_deq[i].first);
+        if (i > 0)
+            smallests.push_back(new_deq[i].second);
     }
 
     if (is_odd)
@@ -182,8 +161,8 @@ void PMergeMe::FordJohnsonDeque() {
 	{
 		for (int j = Jn - 2; j >= Jn_1 - 1; --j)
 		{
-			std::vector<int>::iterator it = std::upper_bound(this->m_vec.begin(), this->m_vec.end(), smallests[j]);
-			this->m_vec.insert(it, smallests[j]);
+			std::deque<int>::iterator it = std::upper_bound(this->m_deq.begin(), this->m_deq.end(), smallests[j]);
+			this->m_deq.insert(it, smallests[j]);
 		}
 		Jn_2 = Jn_1;
 		Jn_1 = Jn;
@@ -191,11 +170,10 @@ void PMergeMe::FordJohnsonDeque() {
 	}
 	for (int j = smallests.size() - 1; j > Jn_1 - 2; --j)
 	{
-		std::vector<int>::iterator it = std::upper_bound(this->m_vec.begin(), this->m_vec.end(), smallests[j]);
-		this->m_vec.insert(it, smallests[j]);
+		std::deque<int>::iterator it = std::upper_bound(this->m_deq.begin(), this->m_deq.end(), smallests[j]);
+		this->m_deq.insert(it, smallests[j]);
 	}
 }
-
 
 std::vector<int> PMergeMe::getVector() const {
     return (this->m_vec);

@@ -14,6 +14,6 @@ int main(int argc, char** argv) {
         }
     }
     else
-        std::cout << "Error: Bad arguments" << std::endl;
+        std::cout << "Error: could not open file." << std::endl;
     return (0);
 }

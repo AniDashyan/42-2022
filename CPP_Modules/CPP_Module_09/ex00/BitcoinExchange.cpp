@@ -36,6 +36,10 @@ void BitcoinExchange::read_data_file()
     data.open("data.csv");
     if (!data.is_open())
         throw std::runtime_error("Error: Can't open 'data.csv' file");
+    
+    getline(data, line);
+    if (line.empty() || line != "date,exchange_rate")
+        throw std::runtime_error("Error: invalid data");
 
     while (!data.eof()) 
     {
@@ -49,7 +53,7 @@ void BitcoinExchange::read_data_file()
             }
             else
                 throw std::runtime_error("Error: 'data.csv' file is in wrong format");
-            }
+        }
     }
     data.close();
 }
@@ -69,7 +73,7 @@ void BitcoinExchange::read_input_file(std::string file) {
         throw std::runtime_error("Error: Invalid file");
 
     if (!data.is_open() || !data.good())
-        throw std::runtime_error("Error: Can't open input file");
+        throw std::runtime_error("Error: Not existing file");
 
     // Check the first line
     getline(data, line);
@@ -82,8 +86,6 @@ void BitcoinExchange::read_input_file(std::string file) {
     while (!data.eof()) 
     {
         getline(data, line);
-
-        // std::cout << "line: " << "'" << line << "'" << std::endl;
         if ((pos = line.find("|")) != std::string::npos)
         {
             if (!isValidDate(clearSpaces(line.substr(0, pos)))) {
@@ -93,14 +95,12 @@ void BitcoinExchange::read_input_file(std::string file) {
                 date = clearSpaces(line.substr(0, pos));
 
             invalid = isValidValue(clearSpaces(line.substr(pos + 1, line.length())));
-            // std::cout << "Invalid:: " << invalid << std::endl;
             switch (invalid) {
                 case 1:
                     value = std::strtod((clearSpaces(line.substr(pos + 1))).c_str(), NULL);
                     break;
                 case 2:
-                    std::cout << "Error: Invalid value => " << std::endl;
-                    // std::cout << "value: " << "'" << clearSpaces(line.substr(pos + 1)) << "'" << std::endl;
+                    std::cout << "Error: Invalid value => " << clearSpaces(line.substr(pos + 1)) << std::endl;
                     break;
                 case 3:
                     std::cout << "Error: not a positive number." << std::endl;
@@ -136,11 +136,10 @@ void BitcoinExchange::function(std::string file) {
     }
 }
 
-bool BitcoinExchange::isValidDate(std::string line) // TO DO 2022-ic meci depqum ? 
+bool BitcoinExchange::isValidDate(std::string line)
 {
     if (line.length() != 10)
     {
-        // std::cout << "valid line = " << line << "\n";
         return (false);
     }
     for (size_t i = 0; i < line.size(); i++)
@@ -161,12 +160,10 @@ bool BitcoinExchange::isValidDate(std::string line) // TO DO 2022-ic meci depqum
     std::string splitted_date;
     int year, month, day;
     int index = 0;
-    // std::cout << "\n ss:" << ss.str() << std::endl; 
     while (getline(ss, splitted_date, '-')) {
         std::istringstream iss(splitted_date);
         
         if (index == 0) {
-            // std::cout << "year: " << splitted_date << std::endl;
             if (splitted_date.size() != 4)
                 return (false);
             
@@ -175,7 +172,6 @@ bool BitcoinExchange::isValidDate(std::string line) // TO DO 2022-ic meci depqum
                 return false;
         }
         else if (index == 1) {
-            // std::cout << "month: " << splitted_date << std::endl;
             if (splitted_date.size() != 2)
                 return (false);
 
@@ -187,7 +183,6 @@ bool BitcoinExchange::isValidDate(std::string line) // TO DO 2022-ic meci depqum
                 return (false);
         }
         else if (index == 2) {
-            // std::cout << "day: " << splitted_date << std::endl;
             if (splitted_date.size() != 2)
                 return (false);
 
@@ -214,21 +209,14 @@ int BitcoinExchange::isValidValue(std::string line) {
     char* endPtr;
     double value = std::strtod(line.c_str(), &endPtr);
     std::string end(endPtr);
-    // std::cout << "val: " << "'" << line << "'" << std::endl;
     if (!end.empty())
         return (2);
     else if (value < 0 || value > 1000) {
         if (value < 0)
-            // std::cout << "Error: not a positive number." << std::endl;
             return (3);
         else if (value > 1000)
-        {
-            // std::cout << "Error: too large a number." << std::endl;
             return (4);
-        }
     }
-    // std::cout  << "value = " << value << "\n";
-    // std::cout  << "line =  " << line << "\n";
     return (1);
 }
 

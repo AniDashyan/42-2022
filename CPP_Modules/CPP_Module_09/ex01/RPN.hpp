@@ -10,7 +10,7 @@ class RPN {
         RPN& operator=(const RPN& other);
         ~RPN();
 
-        double calculate(std::string line);
+        void calculate(std::string line);
     private:
         std::string clearSpaces(std::string line);
         double add(double num1, double num2);

@@ -11,9 +11,7 @@ class PMergeMe {
         PMergeMe& operator=(const PMergeMe& other);
         ~PMergeMe();
 
-        void parsingVector(char** argv);
-        void parsingDeque(char** argv);
-        // void FordJohnsonVector(std::vector<int>& vec);
+        void parsing(char** argv);
         void FordJohnsonVector();
         void FordJohnsonDeque();
         void printVector(const std::vector<int>& vec);
@@ -25,7 +23,8 @@ class PMergeMe {
         size_t getVectorSize() const;
         size_t getDequeSize() const;
     private:
-        void sortPairElements(std::vector<std::pair<int, int> > &pairs);
+        void swapPairElementsVector(std::vector<std::pair<int, int> > &pairs);
+        void swapPairElementsDeque(std::deque<std::pair<int, int> > &pairs);
     private:
         std::vector<int> m_vec;
         std::deque<int> m_deq;

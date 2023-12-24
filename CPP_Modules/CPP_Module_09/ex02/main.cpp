@@ -10,30 +10,32 @@ int main(int argc, char** argv) {
             std::vector<int> vec;
             std::deque<int> deq;
 
-            pmg.parsingVector(argv);
+            pmg.parsing(argv);
             vec = pmg.getVector();
-
-            pmg.parsingDeque(argv);
             deq = pmg.getDeque();
 
             std::cout << "Before: ";
-            pmg.printVector(vec);
+            // pmg.printVector(vec);
+            pmg.printDeque(deq);
             std::cout << std::endl;
 
             double start_vec = pmg.get_time();
             pmg.FordJohnsonVector();
             double end_vec = pmg.get_time();
 
-            vec = pmg.getVector();
             
             double start_deq = pmg.get_time();
             pmg.FordJohnsonDeque();
             double end_deq = pmg.get_time();
 
+
+            vec = pmg.getVector();
             deq = pmg.getDeque();
 
+            std::cout << std::endl;
             std::cout << "After: ";
-            pmg.printVector(vec);
+            // pmg.printVector(vec);
+            pmg.printDeque(deq);
             std::cout << std::endl;
 
             std::cout << "Time to process a range of " << pmg.getVectorSize() << " elements with std::vector : " << (end_vec - start_vec) << " us" << std::endl;
