@@ -2,10 +2,10 @@
 #include <iostream>
 
 Warlock::Warlock() {}
+
 Warlock::Warlock(const std::string& name, const std::string& title) :m_name(name), m_title(title) {
 	std::cout << this->m_name << ": This looks like another boring day." << std::endl;
 }
-
 
 Warlock::Warlock(const Warlock& other) : m_name(other.m_name), m_title(other.m_title) {}
 

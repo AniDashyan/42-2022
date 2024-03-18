@@ -5,7 +5,7 @@
 
 class Warlock {
 	public:
-			Warlock(const std::string& name, const std::string& title);
+		Warlock(const std::string& name, const std::string& title);
 		~Warlock();
 
 		const std::string& getName() const;
