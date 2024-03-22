@@ -14,6 +14,57 @@ Directives::Directives(): _autoindex("on"),_root("www")
 Directives::~Directives() {}
 
 
+// void Directives::add_directives(std::pair<std::string,  std::vector<std::string> > &p)
+// {
+//     if(p.first == "autoindex")
+//         _autoindex = (p.second)[0];
+//     else if(p.first == "index")
+//     {
+//         _index.clear();
+//         for(int i = 0; i < (int)(int)p.second.size(); i++) {
+//             _index.push_back(p.second[i]);
+//         }
+//     }
+//     else if (p.first == "root") {
+//         _root = p.second[0];
+//         size_t pos = _root.find("./", 0, 2);
+//         if (pos != std::string::npos)
+//             _root = _root.substr(pos + 2);
+
+//         if (_root.length() < 3 || _root.compare(0, 3, "www") != 0)
+//             throw std::invalid_argument("Invalid root: root should start www");
+//         else if (_root.length() > 3 && _root.compare(0, 4, "www/") != 0)
+//             throw std::invalid_argument("Invalid root: root should start with www/");
+//     }
+//     else if (p.first == "upload_path")
+//         _upload_path = p.second[0]; 
+//     else if(p.first == "client_max_body_size")
+//         _client_max_body_size = (p.second)[0];
+//     else if (p.first == "cgi")
+//     {
+//         std::pair<std::string, std::string> elem;
+//         elem.first = p.second[0];
+//         elem.second = p.second[1];
+//         _cgi.push_back(elem);
+//     }
+//     else if(p.first == "return")
+//         _return = (p.second)[0];
+//     else if(p.first == "methods")
+//     {
+//         _methods.clear();
+//         for(int i = 0; i < (int)p.second.size(); i++)
+//             _methods.push_back(p.second[i]);
+//     }
+//     else if(p.first == "error_page")
+//     {
+//         std::pair<std::string, std::string> elem;
+//         elem.first = p.second[0];
+//         elem.second = p.second[1];
+//         _error_page.push_back(elem);
+//     }
+//     // directives.push_back(p);
+// }
+
 void Directives::add_directives(std::pair<std::string,  std::vector<std::string> > &p)
 {
     if(p.first == "autoindex")
@@ -30,14 +81,28 @@ void Directives::add_directives(std::pair<std::string,  std::vector<std::string>
         size_t pos = _root.find("./", 0, 2);
         if (pos != std::string::npos)
             _root = _root.substr(pos + 2);
+        else if (_root[0] == '/')
+            _root = _root.substr(1);
 
+        // std::cout << "root: " << _root << std::endl;
         if (_root.length() < 3 || _root.compare(0, 3, "www") != 0)
-            throw std::invalid_argument("Invalid root: root should start www");
+            throw std::invalid_argument("Invalid syntax: 'root' should start www");
         else if (_root.length() > 3 && _root.compare(0, 4, "www/") != 0)
-            throw std::invalid_argument("Invalid root: root should start with www/");
+            throw std::invalid_argument("Invalid syntax: 'root' should start with www/");
     }
-    else if (p.first == "upload_path")
-        _upload_path = p.second[0]; 
+    else if (p.first == "upload_path") {
+        _upload_path = p.second[0];
+        size_t pos = _upload_path.find("./", 0, 2);
+        if (pos != std::string::npos)
+            _upload_path = _upload_path.substr(pos + 2);
+         else if (_root[0] == '/')
+            _root = _root.substr(1);
+            
+        if (_upload_path.length() < 3 || _upload_path.compare(0, 3, "www") != 0)
+            throw std::invalid_argument("Invalid syntax: '_upload_path' should start www");
+        else if (_upload_path.length() > 3 && _upload_path.compare(0, 4, "www/") != 0)
+            throw std::invalid_argument("Invalid syntax: '_upload_path' should start with www/");
+    }
     else if(p.first == "client_max_body_size")
         _client_max_body_size = (p.second)[0];
     else if (p.first == "cgi")
@@ -64,6 +129,7 @@ void Directives::add_directives(std::pair<std::string,  std::vector<std::string>
     }
     // directives.push_back(p);
 }
+
 
 
 

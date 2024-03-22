@@ -4,13 +4,14 @@ int main(){
     AllConfigs configs;
     try{
         configs.readConff();
+        configs.chech_directive();
         
     }
     catch(const std::exception& e)
     {
         // std::cout << "hhhhh" << std::endl;
         std::cerr << e.what() << std::endl;;
-        // return (0);
+        return (0);
     }
     catch(...)
     {

@@ -33,6 +33,62 @@ size_t AllConfigs::find_server_end(std::string str)
     return posible_end;
 }
 
+// void AllConfigs::make_location(std::string &s, Config &S)
+// {
+//     Directives *m = new Directives(S);
+//     std::string tok;
+//     std::string key;
+//     std::string mkey;
+//     std::vector <std::string> value;
+//     std::vector<std::string> fv;
+//     std::stringstream ss(s);
+
+//     while(getline(ss, tok, ';'))
+//     {
+//         fv.push_back(tok);
+//     }
+//     for(int i = 0; i < (int)fv.size(); ++i)
+//     {
+//         // std::cout << "fv[" << i << "]='" << fv[i] << "'" << std::endl; 
+//         std::stringstream ss(fv[i]);
+//         while(ss >> key)
+//         {
+//             if(key == "location")
+//             {
+                
+//                 ss >> mkey; // to pass from "location" to mkey 
+//                 ss >> tok; // to pass from "mkey" to "{"
+//                 ss >> key; // to pass from "{" to next word key
+//             }
+            
+//             value.clear();
+//             while(ss >> tok)
+//             {
+//                 value.push_back(tok);
+//             }
+//             if(key != "}")
+//             {
+//                 dir_is_valid(key, 2);
+//                 std::pair<std::string,  std::vector<std::string> > p;
+                      
+//                 p.first = key;
+//                 p.second = value;
+//                 m->add_directives(p);
+//             }
+               
+//         }
+//     }
+//     std::pair<std::string, Directives *> p;
+//     if(mkey.find_last_of('/') == mkey.size()-1 && mkey.size() != 1)
+//     {
+//         p.first = mkey.substr(0,mkey.size()-1);
+//     }
+//     else
+//         p.first = mkey;
+//     p.second = m;
+//     S.add_locations(p);
+// }
+
 void AllConfigs::make_location(std::string &s, Config &S)
 {
     Directives *m = new Directives(S);
@@ -49,16 +105,30 @@ void AllConfigs::make_location(std::string &s, Config &S)
     }
     for(int i = 0; i < (int)fv.size(); ++i)
     {
-        // std::cout << "fv[" << i << "]='" << fv[i] << "'" << std::endl; 
         std::stringstream ss(fv[i]);
         while(ss >> key)
         {
             if(key == "location")
             {
-                
-                ss >> mkey; // to pass from "location" to mkey 
-                ss >> tok; // to pass from "mkey" to "{"
-                ss >> key; // to pass from "{" to next word key
+                ss >> mkey; // to pass from "location" to mkey
+                // std::cout << "mkey " << i << " : " << mkey << std::endl;
+                size_t pos = mkey.find('{');
+                if (pos != std::string::npos) {
+                    tok = mkey[pos];
+                    mkey.erase(pos, 1);
+                }
+                else {
+                    ss >> tok; // to pass from "mkey" to "{"
+                }
+                // std::cout << "tok " << i << " : " << mkey << std::endl;
+                size_t tok_pos = tok.find('{');
+                if (tok.length() != 1 && tok_pos != std::string::npos) {
+                    tok.erase(tok_pos, 1);
+                    key = tok;
+                }
+                else
+                    ss >> key; // to pass from "{" to next word key
+                // std::cout << "key " << i << " : " << mkey << std::endl;
             }
             
             value.clear();
@@ -68,6 +138,7 @@ void AllConfigs::make_location(std::string &s, Config &S)
             }
             if(key != "}")
             {
+                // std::cout << "Hello from location!" << std::endl;
                 dir_is_valid(key, 2);
                 std::pair<std::string,  std::vector<std::string> > p;
                       
@@ -89,6 +160,7 @@ void AllConfigs::make_location(std::string &s, Config &S)
     S.add_locations(p);
 }
 
+
 void AllConfigs::cut_location(std::string &s, Config *S) {
     size_t ilocation = s.find("location");
 
@@ -103,12 +175,69 @@ void AllConfigs::cut_location(std::string &s, Config *S) {
     }
 }
 
+// Config *AllConfigs::makeServer(const std::string &file)
+// {
+//     std::string s = file;
+//     Config *S = new Config;
+
+//     // std::cout << __PRETTY_FUNCTION__ << std::endl;
+//     cut_location(s, S);
+//     std::stringstream ss(s);
+    
+//     std::string tok;
+//     std::string key;
+//     std::vector <std::string> value;
+//     std::vector<std::string> fv;
+
+//     std::string str_s = ss.str();
+//     // std::cout << "str_s: " << str_s << std::endl;
+//     // size_t pos = str_s.find("\n");
+//     while(getline(ss, tok, ';'))
+//     {
+//         fv.push_back(tok);
+//     }
+//     for(int i = 0; i < (int)fv.size(); ++i)
+//     {
+//         std::stringstream ss(fv[i]);
+//         while(ss >> key)
+//         {
+//             if(key == "server")
+//             {
+//                 ss >> key; // to pass from "server" to "{" 
+//                 ss >> key; // to pass from "{" to next word key
+//             }
+            
+//             value.clear();
+//             while(ss >> tok)
+//             {
+//                 value.push_back(tok);
+//             }
+//             if(key != "}")
+//             {
+//                 dir_is_valid(key, 0);
+//                 std::pair<std::string,  std::vector<std::string> > p;
+//                 p.first = key;
+//                 p.second = value;
+//                 if (key == "listen")
+//                     S->add_listen(p);
+//                 else if (key == "server_name")
+//                     S->add_servername(p);
+//                 else
+//                     S->add_directives(p);
+//             }
+//         }
+//     }
+
+//     S->fillLocations();
+//     return S;
+            
+// }
+
 Config *AllConfigs::makeServer(const std::string &file)
 {
     std::string s = file;
     Config *S = new Config;
 
-    // std::cout << __PRETTY_FUNCTION__ << std::endl;
     cut_location(s, S);
     std::stringstream ss(s);
     
@@ -118,8 +247,6 @@ Config *AllConfigs::makeServer(const std::string &file)
     std::vector<std::string> fv;
 
     std::string str_s = ss.str();
-    // std::cout << "str_s: " << str_s << std::endl;
-    // size_t pos = str_s.find("\n");
     while(getline(ss, tok, ';'))
     {
         fv.push_back(tok);
@@ -129,12 +256,24 @@ Config *AllConfigs::makeServer(const std::string &file)
         std::stringstream ss(fv[i]);
         while(ss >> key)
         {
-            if(key == "server")
+            size_t pos = key.find("{");
+            if (pos != std::string::npos)
             {
-                ss >> key; // to pass from "server" to "{" 
-                ss >> key; // to pass from "{" to next word key
+                key.erase(pos, 1);
+                ss >> key;
+            }
+            else if(key == "server")
+            {
+                ss >> key; // to pass from "server" to "{"
+                size_t key_pos = key.find("{");
+                if (key.length() != 1 && key.find("{") != std::string::npos) {
+                    key.erase(key_pos, 1);
+                }
+                else
+                    ss >> key; // to pass from "{" to next word key
             }
             
+
             value.clear();
             while(ss >> tok)
             {
@@ -142,6 +281,7 @@ Config *AllConfigs::makeServer(const std::string &file)
             }
             if(key != "}")
             {
+                // std::cout << "Hello from server: " << std::endl;
                 dir_is_valid(key, 0);
                 std::pair<std::string,  std::vector<std::string> > p;
                 p.first = key;
@@ -157,8 +297,7 @@ Config *AllConfigs::makeServer(const std::string &file)
     }
 
     S->fillLocations();
-    return S;
-            
+    return S;          
 }
 
 void AllConfigs::dir_is_valid(std::string dir, int from)
@@ -184,8 +323,8 @@ void AllConfigs:: readConff()
     fin >> line;
     full = line + " ";
     // std::cout << "1st line: " << line << std::endl;
-    clearSpaces(line);
-    if(!line.empty() && line != "server" && line != "server{")
+    // clearSpaces(line);
+    if(line != "server" && line != "server{")
     {
         throw std::invalid_argument("Not server");
     }   ///
@@ -197,8 +336,8 @@ void AllConfigs:: readConff()
         clearSpaces(line);
         // std::cout << "line after: '" << line << "'" << std::endl;
         if (!line.empty()) {
-            if (line.find_first_of("{}") == std::string::npos && line.find(";") == std::string::npos && line.find("location") == std::string::npos) 
-                throw std::invalid_argument("Inavlid Syntax: Line has to end with ';'");
+            // if (line.find_first_of("{}") == std::string::npos && line.find(";") == std::string::npos && line.find("location") == std::string::npos) 
+            //     throw std::invalid_argument("Inavlid Syntax: Line has to end with ';'");
             // full = full + " " + line;
             full += line;
         }
