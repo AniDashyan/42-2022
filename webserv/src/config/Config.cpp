@@ -117,9 +117,8 @@ void Config::sum_func()
         
         _host = _listen.substr(0, pos);
         if(_host != "127.0.0.1" && _host != "0.0.0.0" && _host != "localhost")
-        {
             throw std::invalid_argument("failed to bind");
-        }
+
         std::string str = _listen.substr(pos + 1);
         _port = atoi(str.c_str());
     }
@@ -130,6 +129,9 @@ void Config::sum_func()
                 throw std::invalid_argument("failed to bind");
         }
         else {
+            if (_listen == "localhost")
+                _host = "127.0.0.1";
+                
             if (atoi(_listen.c_str()) != 0)
                 _port = atoi(_listen.c_str());
         }
