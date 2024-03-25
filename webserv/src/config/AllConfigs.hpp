@@ -31,6 +31,7 @@ public:
     void    cut_location(std::string &s, Config *S);
     
     void clearSpaces(std::string line);
+    static bool isSpace(char a, char b);
 };
 
 #endif

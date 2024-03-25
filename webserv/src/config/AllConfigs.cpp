@@ -1,5 +1,6 @@
 #include "AllConfigs.hpp"
 #include <cctype>
+#include <algorithm>
 AllConfigs::AllConfigs()
 {
     const char* directiv_list[] = {"server_name", "listen", "root", "index", "autoindex", "error_page", "client_max_body_size", "cgi", "allow_methods", "return", "upload_path", "methods"};
@@ -120,6 +121,9 @@ Config *AllConfigs::makeServer(const std::string &file)
     Config *S = new Config;
 
     cut_location(s, S);
+    if (s[s.length() - 1] != ';')
+        throw std::invalid_argument("Syntax error: last");
+
     std::stringstream ss(s);
     
     std::string tok;
@@ -127,7 +131,6 @@ Config *AllConfigs::makeServer(const std::string &file)
     std::vector <std::string> value;
     std::vector<std::string> fv;
 
-    std::string str_s = ss.str();
     while(getline(ss, tok, ';'))
     {
         fv.push_back(tok);
@@ -158,6 +161,8 @@ Config *AllConfigs::makeServer(const std::string &file)
             value.clear();
             while(ss >> tok)
             {
+                if(std::find(_directiv_list.begin(), _directiv_list.end(), tok) != _directiv_list.end())
+                    throw std::invalid_argument("Invalid syntsx:");
                 value.push_back(tok);
             }
             if(key != "}")
@@ -194,28 +199,28 @@ void AllConfigs::clearSpaces(std::string line) {
     line.erase(line.find_last_not_of(" \t\n\r\f\v") + 1, line.length());
 }
 
-void AllConfigs:: readConff()
+bool AllConfigs::isSpace(char a, char b) {
+    return (isspace(a) && isspace(b));
+}
+
+void AllConfigs::readConff()
 {
     std::ifstream fin("src/config/config2.conf");
     std::string line;
     std::string full;
-    std::string next_line;
+    std::string new_line;
     fin >> line;
     full = line + " ";
+    std::string line_2;
     if(line != "server" && line != "server{")
     {
         throw std::invalid_argument("Not server");
     }   ///
-    while(getline(fin, line))
+
+    // while(std::getline(fin, line))
+    while(fin >> line)
     {
-        // Removing leading and trailing spaces from line
-        clearSpaces(line);
-        if (!line.empty()) {
-            std::cout << "line: " << line << std::endl;
-            // if (line.find_first_of("{}") == std::string::npos && line.find(";") == std::string::npos && line.find("location") == std::string::npos) 
-            //     throw std::invalid_argument("Inavlid Syntax: Line has to end with ';'");
-            full += line;
-        }
+        full += " " + line;
     }
     check_validity(full);
 

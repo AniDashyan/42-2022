@@ -5,7 +5,6 @@ int main(){
     try{
         configs.readConff();
         configs.chech_directive();
-        
     }
     catch(const std::exception& e)
     {
